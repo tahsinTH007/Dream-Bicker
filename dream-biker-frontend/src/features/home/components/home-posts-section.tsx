@@ -15,7 +15,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <section className="relative py-20 sm:py-24 bg-white text-[#222222] overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-white text-[#222222] overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-0 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none -translate-y-1/2" />
 
@@ -26,7 +26,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8"
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#E97835]/30 bg-[#FDF3ED] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E97835] mb-3">

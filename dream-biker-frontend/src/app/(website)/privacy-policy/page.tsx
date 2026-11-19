@@ -15,10 +15,9 @@ export default function PrivacyPolicyPage() {
         badge="আইন ও গোপনীয়তা"
         title="গোপনীয়তা নীতি"
         description="ব্যক্তিগত গোপনীয়তা রক্ষা, সম্মানজনক মানবিক ভিডিও নীতিমালা এবং তথ্য সুরক্ষায় আমাদের সুস্পষ্ট প্রতিশ্রুতি।"
-        breadcrumbs={[{ label: "গোপনীয়তা নীতি" }]}
       />
 
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-10 sm:py-14 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <AnimatedContent className="prose max-w-none text-[#222222]/85 space-y-8 leading-relaxed">
             <div>

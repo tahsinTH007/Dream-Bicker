@@ -14,7 +14,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
   if (!photos || photos.length === 0) return null;
 
   return (
-    <section className="relative py-20 sm:py-24 bg-[#F7F5EF] text-[#222222] overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-[#F7F5EF] text-[#222222] overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -22,7 +22,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8"
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-3 shadow-xs">

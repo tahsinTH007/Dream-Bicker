@@ -14,10 +14,9 @@ export function ContactView() {
         badge="সরাসরি যোগাযোগ"
         title="হানিফের সাথে যোগাযোগ করুন"
         description="মানবিক সহায়তা, ডকুমেন্টারি সহযোগিতা, গণমাধ্যম সাক্ষাৎকার বা স্বেচ্ছাসেবী হিসেবে যুক্ত হতে বার্তা পাঠান।"
-        breadcrumbs={[{ label: "যোগাযোগ" }]}
       />
 
-      <section className="relative py-12 sm:py-20 bg-white overflow-hidden">
+      <section className="relative py-8 sm:py-12 bg-white overflow-hidden">
         {/* Ambient lighting */}
         <div className="absolute top-10 left-10 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 

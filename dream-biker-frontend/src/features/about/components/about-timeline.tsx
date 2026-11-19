@@ -65,14 +65,14 @@ export function AboutTimeline() {
   });
 
   return (
-    <section className="py-20 sm:py-28 bg-[#FCFBF8] border-y border-[#EAE6DB]/60 overflow-hidden">
+    <section className="py-12 sm:py-16 bg-[#FCFBF8] border-y border-[#EAE6DB]/60 overflow-hidden">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label="যাত্রার পথপরিক্রমা"
           title="পথচলার গুরুত্বপূর্ণ মাইলফলক"
           description="একক মোটরসাইকেল যাত্রা থেকে শুরু করে দেশজুড়ে বিস্তৃত এক নির্ভরযোগ্য মানবিক আন্দোলনে রূপ নেওয়ার ইতিহাস।"
           align="center"
-          className="mb-16 sm:mb-20"
+          className="mb-10 sm:mb-12"
         />
 
         {/* Timeline Container */}
@@ -87,7 +87,7 @@ export function AboutTimeline() {
           />
 
           {/* Milestones Flow */}
-          <div className="space-y-14 sm:space-y-20">
+          <div className="space-y-10 sm:space-y-12">
             {milestones.map((item, index) => (
               <motion.div
                 key={item.step}

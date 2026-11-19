@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 
 export function AboutIntroSection() {
   return (
-    <section className="relative py-20 sm:py-28 bg-white overflow-hidden">
+    <section className="relative py-12 sm:py-16 bg-white overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute -top-32 right-1/4 h-80 w-80 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 

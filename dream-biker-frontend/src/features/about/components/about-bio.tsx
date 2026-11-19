@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 
 export function AboutBio() {
   return (
-    <section className="py-20 sm:py-28 bg-[#F7F5EF]/60 border-y border-[#EAE6DB] overflow-hidden">
+    <section className="py-12 sm:py-16 bg-[#F7F5EF]/60 border-y border-[#EAE6DB] overflow-hidden">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label="পটভূমি ও গল্প"
@@ -21,7 +21,7 @@ export function AboutBio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 mt-4 rounded-2xl border border-[#EAE6DB] bg-white p-4 sm:p-5 flex items-center gap-3.5 text-xs text-[#777777] shadow-sm"
+          className="mb-8 mt-4 rounded-2xl border border-[#EAE6DB] bg-white p-4 sm:p-5 flex items-center gap-3.5 text-xs text-[#777777] shadow-sm"
         >
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#E97835]/15 text-[#E97835]">
             <Info className="h-4 w-4" />

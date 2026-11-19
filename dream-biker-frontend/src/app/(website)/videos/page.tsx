@@ -20,7 +20,6 @@ export default async function VideosPage() {
         badge="ভিডিও সংগ্রহশালা"
         title="ডকুমেন্টারি পর্ব ও ভিডিও রিলস"
         description="ইউটিউব ও ফেসবুক থেকে সংগৃহীত বাস্তব জীবনের গল্প, চরাঞ্চলের মানুষের স্পন্দন এবং দুই চাকার মানবিক পরিভ্রমণ।"
-        breadcrumbs={[{ label: "ভিডিও" }]}
       />
       <VideosListClient initialVideos={result.items} />
     </>

@@ -29,10 +29,9 @@ export function AboutHero() {
         badge="হানিফের পরিচিতি"
         title="মানবতার জন্য পরিভ্রমণ, আশার আলো ছড়ানো"
         description="একক মোটরসাইকেল যাত্রা থেকে দেশজুড়ে বিস্তৃত সমাজকল্যাণমূলক কার্যক্রম—ড্রিম বাইকারের পেছনের জীবনদর্শন ও মানবিক মূল্যবোধ।"
-        breadcrumbs={[{ label: "পরিচিতি" }]}
       />
 
-      <section className="py-16 sm:py-24 bg-white overflow-hidden">
+      <section className="py-10 sm:py-14 bg-white overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Left: Large Portrait Hero with Motion */}

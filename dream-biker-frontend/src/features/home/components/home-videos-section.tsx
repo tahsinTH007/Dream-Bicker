@@ -15,7 +15,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
   if (!videos || videos.length === 0) return null;
 
   return (
-    <section className="relative py-20 sm:py-24 bg-[#0A1620] text-white overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-[#0A1620] text-white overflow-hidden">
       {/* Ambient background glows */}
       <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
@@ -27,7 +27,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8"
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#F5A623]/30 bg-[#F5A623]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#F5A623] mb-3">

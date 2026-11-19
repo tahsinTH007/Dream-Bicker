@@ -33,7 +33,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
   const featuredVideo = filteredVideos[0];
 
   return (
-    <div className="relative py-12 sm:py-20 bg-white overflow-hidden">
+    <div className="relative py-8 sm:py-12 bg-white overflow-hidden">
       {/* Subtle ambient light */}
       <div className="absolute top-20 right-10 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
@@ -43,7 +43,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-10 border-b border-[#EAE6DB]"
+          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
         >
           <div className="flex items-center gap-2 rounded-2xl bg-[#F7F5EF] p-1.5 border border-[#EAE6DB]">
             {/* All */}
@@ -111,7 +111,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-16 rounded-[24px] bg-[#142B3B] p-6 sm:p-10 text-white shadow-2xl border border-[#1E3E54] overflow-hidden"
+            className="mb-10 rounded-[24px] bg-[#142B3B] p-6 sm:p-10 text-white shadow-2xl border border-[#1E3E54] overflow-hidden"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Media */}
@@ -339,7 +339,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-16 text-center"
+            className="mt-10 text-center"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
               <Button

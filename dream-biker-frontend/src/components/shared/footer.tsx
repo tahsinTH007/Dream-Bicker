@@ -25,7 +25,7 @@ export function Footer() {
       </div>
 
       {/* 2. Main Footer Bar Content (Matching the reference single-bar layout) */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 lg:gap-8">
           {/* Left Column: Brand Logo & Title */}
           <div className="flex items-center gap-4 sm:gap-6 shrink-0">

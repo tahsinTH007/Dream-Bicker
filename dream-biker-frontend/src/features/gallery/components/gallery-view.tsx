@@ -174,11 +174,10 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
         badge="আলোকচিত্র সংগ্রহশালা"
         title="মাঠপর্যায়ের মুহূর্ত ও ফটোগ্যালারি"
         description="ফেসবুক পোস্ট ও ইউটিউব ভিডিও থেকে সংগৃহীত বাংলাদেশের প্রত্যন্ত অঞ্চলের মানবিক কার্যক্রম ও পরিভ্রমণের ছবি।"
-        breadcrumbs={[{ label: "গ্যালারি" }]}
       />
 
       <div className="min-h-[60vh] bg-[#0A1620] text-white">
-        <div className="mx-auto max-w-[1600px] px-4 pb-20 pt-10 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-[1600px] px-4 pb-12 pt-8 sm:px-6 lg:px-10">
           {/* Filter tabs */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
             <nav className="flex items-center gap-6 sm:gap-9" aria-label="Gallery filter">
@@ -214,7 +213,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
           </div>
 
           {filteredList.length === 0 ? (
-            <div className="py-24 text-center text-sm text-white/50">এই বিভাগে এখনো কোনো ছবি নেই।</div>
+            <div className="py-14 text-center text-sm text-white/50">এই বিভাগে এখনো কোনো ছবি নেই।</div>
           ) : (
             <div
               key={activeFilter}
@@ -238,7 +237,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
           )}
 
           {/* Infinite scroll sentinel */}
-          <div ref={sentinelRef} className="mt-12 flex h-16 items-center justify-center">
+          <div ref={sentinelRef} className="mt-8 flex h-16 items-center justify-center">
             {visibleCount < filteredList.length ? (
               <button
                 onClick={() =>

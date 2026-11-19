@@ -50,13 +50,13 @@ const socialCards: SocialCardItem[] = [
 
 export function SocialCtaSection() {
   return (
-    <section className="relative overflow-hidden bg-[#070D12] py-16 sm:py-20 text-white">
+    <section className="relative overflow-hidden bg-[#070D12] py-10 sm:py-12 text-white">
       {/* Subtle ambient light gradient behind cards */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[450px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-red-600/5 via-transparent to-blue-600/5 blur-[140px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-8">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-bold uppercase tracking-wider text-white/80">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#E97835]" />
             আন্দোলনে যুক্ত হোন

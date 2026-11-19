@@ -41,7 +41,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
   const ytCount = initialPosts.filter((p) => p.provider === "YOUTUBE").length;
 
   return (
-    <div className="relative py-12 sm:py-20 bg-white overflow-hidden">
+    <div className="relative py-8 sm:py-12 bg-white overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-24 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
@@ -51,7 +51,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-10 border-b border-[#EAE6DB]"
+          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
         >
           <div className="flex items-center gap-2 rounded-2xl bg-[#F7F5EF] p-1.5 border border-[#EAE6DB]">
             {/* All */}
@@ -271,7 +271,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-16 text-center"
+            className="mt-10 text-center"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
               <Button

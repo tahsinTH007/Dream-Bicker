@@ -20,7 +20,6 @@ export default async function BlogPage() {
         badge="ব্লগ ও সোশ্যাল আপডেট"
         title="মাঠপর্যায়ের অভিজ্ঞতা ও সামাজিক ডায়েরি"
         description="ফেসবুক পেজ পোস্ট ও ইউটিউব প্রকাশিত তথ্যচিত্রের মাধ্যমে সাধারণ মানুষের দিনলিপি এবং মানবিক সহমর্মিতার ভাবনা।"
-        breadcrumbs={[{ label: "ব্লগ" }]}
       />
       <BlogListClient initialPosts={result.items} />
     </>

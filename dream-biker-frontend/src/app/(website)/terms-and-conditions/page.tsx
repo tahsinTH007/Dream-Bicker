@@ -15,10 +15,9 @@ export default function TermsAndConditionsPage() {
         badge="ব্যবহারের নিয়মাবলি"
         title="ব্যবহারের শর্তাবলি"
         description="ড্রিম বাইকার প্ল্যাটফর্ম ব্রাউজিং, মানবিক তথ্য ব্যবহার এবং মিডিয়া বিষয়ক সাধারণ নির্দেশনাবলি।"
-        breadcrumbs={[{ label: "শর্তাবলি" }]}
       />
 
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-10 sm:py-14 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <AnimatedContent className="prose max-w-none text-[#222222]/85 space-y-8 leading-relaxed">
             <div>

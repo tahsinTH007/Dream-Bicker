@@ -33,7 +33,7 @@ const values = [
 
 export function AboutValues() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28 bg-[#0D1C26] text-white">
+    <section className="relative overflow-hidden py-12 sm:py-16 bg-[#0D1C26] text-white">
       {/* Background ambient decorative glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E97835]/10 blur-[150px]" />
 
@@ -44,7 +44,7 @@ export function AboutValues() {
           description="নৈতিক মানদণ্ড বজায় রেখে প্রতিটি গল্প সহানুভূতি দিয়ে তুলে ধরা এবং স্বচ্ছতার সাথে মাঠপর্যায়ের কার্যক্রম পরিচালনা করা।"
           isDark
           align="center"
-          className="mb-14 sm:mb-18"
+          className="mb-8 sm:mb-10"
         />
 
         {/* 4 Values Cards Grid with Staggered Entrance & Interactive Hover Motion */}
