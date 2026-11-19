@@ -69,10 +69,11 @@ export function AboutHero() {
                     <p className="text-xs uppercase font-bold tracking-wider text-[#E97835]">
                       প্রতিষ্ঠাতা ও নির্মাতা
                     </p>
-                    <h3 className="font-heading text-2xl font-bold tracking-tight">
+                    {/* explicit text-white: the global h1-h6 rule would otherwise make it navy on the dark photo */}
+                    <h3 className="font-heading text-2xl font-bold tracking-tight text-white text-shadow-md">
                       হানিফ (ড্রিম বাইকার)
                     </h3>
-                    <p className="text-xs text-white/80 mt-1">
+                    <p className="text-xs text-white/85 mt-1 text-shadow-sm">
                       বাংলাদেশি কন্টেন্ট ক্রিয়েটর ও মানবসেবক
                     </p>
                   </div>
@@ -88,7 +89,8 @@ export function AboutHero() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute -bottom-5 -left-5 rounded-2xl bg-[#E97835] text-white p-4 shadow-xl hidden sm:block border-2 border-white/20"
+                  // top-right corner: clear of the name/caption at the bottom of the card
+                  className="absolute -top-5 -right-5 z-10 rounded-2xl bg-[#E97835] text-white p-4 shadow-xl hidden sm:block border-2 border-white/20"
                 >
                   <Sparkles className="h-5 w-5 mb-1 animate-pulse" />
                   <p className="text-xs font-bold">দুই চাকায়</p>
