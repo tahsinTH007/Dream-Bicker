@@ -38,7 +38,8 @@ export function AboutIntroSection() {
                 className="relative aspect-[3/4] overflow-hidden rounded-[24px] border border-[#EAE6DB] shadow-xl bg-[#142B3B]"
               >
                 <Image
-                  src="/images/author/hanif_avatar.png"
+                  src="/images/hd/hanif_avatar.jpg"
+                  quality={90}
                   alt="হানিফ, ড্রিম বাইকারের প্রতিষ্ঠাতা"
                   fill
                   className="object-cover object-center transition-transform duration-700 hover:scale-105"

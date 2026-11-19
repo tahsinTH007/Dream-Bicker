@@ -54,7 +54,8 @@ export function AboutHero() {
                   className="relative aspect-[4/5] overflow-hidden rounded-[24px] border-4 border-white shadow-2xl bg-[#142B3B] group"
                 >
                   <Image
-                    src="/images/author/hanif_portrait.png"
+                    src="/images/hd/hanif_portrait.jpg"
+                    quality={90}
                     alt="হানিফ (ড্রিম বাইকার) প্রতিকৃতি"
                     fill
                     priority

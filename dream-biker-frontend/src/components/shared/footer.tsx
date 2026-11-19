@@ -14,11 +14,11 @@ export function Footer() {
       {/* 1. Full-Width Background Road Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/footer_bg_road.jpg"
+          src="/images/hd/footer_bg_road.jpg"
           alt="Dream Biker Motorcycle on Scenic Highway"
           fill
           priority={false}
-          quality={95}
+          quality={90}
           sizes="100vw"
           className="object-cover object-center select-none pointer-events-none"
         />

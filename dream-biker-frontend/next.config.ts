@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // Next 16 only allows quality 75 by default and silently lowers any other
+    // `quality` prop to it. 90 is used for the hero/portrait/footer photos.
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: "https",
