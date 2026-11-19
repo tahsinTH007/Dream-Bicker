@@ -40,9 +40,8 @@ export function isAuthorizedSyncRequest(request: NextRequest): boolean {
   const customHeader = request.headers.get("x-sync-secret");
   if (customHeader) candidates.push(customHeader.trim());
 
-  // 3. ?secret= query parameter (convenient for testing; prefer headers in production)
-  const querySecret = request.nextUrl.searchParams.get("secret");
-  if (querySecret) candidates.push(querySecret.trim());
+  // (No ?secret= query parameter: secrets in URLs end up in server, proxy and
+  // analytics logs and in browser history. Use one of the headers above.)
 
   return candidates.some((candidate) => secrets.some((secret) => safeEqual(candidate, secret)));
 }
