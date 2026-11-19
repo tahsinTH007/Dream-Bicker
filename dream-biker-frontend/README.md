@@ -86,7 +86,7 @@ Invoke-RestMethod -Method POST -Uri "https://your-site/api/admin/social/sync" -H
 
 - Each sync fetches the latest 50 YouTube uploads, 30 Facebook posts and 25 Facebook videos and upserts them.
 - With `DATABASE_URL` the data goes to PostgreSQL; without it, it lives in one server instance's memory (the sync response then says `persisted: false`).
-- `vercel.json` schedules `/api/admin/social/sync` every 30 minutes. That frequency needs Vercel **Pro**; on Hobby use a daily schedule or an external scheduler that sends the secret header.
+- `vercel.json` schedules `/api/admin/social/sync` daily at 00:00 UTC (`0 0 * * *`), fully compatible with Vercel Hobby tier. For higher frequencies (e.g. every 30 minutes), upgrade to Vercel **Pro** or trigger the endpoint from a free external cron service (such as cron-job.org) sending `Authorization: Bearer <CRON_SECRET>`.
 - Facebook image URLs expire; copying images to own storage during sync is still to do.
 
 ## Database
