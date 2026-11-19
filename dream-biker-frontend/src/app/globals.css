@@ -87,6 +87,23 @@
   }
 }
 
+/* Latest-updates spotlight: progress bar that drives auto-advance.
+   A CSS animation (not a JS timer) so it pauses cleanly via animation-play-state. */
+@keyframes spotlight-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.spotlight-progress {
+  transform-origin: left;
+  animation-name: spotlight-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
 /* Circle Expand Card Animation (Framer-style interactive hover) */
 .circle-expand-card {
   position: relative;

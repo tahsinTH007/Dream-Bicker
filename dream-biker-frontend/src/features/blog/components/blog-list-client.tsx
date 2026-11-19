@@ -17,6 +17,7 @@ import {
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { NormalizedPost } from "@/server/social/social.types";
+import { LatestSpotlight, type SpotlightItem } from "@/components/shared/latest-spotlight";
 import { cn } from "@/lib/utils";
 
 interface BlogListClientProps {
@@ -40,12 +41,40 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
   const fbCount = initialPosts.filter((p) => p.provider === "FACEBOOK").length;
   const ytCount = initialPosts.filter((p) => p.provider === "YOUTUBE").length;
 
+  // Latest-updates spotlight: newest posts from both platforms (ignores the filter tabs)
+  const spotlightItems: SpotlightItem[] = React.useMemo(
+    () =>
+      initialPosts.map((p) => ({
+        id: p.id,
+        provider: p.provider,
+        title: p.title || p.content.slice(0, 80),
+        description: p.content,
+        imageUrl: p.mediaUrls?.[0],
+        url: p.url,
+        publishedAt: p.publishedAt,
+        stats: [
+          ...(p.likeCount != null ? [{ icon: ThumbsUp, value: p.likeCount.toLocaleString("bn-BD") }] : []),
+          ...(p.commentCount != null ? [{ icon: MessageSquare, value: p.commentCount.toLocaleString("bn-BD") }] : []),
+          ...(p.shareCount != null ? [{ icon: Share2, value: p.shareCount.toLocaleString("bn-BD") }] : []),
+        ],
+      })),
+    [initialPosts]
+  );
+
   return (
     <div className="relative py-8 sm:py-12 bg-white overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-24 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <LatestSpotlight
+          items={spotlightItems}
+          kind="post"
+          heading="সর্বশেষ আপডেট"
+          subheading="ফেসবুক ও ইউটিউবের সাম্প্রতিক পোস্ট"
+          ctaLabel={(item) => (item.provider === "YOUTUBE" ? "ইউটিউবে দেখুন" : "ফেসবুকে পড়ুন")}
+        />
+
         {/* Filters */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
