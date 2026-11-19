@@ -1,0 +1,129 @@
+// Prisma Schema for Dream Biker Social Integration
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SocialProvider {
+  YOUTUBE
+  FACEBOOK
+}
+
+enum PostType {
+  TEXT
+  PHOTO
+  VIDEO
+  LINK
+}
+
+enum SyncStatus {
+  SUCCESS
+  PARTIAL
+  FAILED
+}
+
+model SocialAccount {
+  id                String         @id @default(cuid())
+  provider          SocialProvider
+  providerAccountId String         // Channel ID or Page ID
+  name              String
+  username          String?
+  profileImageUrl   String?
+  profileUrl        String
+  subscriberCount   Int?
+  followerCount     Int?
+  totalViews        BigInt?
+  totalVideos       Int?
+  lastSyncedAt      DateTime?
+  metadata          Json?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([provider])
+}
+
+model SocialVideo {
+  id            String         @id @default(cuid())
+  provider      SocialProvider
+  externalId    String         // YouTube Video ID or Facebook Video ID
+  title         String
+  description   String?        @db.Text
+  url           String
+  thumbnailUrl  String
+  publishedAt   DateTime
+  duration      String?        // e.g. "14:25"
+  viewCount     Int?
+  likeCount     Int?
+  commentCount  Int?
+  isShortOrReel Boolean        @default(false)
+  rawData       Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@unique([provider, externalId])
+  @@index([provider, publishedAt(sort: Desc)])
+  @@index([publishedAt(sort: Desc)])
+}
+
+model SocialPost {
+  id           String         @id @default(cuid())
+  provider     SocialProvider
+  externalId   String         // Post ID
+  postType     PostType       @default(TEXT)
+  title        String?
+  content      String         @db.Text
+  url          String
+  mediaUrls    Json?          // Array of image/video URLs
+  publishedAt  DateTime
+  likeCount    Int?
+  commentCount Int?
+  shareCount   Int?
+  rawData      Json?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@unique([provider, externalId])
+  @@index([provider, publishedAt(sort: Desc)])
+  @@index([publishedAt(sort: Desc)])
+}
+
+model SocialPhoto {
+  id           String         @id @default(cuid())
+  provider     SocialProvider
+  externalId   String         // Photo ID or composite ID
+  sourcePostId String?
+  imageUrl     String
+  thumbnailUrl String?
+  caption      String?        @db.Text
+  sourceUrl    String
+  isThumbnail  Boolean        @default(false)
+  width        Int?
+  height       Int?
+  publishedAt  DateTime
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@unique([provider, externalId])
+  @@index([provider, publishedAt(sort: Desc)])
+  @@index([publishedAt(sort: Desc)])
+}
+
+model SocialSyncLog {
+  id           String     @id @default(cuid())
+  provider     String     // YOUTUBE, FACEBOOK, ALL
+  status       SyncStatus
+  itemsSynced  Int        @default(0)
+  message      String?
+  errorDetails String?    @db.Text
+  durationMs   Int?
+  startedAt    DateTime   @default(now())
+  completedAt  DateTime?
+
+  @@index([startedAt(sort: Desc)])
+}

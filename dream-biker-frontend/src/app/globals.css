@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-navy: #142b3b;
+  --color-brand-navy-light: #1e3e54;
+  --color-brand-navy-dark: #0d1c26;
+  --color-brand-ivory: #f7f5ef;
+  --color-brand-ivory-dark: #eae6db;
+  --color-brand-orange: #e97835;
+  --color-brand-orange-hover: #d46624;
+  --color-brand-orange-light: #fdf3ed;
+  --color-brand-dark: #222222;
+  --color-brand-muted: #777777;
+  --color-brand-border: #e5e7eb;
+
+  --font-sans:
+    var(--font-bengali), var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-heading:
+    var(--font-bengali), var(--font-manrope), var(--font-inter), sans-serif;
+  --font-bengali: var(--font-bengali), sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #222222;
+  --card: #ffffff;
+  --card-foreground: #222222;
+  --popover: #ffffff;
+  --popover-foreground: #222222;
+  --primary: #142b3b;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f5ef;
+  --secondary-foreground: #142b3b;
+  --muted: #f7f5ef;
+  --muted-foreground: #777777;
+  --accent: #e97835;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #e97835;
+  --radius: 0.875rem; /* 14px */
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    font-family: var(--font-bengali), sans-serif;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-bengali), var(--font-sans);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bengali), var(--font-heading);
+    letter-spacing: -0.01em;
+    color: var(--primary);
+    line-height: 1.35;
+  }
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+}
+
+/* Circle Expand Card Animation (Framer-style interactive hover) */
+.circle-expand-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.circle-expand-overlay {
+  clip-path: circle(24px at calc(100% - 52px) 52px);
+  transition: clip-path 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: clip-path;
+}
+
+.circle-expand-card:hover .circle-expand-overlay {
+  clip-path: circle(150% at calc(100% - 52px) 52px);
+}
+
+@media (max-width: 640px) {
+  .circle-expand-card {
+    border-radius: 22px;
+  }
+  .circle-expand-overlay {
+    clip-path: circle(22px at calc(100% - 46px) 46px);
+  }
+  .circle-expand-card:hover .circle-expand-overlay {
+    clip-path: circle(150% at calc(100% - 46px) 46px);
+  }
+}
+
+/* Custom smooth transitions */
+.transition-standard {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Magazine card styling */
+.editorial-card {
+  background: #ffffff;
+  border: 1px solid #eae6db;
+  border-radius: 14px;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.editorial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -8px rgba(20, 43, 59, 0.12);
+  border-color: #e97835;
+}
+
+/* Subtle image zoom on hover */
+.group-zoom:hover img {
+  transform: scale(1.04);
+}

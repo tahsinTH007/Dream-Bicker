@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/admin/social/sync",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}
