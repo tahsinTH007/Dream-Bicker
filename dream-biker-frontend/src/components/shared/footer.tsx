@@ -43,10 +43,10 @@ export function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors drop-shadow">
+                <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors text-shadow-md">
                   Dream Biker
                 </span>
-                <span className="text-[11px] font-medium text-white/70 drop-shadow-sm">
+                <span className="text-[11px] font-medium text-white/70 text-shadow-sm">
                   মো. হানিফ হোসেন
                 </span>
               </div>
@@ -61,7 +61,7 @@ export function Footer() {
             {/* Top Row: Navigation Links */}
             <nav
               aria-label="Footer Navigation"
-              className="flex items-center flex-wrap gap-x-5 lg:gap-x-7 gap-y-1.5 text-sm font-semibold text-white/90 drop-shadow-sm"
+              className="flex items-center flex-wrap gap-x-5 lg:gap-x-7 gap-y-1.5 text-sm font-semibold text-white/90 text-shadow-sm"
             >
               {mainNavItems.map((item) => (
                 <Link
@@ -75,7 +75,7 @@ export function Footer() {
             </nav>
 
             {/* Bottom Row: Copyright Notice */}
-            <p className="text-xs text-white/70 tracking-wide drop-shadow-sm">
+            <p className="text-xs text-white/70 tracking-wide text-shadow-sm">
               &copy; 2026 Dream Biker (হানিফ). সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
@@ -106,7 +106,7 @@ export function Footer() {
             </div>
 
             {/* Bottom Row: Support Contact Link */}
-            <div className="text-xs text-white/75 drop-shadow-sm">
+            <div className="text-xs text-white/75 text-shadow-sm">
               <span>Support: </span>
               <a
                 href={`mailto:${siteConfig.contact.email}`}
