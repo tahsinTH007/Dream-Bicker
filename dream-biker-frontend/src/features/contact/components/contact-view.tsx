@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Mail, MapPin, Clock, MessageSquare, HeartHandshake, Video } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SocialLinks } from "@/components/shared/social-links";
@@ -14,11 +17,20 @@ export function ContactView() {
         breadcrumbs={[{ label: "যোগাযোগ" }]}
       />
 
-      <section className="py-12 sm:py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative py-12 sm:py-20 bg-white overflow-hidden">
+        {/* Ambient lighting */}
+        <div className="absolute top-10 left-10 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left Column: Contact Details & Info */}
-            <div className="lg:col-span-5 space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-5 space-y-8"
+            >
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-[#E97835] mb-2 block">
                   যোগাযোগের মাধ্যম
@@ -31,10 +43,13 @@ export function ContactView() {
                 </p>
               </div>
 
-              {/* Direct Info Cards */}
+              {/* Direct Info Cards with Hover Lift */}
               <div className="space-y-4">
-                <div className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835]">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.015 }}
+                  className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
@@ -51,10 +66,13 @@ export function ContactView() {
                       অফিশিয়াল যোগাযোগের ইমেইল
                     </span>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835]">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.015 }}
+                  className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
@@ -68,10 +86,13 @@ export function ContactView() {
                       নিয়মিত সমগ্র বাংলাদেশের প্রত্যন্ত অঞ্চলে ভ্রমণরত
                     </span>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835]">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.015 }}
+                  className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
                     <Clock className="h-5 w-5" />
                   </div>
                   <div>
@@ -85,11 +106,14 @@ export function ContactView() {
                       প্রত্যন্ত চরাঞ্চলে ভ্রমণের সময় কিছুটা বিলম্ব হতে পারে
                     </span>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Inquiry Categories Help Box */}
-              <div className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/30 p-6">
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/30 p-6 shadow-sm"
+              >
                 <h4 className="font-heading text-sm font-bold text-[#142B3B] mb-3">
                   বার্তার প্রধান ধরনসমূহ
                 </h4>
@@ -107,7 +131,7 @@ export function ContactView() {
                     <span><strong>যৌথ উদ্যোগ:</strong> তরুণ সামাজিক সংগঠন বা স্বেচ্ছাসেবী হিসেবে যুক্ত হতে।</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Social Media Links */}
               <div>
@@ -116,12 +140,18 @@ export function ContactView() {
                 </p>
                 <SocialLinks showLabels />
               </div>
-            </div>
+            </motion.div>
 
-            {/* Right Column: Contact Form */}
-            <div className="lg:col-span-7">
+            {/* Right Column: Contact Form with Motion */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-7"
+            >
               <ContactForm />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowRight, Play, ExternalLink, Eye, Clock } from "lucide-react";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
 import { NormalizedVideo } from "@/server/social/social.types";
@@ -12,10 +15,20 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
   if (!videos || videos.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-24 bg-[#0A1620] text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 sm:py-24 bg-[#0A1620] text-white overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+        >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#F5A623]/30 bg-[#F5A623]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#F5A623] mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#F5A623] animate-pulse" />
@@ -29,27 +42,34 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
             </p>
           </div>
 
-          <Link
-            href="/videos"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all hover:bg-white/15 hover:border-white/50 shrink-0 self-start sm:self-auto"
-          >
-            <span>সব ভিডিও দেখুন</span>
-            <ArrowRight className="h-4 w-4 text-[#F5A623]" />
-          </Link>
-        </div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+            <Link
+              href="/videos"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all hover:bg-white/15 hover:border-white/50 shrink-0 self-start sm:self-auto shadow-md"
+            >
+              <span>সব ভিডিও দেখুন</span>
+              <ArrowRight className="h-4 w-4 text-[#F5A623]" />
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        {/* Video Grid */}
+        {/* Video Grid with Staggered Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {videos.slice(0, 6).map((video) => {
+          {videos.slice(0, 6).map((video, idx) => {
             const isYT = video.provider === "YOUTUBE";
 
             return (
-              <a
+              <motion.a
                 key={video.id}
                 href={video.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0E1F2C] transition-all duration-300 hover:-translate-y-1 hover:border-[#F5A623]/50 hover:shadow-2xl hover:shadow-[#F5A623]/10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -8, scale: 1.015 }}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0E1F2C] transition-colors duration-300 hover:border-[#F5A623]/50 hover:shadow-2xl hover:shadow-[#F5A623]/10"
               >
                 {/* Thumbnail Container */}
                 <div className="relative aspect-video w-full overflow-hidden bg-black/50">
@@ -58,9 +78,9 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                     alt={video.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 group-hover:scale-108"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
                   {/* Platform Badge */}
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow-md backdrop-blur-sm bg-black/60 border border-white/20">
@@ -79,13 +99,13 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
 
                   {/* Duration Badge */}
                   {video.duration && (
-                    <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-mono text-white/90 border border-white/10">
+                    <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-mono text-white/90 border border-white/10 backdrop-blur-sm">
                       <Clock className="h-3 w-3 text-[#F5A623]" />
                       <span>{video.duration}</span>
                     </div>
                   )}
 
-                  {/* Play Button Overlay */}
+                  {/* Play Button Overlay with Pulse */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F5A623] text-[#142B3B] shadow-lg shadow-[#F5A623]/40 transform group-hover:scale-110 transition-transform">
                       <Play className="h-5 w-5 fill-current ml-0.5" />
@@ -120,7 +140,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                     </span>
                   </div>
                 </div>
-              </a>
+              </motion.a>
             );
           })}
         </div>

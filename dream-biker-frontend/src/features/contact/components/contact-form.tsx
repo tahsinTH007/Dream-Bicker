@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Send, CheckCircle2, AlertCircle, Info } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, CheckCircle2, AlertCircle, Info, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -94,174 +95,213 @@ export function ContactForm() {
         </span>
       </div>
 
-      {status === "success" ? (
-        <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-8 text-center text-emerald-800">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white mb-4 shadow-lg shadow-emerald-600/20">
-            <CheckCircle2 className="h-7 w-7" />
-          </div>
-          <h4 className="font-heading text-xl font-bold text-emerald-950">
-            বার্তাটি সফলভাবে গৃহীত হয়েছে!
-          </h4>
-          <p className="mt-2 text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
-            ধন্যবাদ, {formData.fullName}। আপনার বার্তাটি ফর্ম ভ্যালিডেশনের মাধ্যমে গৃহীত হয়েছে। সরাসরি যোগাযোগের জন্য হানিফের অফিসিয়াল ইমেইল <strong>md.hanifhossan6991@gmail.com</strong> ব্যবহার করুন।
-          </p>
-          <Button
-            onClick={() => {
-              setStatus("idle");
-              setFormData({
-                fullName: "",
-                email: "",
-                phone: "",
-                subject: "",
-                inquiryType: "General Inquiry",
-                message: "",
-              });
-            }}
-            variant="default"
-            size="sm"
-            className="mt-6 rounded-xl"
+      <AnimatePresence mode="wait">
+        {status === "success" ? (
+          <motion.div
+            key="success-card"
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ duration: 0.4 }}
+            className="rounded-2xl bg-emerald-50 border border-emerald-200 p-8 text-center text-emerald-800"
           >
-            আরেকটি বার্তা পাঠান
-          </Button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Full Name & Email */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white mb-4 shadow-lg shadow-emerald-600/20"
+            >
+              <CheckCircle2 className="h-7 w-7" />
+            </motion.div>
+            <h4 className="font-heading text-xl font-bold text-emerald-950">
+              বার্তাটি সফলভাবে গৃহীত হয়েছে!
+            </h4>
+            <p className="mt-2 text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
+              ধন্যবাদ, {formData.fullName}। আপনার বার্তাটি গৃহীত হয়েছে। সরাসরি যোগাযোগের জন্য হানিফের অফিসিয়াল ইমেইল <strong>md.hanifhossan6991@gmail.com</strong> ব্যবহার করুন।
+            </p>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
+              <Button
+                onClick={() => {
+                  setStatus("idle");
+                  setFormData({
+                    fullName: "",
+                    email: "",
+                    phone: "",
+                    subject: "",
+                    inquiryType: "General Inquiry",
+                    message: "",
+                  });
+                }}
+                variant="default"
+                size="sm"
+                className="mt-6 rounded-xl shadow-sm"
+              >
+                আরেকটি বার্তা পাঠান
+              </Button>
+            </motion.div>
+          </motion.div>
+        ) : (
+          <motion.form
+            key="contact-form"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onSubmit={handleSubmit}
+            className="space-y-5"
+          >
+            {/* Full Name & Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label
+                  htmlFor="fullName"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+                >
+                  আপনার পূর্ণ নাম *
+                </label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  placeholder="যেমন: তানভীর আহমেদ"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+                >
+                  ইমেইল ঠিকানা *
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Phone & Inquiry Type */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+                >
+                  ফোন নম্বর (ঐচ্ছিক)
+                </label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+880 1XXX-XXXXXX"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="inquiryType"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+                >
+                  যোগাযোগের উদ্দেশ্য *
+                </label>
+                <select
+                  id="inquiryType"
+                  name="inquiryType"
+                  value={formData.inquiryType}
+                  onChange={handleChange}
+                  className="flex h-11 w-full rounded-xl border border-[#EAE6DB] bg-white px-3.5 py-2 text-sm text-[#142B3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E97835] focus-visible:ring-offset-2 transition-all cursor-pointer"
+                >
+                  {inquiryTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Subject */}
             <div>
               <label
-                htmlFor="fullName"
+                htmlFor="subject"
                 className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
               >
-                আপনার পূর্ণ নাম *
+                বার্তার বিষয় *
               </label>
               <Input
-                id="fullName"
-                name="fullName"
-                placeholder="যেমন: তানভীর রহমান"
-                value={formData.fullName}
+                id="subject"
+                name="subject"
+                placeholder="বিষয় সংক্ষেপে উল্লেখ করুন"
+                value={formData.subject}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            {/* Message */}
             <div>
               <label
-                htmlFor="email"
+                htmlFor="message"
                 className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
               >
-                ইমেইল ঠিকানা *
+                আপনার বার্তা *
               </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="name@example.com"
-                value={formData.email}
+              <Textarea
+                id="message"
+                name="message"
+                rows={5}
+                placeholder="আপনার বার্তাটি এখানে বিস্তারিত লিখুন..."
+                value={formData.message}
                 onChange={handleChange}
                 required
               />
             </div>
-          </div>
 
-          {/* Phone (optional) & Inquiry Type */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+            {status === "error" && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 p-3.5 text-xs text-red-700"
               >
-                ফোন নম্বর (ঐচ্ছিক)
-              </label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="+৮৮০ ১XXXXXXXXX"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </div>
+                <AlertCircle className="h-4 w-4 shrink-0 text-red-600" />
+                <span>{errorMessage}</span>
+              </motion.div>
+            )}
 
-            <div>
-              <label
-                htmlFor="inquiryType"
-                className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                type="submit"
+                variant="orange"
+                size="lg"
+                disabled={status === "submitting"}
+                className="w-full sm:w-auto rounded-2xl gap-2 font-semibold shadow-lg shadow-[#E97835]/20 cursor-pointer"
               >
-                বার্তার ধরন *
-              </label>
-              <select
-                id="inquiryType"
-                name="inquiryType"
-                value={formData.inquiryType}
-                onChange={handleChange}
-                className="flex h-12 w-full rounded-[12px] border border-[#E5E7EB] bg-white px-4 py-2 text-sm text-[#222222] transition-colors focus:border-[#E97835] focus:outline-none focus:ring-2 focus:ring-[#E97835]/20 cursor-pointer"
-              >
-                {inquiryTypes.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Subject */}
-          <div>
-            <label
-              htmlFor="subject"
-              className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
-            >
-              বার্তার বিষয় *
-            </label>
-            <Input
-              id="subject"
-              name="subject"
-              placeholder="বিষয় সংক্ষেপে উল্লেখ করুন"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {/* Message */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-2"
-            >
-              আপনার বার্তা *
-            </label>
-            <Textarea
-              id="message"
-              name="message"
-              rows={5}
-              placeholder="আপনার বার্তাটি এখানে বিস্তারিত লিখুন..."
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {status === "error" && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 p-3.5 text-xs text-red-700">
-              <AlertCircle className="h-4 w-4 shrink-0 text-red-600" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
-
-          <Button
-            type="submit"
-            variant="orange"
-            size="lg"
-            disabled={status === "submitting"}
-            className="w-full sm:w-auto rounded-2xl gap-2 font-semibold shadow-lg shadow-[#E97835]/20 cursor-pointer"
-          >
-            <Send className="h-4 w-4" />
-            {status === "submitting" ? "বার্তা পাঠানো হচ্ছে..." : "বার্তা পাঠান"}
-          </Button>
-        </form>
-      )}
+                {status === "submitting" ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>বার্তা পাঠানো হচ্ছে...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4" />
+                    <span>বার্তা পাঠান</span>
+                  </>
+                )}
+              </Button>
+            </motion.div>
+          </motion.form>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, ThumbsUp, MessageSquare, Calendar } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { NormalizedPost } from "@/server/social/social.types";
@@ -12,10 +15,19 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <section className="py-20 sm:py-24 bg-white text-[#222222]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 sm:py-24 bg-white text-[#222222] overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/2 left-0 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none -translate-y-1/2" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+        >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#E97835]/30 bg-[#FDF3ED] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E97835] mb-3">
               <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] animate-pulse" />
@@ -29,18 +41,20 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
             </p>
           </div>
 
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-[#F7F5EF] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#142B3B] transition-all hover:bg-[#142B3B] hover:text-white shrink-0 self-start sm:self-auto"
-          >
-            <span>সব ব্লগ পড়ুন</span>
-            <ArrowRight className="h-4 w-4 text-[#E97835]" />
-          </Link>
-        </div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-[#F7F5EF] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#142B3B] transition-all hover:bg-[#142B3B] hover:text-white shrink-0 self-start sm:self-auto shadow-sm"
+            >
+              <span>সব ব্লগ পড়ুন</span>
+              <ArrowRight className="h-4 w-4 text-[#E97835]" />
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        {/* Posts Grid */}
+        {/* Posts Grid with Staggered Motion */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {posts.slice(0, 3).map((post) => {
+          {posts.slice(0, 3).map((post, idx) => {
             const isFB = post.provider === "FACEBOOK";
             const hasMedia = post.mediaUrls && post.mediaUrls.length > 0;
 
@@ -51,9 +65,14 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
             });
 
             return (
-              <article
+              <motion.article
                 key={post.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-xl hover:border-[#E97835]/40"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -8, scale: 1.015 }}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
               >
                 <div>
                   {/* Optional Media Preview */}
@@ -64,7 +83,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                         alt={post.title || "পোস্ট ছবি"}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-700 group-hover:scale-106"
                       />
                       <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/60 border border-white/20">
                         {isFB ? (
@@ -139,7 +158,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>

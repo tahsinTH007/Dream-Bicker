@@ -31,29 +31,24 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
         />
       </div>
 
-      {/* Brand Name Typography */}
+      {/* Brand Name Typography - In English just like the Footer */}
       {showText && (
         <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span
-              className={cn(
-                "font-heading text-lg font-extrabold tracking-tight leading-tight",
-                isLight ? "text-white" : "text-[#142B3B]",
-              )}
-            >
-              ড্রিম বাইকার
-            </span>
-            <span className="inline-block rounded-md bg-[#E97835]/15 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-[#E97835]">
-              হানিফ
-            </span>
-          </div>
           <span
             className={cn(
-              "text-[10px] font-medium tracking-wider hidden sm:block",
+              "font-heading text-xl sm:text-2xl font-black tracking-tight leading-none group-hover:text-[#E97835] transition-colors drop-shadow",
+              isLight ? "text-white" : "text-[#142B3B]",
+            )}
+          >
+            Dream Biker
+          </span>
+          <span
+            className={cn(
+              "text-[11px] font-medium drop-shadow-sm mt-1 hidden sm:block",
               isLight ? "text-white/70" : "text-[#777777]",
             )}
           >
-            কন্টেন্ট ক্রিয়েটর ও মানবসেবক
+            মো. হানিফ হোসেন
           </span>
         </div>
       )}

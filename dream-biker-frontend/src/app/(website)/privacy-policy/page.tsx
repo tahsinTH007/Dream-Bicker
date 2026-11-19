@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
+import { AnimatedContent } from "@/components/shared/animated-content";
 
 export const metadata: Metadata = {
   title: "গোপনীয়তা নীতি | ড্রিম বাইকার",
@@ -19,7 +20,7 @@ export default function PrivacyPolicyPage() {
 
       <section className="py-16 sm:py-24 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="prose max-w-none text-[#222222]/85 space-y-8 leading-relaxed">
+          <AnimatedContent className="prose max-w-none text-[#222222]/85 space-y-8 leading-relaxed">
             <div>
               <p className="text-xs text-[#777777] mb-2 font-mono">
                 কার্যকর তারিখ: নভেম্বর ২০২৬ | সর্বশেষ পরিমার্জন: ফেব্রুয়ারি ২০২৬
@@ -73,7 +74,7 @@ export default function PrivacyPolicyPage() {
                 এই নীতি সম্পর্কে কোনো জিজ্ঞাসা থাকলে কিংবা আপনার বা আপনার পরিবারের কোনো তথ্য বা ছবি সংশোধনের প্রয়োজন হলে আমাদের <a href="/contact" className="text-[#E97835] font-semibold underline">যোগাযোগ পেইজে</a> বার্তা পাঠাতে পারেন।
               </p>
             </div>
-          </div>
+          </AnimatedContent>
         </div>
       </section>
     </>
