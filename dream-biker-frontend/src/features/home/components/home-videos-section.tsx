@@ -69,7 +69,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 whileHover={{ y: -8 }}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0E1F2C] transition-colors duration-300 hover:border-[#F5A623]/50 hover:shadow-2xl hover:shadow-[#F5A623]/10"
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0E1F2C] transition-colors duration-300 hover:shadow-2xl ${isYT ? "hover:border-[#FF0000]/70 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/80 hover:shadow-[#1877F2]/20"}`}
               >
                 {/* Thumbnail Container */}
                 <div className="relative aspect-video w-full overflow-hidden bg-black/50">
@@ -107,7 +107,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
 
                   {/* Play Button Overlay with Pulse */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F5A623] text-[#142B3B] shadow-lg shadow-[#F5A623]/40 transform group-hover:scale-110 transition-transform">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transform group-hover:scale-110 transition-transform ${isYT ? "bg-[#FF0000] shadow-[#FF0000]/40" : "bg-[#1877F2] shadow-[#1877F2]/40"}`}>
                       <Play className="h-5 w-5 fill-current ml-0.5" />
                     </div>
                   </div>
@@ -116,7 +116,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                 {/* Video Info */}
                 <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <h3 className="font-heading text-base font-bold text-white line-clamp-2 leading-snug group-hover:text-[#F5A623] transition-colors">
+                    <h3 className={`font-heading text-base font-bold text-white line-clamp-2 leading-snug transition-colors ${isYT ? "group-hover:text-[#FF8080]" : "group-hover:text-[#7DB3FF]"}`}>
                       {video.title}
                     </h3>
                     <p className="mt-2 text-xs text-white/65 line-clamp-2 leading-relaxed">
@@ -134,7 +134,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                       <span>সরাসরি দেখুন</span>
                     )}
 
-                    <span className="inline-flex items-center gap-1 text-[#F5A623] font-semibold text-xs group-hover:underline">
+                    <span className={`inline-flex items-center gap-1 font-semibold text-xs group-hover:underline ${isYT ? "text-[#FF8080]" : "text-[#7DB3FF]"}`}>
                       চালান
                       <ExternalLink className="h-3 w-3" />
                     </span>

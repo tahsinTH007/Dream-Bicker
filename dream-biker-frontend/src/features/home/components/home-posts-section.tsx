@@ -72,7 +72,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 whileHover={{ y: -8 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl ${isFB ? "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15" : "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15"}`}
               >
                 <div>
                   {/* Optional Media Preview */}
@@ -121,7 +121,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                       </div>
                     </div>
 
-                    <h3 className="font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug group-hover:text-[#E97835] transition-colors mb-3">
+                    <h3 className={`font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug transition-colors mb-3 ${isFB ? "group-hover:text-[#1877F2]" : "group-hover:text-[#CC0000]"}`}>
                       {post.title || post.content.slice(0, 75)}
                     </h3>
 
@@ -152,7 +152,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-semibold text-[#142B3B] group-hover:text-[#E97835] transition-colors"
+                    className={`inline-flex items-center gap-1 font-semibold text-[#142B3B] transition-colors ${isFB ? "group-hover:text-[#1877F2]" : "group-hover:text-[#CC0000]"}`}
                   >
                     <span>মূল পোস্ট</span>
                     <ExternalLink className="h-3 w-3" />
