@@ -158,12 +158,12 @@ function initializeEmptyStore(): MemorySocialStore {
 }
 
 /**
- * Sample content (stock photos posing as videos/posts) is for development only.
- * In production the site shows real synced content or empty states, unless
- * SHOW_SAMPLE_CONTENT=true is set explicitly.
+ * Sample content (mock/placeholder data) is enabled by default so the site
+ * is fully populated out of the box (both in development and in production),
+ * until real social accounts are synced or unless explicitly turned off via SHOW_SAMPLE_CONTENT=false.
  */
 export const showSampleContent: boolean =
-  serverEnv.SHOW_SAMPLE_CONTENT ?? process.env.NODE_ENV !== "production";
+  serverEnv.SHOW_SAMPLE_CONTENT ?? true;
 
 // Global memory cache instance
 const memoryStore: MemorySocialStore = showSampleContent

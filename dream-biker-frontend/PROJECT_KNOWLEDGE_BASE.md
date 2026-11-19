@@ -149,7 +149,7 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 - Sync responses include `persisted: false` + a warning when there is no database.
 
 ### 8.4 Sample content
-`SHOW_SAMPLE_CONTENT`: unset = **on in development, off in production**; `true/false` forces it. Sample data uses Unsplash stock images and must never appear in production.
+`SHOW_SAMPLE_CONTENT`: defaults to **true** (mock content shown in dev & production until real accounts are synced); set `false` to show empty states instead.
 
 ### 8.5 Known caveat
 Facebook CDN image URLs are signed and **expire**; stored URLs will break over time unless images are copied to own storage during sync (open item).

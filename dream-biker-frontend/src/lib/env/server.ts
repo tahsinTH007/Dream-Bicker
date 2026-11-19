@@ -32,7 +32,7 @@ const serverEnvSchema = z.object({
   NEXT_PUBLIC_SITE_URL: z.string().default("http://localhost:3000"),
 
   // Show built-in sample videos/posts/photos when nothing has been synced.
-  // Unset = on in development, off in production (sample data uses stock photos).
+  // Defaults to true (enabled in development & production until set to "false" or real content is synced).
   SHOW_SAMPLE_CONTENT: z
     .string()
     .optional()
