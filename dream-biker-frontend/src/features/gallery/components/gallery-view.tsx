@@ -10,9 +10,8 @@ import {
   Maximize2,
   ExternalLink,
   ArrowUpRight,
-  Sparkles,
-  Eye,
-  Loader2,
+  MapPin,
+  Camera,
 } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { NormalizedPhoto } from "@/server/social/social.types";
@@ -35,9 +34,9 @@ interface CuratedGalleryItem {
   sourceUrl?: string;
 }
 
-// 18 Curated High-Definition Photographic Frames (matching the reference editorial style)
+// 18 Curated High-Definition Photographic Frames
 const curatedMasterPhotos: CuratedGalleryItem[] = [
-  // 1. Column 1 Hero: Half Dome Mountain at dusk (matching reference column 1)
+  // 1. Column 1 Hero: Half Dome Mountain at dusk
   {
     id: "photo-1",
     imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85",
@@ -49,7 +48,7 @@ const curatedMasterPhotos: CuratedGalleryItem[] = [
     publishedAt: "2026-02-14T10:00:00.000Z",
     sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 2. Column 2 Top: Intimate creature / subject on dark canvas (matching reference column 2 top)
+  // 2. Column 2 Top: Intimate creature / subject on dark canvas
   {
     id: "photo-2",
     imageUrl: "https://images.unsplash.com/photo-1507666405895-422eee7d517f?auto=format&fit=crop&w=1000&q=85",
@@ -61,7 +60,7 @@ const curatedMasterPhotos: CuratedGalleryItem[] = [
     publishedAt: "2026-02-12T14:30:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 3. Column 3 Hero: Warm golden sunset mountain & desert (matching reference column 3)
+  // 3. Column 3 Hero: Warm golden sunset mountain & desert
   {
     id: "photo-3",
     imageUrl: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=85",
@@ -73,180 +72,180 @@ const curatedMasterPhotos: CuratedGalleryItem[] = [
     publishedAt: "2026-02-10T18:00:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 4. Column 2 Bottom: White misty ocean horizon (matching reference column 2 bottom)
+  // 4. Column 2 Bottom: White misty ocean horizon
   {
     id: "photo-4",
     imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85",
     location: "NORTH SEA, NORDIC COAST",
-    title: "কুয়াশা ও অনন্ত জলরাশির সীমানা",
-    caption: "অবারিত জলরাশির কূলে দাঁড়িয়ে দূর দিগন্তের পানে দৃষ্টি। জীবনের অস্থিরতা ভুলে শান্ত হওয়ার স্থান।",
+    title: "কুয়াশাঘেরা সাগরের অনন্ত বিস্তার",
+    caption: "সীমানাহীন জলরাশি আর ধূসর আকাশের মিলনমেলা। শান্ত ঢেউয়ের ছন্দে হারিয়ে যাওয়ার ব্যাকুলতা।",
     provider: "YOUTUBE",
-    aspect: "aspect-[16/10] sm:aspect-[4/3]",
-    publishedAt: "2026-02-08T12:00:00.000Z",
+    aspect: "aspect-[4/3] sm:aspect-[1/1]",
+    publishedAt: "2026-02-08T09:15:00.000Z",
     sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 5. Dream Biker on Motorbike - Solitary Highway
+  // 5. Riverbank fisherman at dawn
   {
     id: "photo-5",
-    imageUrl: "/images/profile/hanif_jacket_back.jpg",
-    location: "DHAKA - BOGURA HIGHWAY",
-    title: "ড্রিম বাইকার — মেঠোপথের অভিযাত্রী",
-    caption: "মহাসড়কের বুকে একা পথচলা। মানুষের দুয়ারে সহমর্মিতার বার্তা পৌঁছাতে ছুটে চলা প্রতিনিয়ত।",
+    imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=85",
+    location: "PADMA RIVER, BANGLADESH",
+    title: "ভোরের আলোয় পদ্মা পাড়ের জীবন",
+    caption: "পদ্মার শান্ত স্রোতে জালের বিস্তার। প্রকৃতির সাথে লড়াই করে বেঁচে থাকা নদীপাড়ের সংগ্রামী মানুষের প্রাত্যহিক গল্প।",
     provider: "FACEBOOK",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-02-05T09:15:00.000Z",
+    aspect: "aspect-[3/4] sm:aspect-[4/5]",
+    publishedAt: "2026-02-05T06:30:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 6. Motorcycle by Lake Shore
+  // 6. Old artisan workshop
   {
     id: "photo-6",
-    imageUrl: "/images/footer_bike.jpg",
-    location: "LAKE SHORE, BANGLADESH",
-    title: "যাত্রাবিরতির এক নিঃশব্দ দুপুর",
-    caption: "লেক আর সবুজের আলিঙ্গনে মোটরসাইকেল থামিয়ে ক্ষণিকের জিরেন। পথই যার ঘর, গন্তব্য তার মানবকল্যাণ।",
+    imageUrl: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=85",
+    location: "OLD DHAKA, CRAFTS",
+    title: "শ্রমজীবী প্রবীণ কারিগরের নিপুণ হাতের স্পর্শ",
+    caption: "শত বছরের ঐতিহ্য বুকে ধারণ করে বেঁচে থাকা প্রবীণ শিল্পীর একান্ত মুহূর্ত। শ্রমের ভেতর লুকিয়ে থাকা আত্মতৃপ্তি।",
     provider: "FACEBOOK",
-    aspect: "aspect-[16/10] sm:aspect-[4/3]",
-    publishedAt: "2026-02-03T16:20:00.000Z",
+    aspect: "aspect-[4/3]",
+    publishedAt: "2026-02-01T15:20:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 7. Smiles of Char Children
+  // 7. Mountain highway motovlog journey
   {
     id: "photo-7",
-    imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85",
-    location: "JAMUNA CHAR, SIRAJGANJ",
-    title: "চরের শিশুদের অনাবিল হাসিমুখ",
-    caption: "দারিদ্র্যের মাঝেও যে হাসি অমলিন। এক টুকরো উপহার আর ভালোবাসায় তাদের চোখে খেলে যায় আনন্দের ঝিলিক।",
+    imageUrl: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85",
+    location: "BANDARBAN HILL TRACTS",
+    title: "পাহাড়ি আঁকাবাঁকা পথে দুই চাকার অভিযান",
+    caption: "সবুজ পাহাড়ের বুক চিরে চলে যাওয়া মেঠোপথ। মুক্ত বাতাসের গন্ধ আর নতুন দিগন্তের সন্ধানে নিরন্তর পথচলা।",
     provider: "YOUTUBE",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2026-01-29T11:45:00.000Z",
+    aspect: "aspect-[16/10] sm:aspect-[3/4]",
+    publishedAt: "2026-01-28T11:45:00.000Z",
     sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 8. Elderly Rickshaw Puller
+  // 8. Tea garden rain
   {
     id: "photo-8",
-    imageUrl: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1000&q=85",
-    location: "PADMA RIVERBANK, RAJSHAHI",
-    title: "শ্রমে ঘামে ভেজা একাকী সংগ্রাম",
-    caption: "নদীর পাড়ে ক্লান্ত রিকশাচালক চাচার সাথে বসে জীবনের সুখ-দুঃখের স্মৃতি রোমন্থন।",
+    imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=85",
+    location: "SRIMANGAL, SYLHET",
+    title: "বৃষ্টিভেজা সবুজ চা বাগানের মায়াবী রূপ",
+    caption: "মেঘ আর কুয়াশার চাদরে ঢাকা চা বাগানের সতেজ শ্যামলিমা। প্রকৃতির বুকে এক টুকরো অপার্থিব শান্তি।",
     provider: "FACEBOOK",
-    aspect: "aspect-[16/10] sm:aspect-[4/3]",
-    publishedAt: "2026-01-25T14:10:00.000Z",
+    aspect: "aspect-[1/1] sm:aspect-[4/3]",
+    publishedAt: "2026-01-24T16:00:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 9. Hanif Sitting in Forest
+  // 9. Rural village sunset
   {
     id: "photo-9",
-    imageUrl: "/images/profile/hanif_hero_portrait.jpg",
-    location: "SYLHET TEA HILLS",
-    title: "সবুজের মাঝে ধ্যানের মুহূর্ত",
-    caption: "পরবর্তী মানবিক অভিযানের আগে প্রকৃতির নিবিড় সান্নিধ্যে মনের শক্তি সঞ্চয়।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-01-20T10:30:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
+    imageUrl: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=85",
+    location: "RANGPUR, CHAR AREA",
+    title: "চরাঞ্চলের মেঠোপথে গোধূলির আভা",
+    caption: "দিনের ক্লান্তি শেষে ঘরে ফেরা গ্রামীণ রাখাল আর শান্ত মেঠোপথ। গ্রামবাংলার চিরচেনা স্নিগ্ধ রূপ।",
+    provider: "YOUTUBE",
+    aspect: "aspect-[3/4] sm:aspect-[4/5]",
+    publishedAt: "2026-01-20T17:30:00.000Z",
+    sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 10. Bicycle Leaning Against Rainy Wall
+  // 10. Winter relief distribution
   {
     id: "photo-10",
-    imageUrl: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1000&q=85",
-    location: "OLD DHAKA, BANGLADESH",
-    title: "বৃষ্টিস্নাত মেঠোপথের বাহন",
-    caption: "অঝোর ধারায় ভেজা দেয়ালে দাঁড়িয়ে থাকা এক শ্রমিকের স্বপ্ন। বৃষ্টিতে ধুয়ে যায় শহুরে কোলাহল।",
+    imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85",
+    location: "KURIGRAM, WINTER RELIEF",
+    title: "শীতবস্ত্র বিতরণের এক আবেগঘন মুহূর্ত",
+    caption: "তীব্র শীতে অসহায় প্রবীণদের মুখে উষ্ণ হাসির ছোঁয়া। ভালোবাসা ও সহমর্মিতার চেয়ে বড় মানবিক শক্তি আর কিছু হতে পারে না।",
     provider: "FACEBOOK",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2026-01-15T15:50:00.000Z",
+    aspect: "aspect-[16/10]",
+    publishedAt: "2026-01-15T10:00:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 11. Endless North Bengal Highway
+  // 11. Solitary tree in golden plains
   {
     id: "photo-11",
-    imageUrl: "https://images.unsplash.com/photo-1518398046578-8cca57782e17?auto=format&fit=crop&w=1000&q=85",
-    location: "DINAJPUR RURAL ROAD",
-    title: "ফসলের মাঠের বুক চিরে চলা পথ",
-    caption: "দুপাশে সোনালি ধানের খেত পেরিয়ে মেঠোপথে মোটরসাইকেল চালানো। গ্রামবাংলার চিরচেনা সৌন্দর্য।",
+    imageUrl: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=1000&q=85",
+    location: "BOGURA, NORTHERN PLAINS",
+    title: "বিস্তীর্ণ মাঠে নিঃসঙ্গ বৃক্ষের ছায়া",
+    caption: "একাকী দাঁড়িয়ে থাকা বটগাছ যেন সময়ের নীরব সাক্ষী। দিগন্তজোড়া ফসলি জমির বুকে শান্ত আশ্রয়।",
     provider: "YOUTUBE",
-    aspect: "aspect-[16/10] sm:aspect-[4/3]",
-    publishedAt: "2026-01-10T08:00:00.000Z",
+    aspect: "aspect-[4/3] sm:aspect-[1/1]",
+    publishedAt: "2026-01-10T14:15:00.000Z",
     sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 12. Flood Relief Volunteers
+  // 12. Island life & children smile
   {
     id: "photo-12",
-    imageUrl: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1000&q=85",
-    location: "RANGPUR RELIEF CAMP",
-    title: "স্বেচ্ছাসেবীদের ঐক্যবদ্ধ শপথ",
-    caption: "বন্যার্ত পরিবারের কাছে জরুরি খাদ্যসামগ্রী পৌঁছে দিতে একদল তরুণের নিরলস পরিশ্রম ও আন্তরিকতা।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-01-05T13:20:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 13. Street Dog Resting in Alley
-  {
-    id: "photo-13",
-    imageUrl: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=85",
-    location: "BOGURA OLD BAZAAR",
-    title: "নিস্তব্ধ দুপুরে একা পথিকের বিশ্রাম",
-    caption: "বন্ধ দোকানের শাটারের সামনে ক্লান্ত দেহে পরম শান্তিতে ঘুমিয়ে থাকা নিরীহ অবলা পথশিশু।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2025-12-28T17:10:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 14. Iconic Historic Landmark in Mist
-  {
-    id: "photo-14",
-    imageUrl: "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=1000&q=85",
-    location: "HISTORIC CLOCK TOWER",
-    title: "সময়ের নীরব অভিভাবক",
-    caption: "মেঘ আর কুয়াশাকে ভেদ করে মাথা উঁচু করে দাঁড়িয়ে থাকা স্মারক। সময়ের স্রোতে হারিয়ে যাওয়া কত শত গল্প।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[3/4] sm:aspect-[9/16] lg:aspect-[3/4]",
-    publishedAt: "2025-12-22T09:40:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 15. Driftwood / Weathered Tree in Nature
-  {
-    id: "photo-15",
-    imageUrl: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=85",
-    location: "SUNDARBANS TIDAL FOREST",
-    title: "প্রকৃতির নিঃশব্দ ভাস্কর্য",
-    caption: "নোনা জলের স্রোতে শতাব্দীর ইতিহাস ধারণ করা কাঠের শেকড়। প্রকৃতির সহ্যশক্তি ও সহনশীলতার অনন্য নিদর্শন।",
+    imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85",
+    location: "SANDWIP ISLAND, CHITTAGONG",
+    title: "চরাঞ্চলের শিশুদের অনাবিল হাসি",
+    caption: "সুবিধাবঞ্চিত শিশুদের নিষ্পাপ মুখের চঞ্চল আনন্দ। এই হাসিটুকুই আমাদের দীর্ঘ পথচলার সবচেয়ে বড় প্রেরণা।",
     provider: "FACEBOOK",
     aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2025-12-15T11:00:00.000Z",
+    publishedAt: "2026-01-05T12:00:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 16. Night Street Crossing & Life
+  // 13. Coastal highway bike ride
   {
-    id: "photo-16",
-    imageUrl: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1000&q=85",
-    location: "CHITTAGONG PORT HIGHWAY",
-    title: "রাতের আলোয় জীবিকার স্পন্দন",
-    caption: "দিনের আলো নিভে যাওয়ার পরও যাদের জীবন থেমে থাকে না। শহরের ব্যস্ত রাজপথে শ্রমিকের পদধ্বনি।",
+    id: "photo-13",
+    imageUrl: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1000&q=85",
+    location: "MARINE DRIVE, COX'S BAZAR",
+    title: "নীল সমুদ্রের তীর ঘেঁষে অন্তহীন যাত্রা",
+    caption: "বিশ্বের দীর্ঘতম সমুদ্র সৈকতের কোল ঘেঁষে ছুটে চলা। সমুদ্রের গর্জন আর ইঞ্জিনের গুঞ্জনের অপূর্ব মেলবন্ধন।",
     provider: "YOUTUBE",
-    aspect: "aspect-[16/10] sm:aspect-[4/3]",
-    publishedAt: "2025-12-10T21:30:00.000Z",
+    aspect: "aspect-[16/10]",
+    publishedAt: "2025-12-30T16:45:00.000Z",
     sourceUrl: "https://www.youtube.com/@DreamBiker532",
   },
-  // 17. Curved Architectural Steps
+  // 14. Ancient banyan tree roots
   {
-    id: "photo-17",
-    imageUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=1000&q=85",
-    location: "SAVAR MEMORIAL GROUNDS",
-    title: "উন্নতি ও স্বপ্নের সোপান",
-    caption: "কুয়াশার চাদরে ঢাকা ঊর্ধ্বমুখী স্থাপত্যের খাঁজ। আত্মত্যাগের গৌরবগাথা ধারণ করে থাকা প্রাঙ্গণ।",
+    id: "photo-14",
+    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85",
+    location: "SUNDARBANS FOREST BORDER",
+    title: "গহীন অরণ্যের রহস্য ও নিস্তব্ধতা",
+    caption: "ম্যানগ্রোভ বনের শিকড়ে আটকে থাকা প্রাকৃতিক স্থাপত্য। সবুজের গভীরতায় প্রকৃতির আদিম শক্তির স্পন্দন।",
     provider: "FACEBOOK",
-    aspect: "aspect-[3/4] sm:aspect-[9/16] lg:aspect-[3/4]",
-    publishedAt: "2025-12-05T07:45:00.000Z",
+    aspect: "aspect-[3/4]",
+    publishedAt: "2025-12-25T11:20:00.000Z",
     sourceUrl: "https://www.facebook.com/BuydreambyHanif",
   },
-  // 18. Emotional Eye Contact & Portrait
+  // 15. River reflection at dusk
+  {
+    id: "photo-15",
+    imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
+    location: "MEGHNA RIVER, CHANDPUR",
+    title: "মেঘনার বুকে সন্ধ্যার রক্তিম প্রতিচ্ছবি",
+    caption: "নদীর জলের বুকে প্রতিফলিত অস্তসূর্যের লাল আভা। প্রতিটি দিন শেষ হয় এক নতুন আশার বার্তা নিয়ে।",
+    provider: "YOUTUBE",
+    aspect: "aspect-[4/3] sm:aspect-[1/1]",
+    publishedAt: "2025-12-20T17:50:00.000Z",
+    sourceUrl: "https://www.youtube.com/@DreamBiker532",
+  },
+  // 16. Village school distribution
+  {
+    id: "photo-16",
+    imageUrl: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1000&q=85",
+    location: "NETROKONA, HAOR BASIN",
+    title: "হাওরপাড়ের শিশুদের হাতে বইখাতা",
+    caption: "শিক্ষা উপকরণ পেয়ে হাওরের অবহেলিত শিশুদের চোখে নতুন স্বপ্নের দীপ্তি। মানবসেবাই হোক আমাদের ব্রত।",
+    provider: "FACEBOOK",
+    aspect: "aspect-[16/10]",
+    publishedAt: "2025-12-15T09:30:00.000Z",
+    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
+  },
+  // 17. Misty mountain pass
+  {
+    id: "photo-17",
+    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
+    location: "SAJEK VALLEY, RANGAMATI",
+    title: "মেঘের দেশে একলা বাইকার",
+    caption: "পাহাড়ের চূড়ায় সাদা মেঘের মেলা। মনে হয় যেন হাত বাড়ালেই ছোঁয়া যাবে অনন্ত আকাশ।",
+    provider: "YOUTUBE",
+    aspect: "aspect-[3/4] sm:aspect-[4/5]",
+    publishedAt: "2025-12-10T08:00:00.000Z",
+    sourceUrl: "https://www.youtube.com/@DreamBiker532",
+  },
+  // 18. Portrait of elderly villager
   {
     id: "photo-18",
-    imageUrl: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1000&q=85",
-    location: "CHAR SHURID, KURIGRAM",
-    title: "সহমর্মিতার এক শান্ত সমর্পণ",
+    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&q=85",
+    location: "SIRAJGANJ, JAMUNA BASIN",
+    title: "অভিজ্ঞতার রেখা আঁকা বৃদ্ধের মুখচ্ছবি",
     caption: "শব্দহীন চোখের চাহনি যা হাজারো না বলা কথা ব্যক্ত করে। মানুষের প্রতি নিখাদ ভালোবাসাই আমাদের পাথেয়।",
     provider: "FACEBOOK",
     aspect: "aspect-[4/3] sm:aspect-[1/1]",
@@ -256,34 +255,25 @@ const curatedMasterPhotos: CuratedGalleryItem[] = [
 ];
 
 export function GalleryView({ initialPhotos }: GalleryViewProps) {
-  // Filter state strictly: "ALL", "FACEBOOK", "YOUTUBE" as requested
+  // Filter state: "all", "facebook", "youtube"
   const [activeFilter, setActiveFilter] = React.useState<"all" | "facebook" | "youtube">("all");
 
-  // Number of items displayed currently (initial 9; appends more on scroll down)
+  // Number of items displayed currently
   const [visibleCount, setVisibleCount] = React.useState<number>(9);
   const [isLoadingMore, setIsLoadingMore] = React.useState<boolean>(false);
 
-  // Color mode: "noir" (Grayscale that blooms into vivid color on hover) or "color" (Always full color)
-  const [colorMode, setColorMode] = React.useState<"noir" | "color">("noir");
+  // Fullscreen Lightbox Carousel state: current index and slide direction
+  const [carouselIndex, setCarouselIndex] = React.useState<number | null>(null);
+  const [slideDirection, setSlideDirection] = React.useState<number>(0);
 
-  // Lightbox modal active photo
-  const [activePhoto, setActivePhoto] = React.useState<{
-    imageUrl: string;
-    caption?: string | null;
-    title?: string;
-    location?: string;
-    provider?: string | null;
-    publishedAt?: string | null;
-    sourceUrl?: string | null;
-  } | null>(null);
+  // Ref for thumbnail filmstrip to auto-scroll
+  const thumbnailStripRef = React.useRef<HTMLDivElement | null>(null);
 
   // Combine initialPhotos from API with curated photos
   const allPhotosCombined: CuratedGalleryItem[] = React.useMemo(() => {
     const list: CuratedGalleryItem[] = [...curatedMasterPhotos];
 
-    // If database or API has additional photos, merge them seamlessly
     initialPhotos.forEach((apiPhoto, idx) => {
-      // Avoid exact duplicates
       if (!list.some((item) => item.imageUrl === apiPhoto.imageUrl)) {
         list.push({
           id: `api-photo-${apiPhoto.id || idx}`,
@@ -333,13 +323,84 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
     return filteredList.slice(0, visibleCount);
   }, [filteredList, visibleCount]);
 
-  // Reset visibleCount when filter changes
+  // Reset visibleCount and carousel on filter change
   const handleFilterChange = (filter: "all" | "facebook" | "youtube") => {
     setActiveFilter(filter);
     setVisibleCount(9);
+    setCarouselIndex(null);
   };
 
-  // Scroll-down Infinite Loading: Sentinel observer to add photos dynamically like requested
+  // Open Carousel at specific index
+  const openCarousel = (index: number) => {
+    setSlideDirection(0);
+    setCarouselIndex(index);
+  };
+
+  // Carousel Navigation: Previous Photo
+  const handlePrevPhoto = React.useCallback(() => {
+    setSlideDirection(-1);
+    setCarouselIndex((prev) => {
+      if (prev === null) return null;
+      return prev > 0 ? prev - 1 : filteredList.length - 1;
+    });
+  }, [filteredList.length]);
+
+  // Carousel Navigation: Next Photo
+  const handleNextPhoto = React.useCallback(() => {
+    setSlideDirection(1);
+    setCarouselIndex((prev) => {
+      if (prev === null) return null;
+      return prev < filteredList.length - 1 ? prev + 1 : 0;
+    });
+  }, [filteredList.length]);
+
+  // Carousel Navigation: Jump to specific index from thumbnail track
+  const handleJumpToPhoto = (index: number) => {
+    if (carouselIndex !== null) {
+      setSlideDirection(index > carouselIndex ? 1 : -1);
+    }
+    setCarouselIndex(index);
+  };
+
+  // Auto-scroll the active thumbnail into view
+  React.useEffect(() => {
+    if (carouselIndex !== null && thumbnailStripRef.current) {
+      const activeThumb = thumbnailStripRef.current.children[carouselIndex] as HTMLElement;
+      if (activeThumb) {
+        activeThumb.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    }
+  }, [carouselIndex]);
+
+  // Keyboard navigation for Lightbox Carousel
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (carouselIndex === null) return;
+      if (e.key === "Escape") setCarouselIndex(null);
+      else if (e.key === "ArrowLeft") handlePrevPhoto();
+      else if (e.key === "ArrowRight") handleNextPhoto();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [carouselIndex, handlePrevPhoto, handleNextPhoto]);
+
+  // Lock body scroll during fullscreen carousel
+  React.useEffect(() => {
+    if (carouselIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [carouselIndex]);
+
+  // Scroll-down Infinite Loading: Sentinel observer to add photos dynamically
   const sentinelRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
@@ -348,7 +409,6 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
         const first = entries[0];
         if (first.isIntersecting && !isLoadingMore && visibleCount < filteredList.length) {
           setIsLoadingMore(true);
-          // Subtle natural delay to show smooth appending animation
           setTimeout(() => {
             setVisibleCount((prev) => Math.min(prev + 6, filteredList.length));
             setIsLoadingMore(false);
@@ -370,113 +430,49 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
     };
   }, [visibleCount, filteredList.length, isLoadingMore]);
 
-  // Lightbox keyboard navigation
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!activePhoto) return;
-
-      if (e.key === "Escape") {
-        setActivePhoto(null);
-      } else if (e.key === "ArrowLeft") {
-        const curIdx = filteredList.findIndex((p) => p.imageUrl === activePhoto.imageUrl);
-        if (curIdx > 0) {
-          const prev = filteredList[curIdx - 1];
-          setActivePhoto({
-            imageUrl: prev.imageUrl,
-            caption: prev.caption,
-            title: prev.title,
-            location: prev.location,
-            provider: prev.provider,
-            publishedAt: prev.publishedAt,
-            sourceUrl: prev.sourceUrl,
-          });
-        }
-      } else if (e.key === "ArrowRight") {
-        const curIdx = filteredList.findIndex((p) => p.imageUrl === activePhoto.imageUrl);
-        if (curIdx >= 0 && curIdx < filteredList.length - 1) {
-          const next = filteredList[curIdx + 1];
-          setActivePhoto({
-            imageUrl: next.imageUrl,
-            caption: next.caption,
-            title: next.title,
-            location: next.location,
-            provider: next.provider,
-            publishedAt: next.publishedAt,
-            sourceUrl: next.sourceUrl,
-          });
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activePhoto, filteredList]);
-
-  // Lock scroll during lightbox
-  React.useEffect(() => {
-    if (activePhoto) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [activePhoto]);
-
-  // Distribute visiblePhotos into 3 responsive columns for true masonry stacking
+  // Distribute visiblePhotos into 3 responsive columns for masonry stacking
   const column1 = visiblePhotos.filter((_, idx) => idx % 3 === 0);
   const column2 = visiblePhotos.filter((_, idx) => idx % 3 === 1);
   const column3 = visiblePhotos.filter((_, idx) => idx % 3 === 2);
 
-  // Render photo card
+  // Render individual photo card (Always in full vivid color)
   const renderCard = (photo: CuratedGalleryItem, globalIndex: number) => {
     const isYT = photo.provider === "YOUTUBE";
 
     return (
       <motion.div
         key={photo.id}
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
+        initial={{ opacity: 0, y: 35, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: (globalIndex % 4) * 0.08 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: (globalIndex % 4) * 0.07 }}
         whileHover={{ y: -6 }}
-        onClick={() =>
-          setActivePhoto({
-            imageUrl: photo.imageUrl,
-            title: photo.title,
-            location: photo.location,
-            caption: photo.caption,
-            provider: photo.provider,
-            publishedAt: photo.publishedAt,
-            sourceUrl: photo.sourceUrl,
-          })
-        }
+        onClick={() => {
+          const idx = filteredList.findIndex((p) => p.imageUrl === photo.imageUrl);
+          openCarousel(idx >= 0 ? idx : 0);
+        }}
         className={cn(
-          "group relative w-full overflow-hidden bg-[#111111] cursor-pointer shadow-lg transition-all duration-500",
+          "group relative w-full overflow-hidden bg-[#111111] cursor-pointer shadow-lg transition-all duration-500 rounded-xl",
           photo.aspect
         )}
       >
-        {/* Main Image */}
+        {/* Main Image - ALWAYS IN FULL VIVID COLOR */}
         <Image
           src={photo.imageUrl}
           alt={photo.caption || photo.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className={cn(
-            "object-cover transition-all duration-700 ease-out group-hover:scale-105",
-            colorMode === "noir" ? "grayscale contrast-[1.08] group-hover:grayscale-0" : ""
-          )}
+          className="object-cover transition-all duration-700 ease-out group-hover:scale-106"
         />
 
-        {/* Static Bottom-Left Location Tag (Identical to reference: CAIRNGORMS, SCOTLAND) */}
+        {/* Static Bottom-Left Location Tag */}
         <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 z-10 pointer-events-none transition-opacity duration-300 group-hover:opacity-0">
           <span className="font-sans text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
             {photo.location}
           </span>
         </div>
 
-        {/* Hover Overlay (Existing rich hover effect: platform badge, zoom icon, title & full caption) */}
+        {/* Hover Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 sm:p-6 z-20">
           {/* Top: Platform Badge & Zoom Icon */}
           <div className="flex items-center justify-between">
@@ -512,9 +508,9 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
             <p className="text-xs text-white/80 line-clamp-2 leading-relaxed">
               {photo.caption}
             </p>
-            <div className="pt-1 flex items-center gap-1 text-[11px] font-bold text-white/90">
-              <span>বড় করে দেখুন</span>
-              <ArrowUpRight className="h-3 w-3 text-[#E97835]" />
+            <div className="pt-1 flex items-center gap-1 text-[11px] font-bold text-[#E97835]">
+              <span>ক্লিক করে ক্যারোসেল দেখুন</span>
+              <ArrowUpRight className="h-3 w-3" />
             </div>
           </div>
         </div>
@@ -522,15 +518,16 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
     );
   };
 
+  const activePhoto = carouselIndex !== null ? filteredList[carouselIndex] : null;
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
+    <div className="min-h-screen bg-black text-white selection:bg-[#E97835] selection:text-white">
       {/* =========================================================================
-          TOP MINIMALIST FILTER NAVIGATION (MATCHING EXACT REFERENCE SCREENSHOT)
-          Filter options: "ALL" | "FACEBOOK" | "YOUTUBE"
+          TOP MINIMALIST FILTER NAVIGATION (CLEAN TABS: ALL | FACEBOOK | YOUTUBE)
          ========================================================================= */}
       <section className="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-6 lg:px-12 py-5 sm:py-6">
         <div className="max-w-[1720px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          {/* Left: 3 Filter Tabs ("ALL", "FACEBOOK", "YOUTUBE") with sleek white underline */}
+          {/* Left: 3 Filter Tabs with sleek white underline */}
           <nav className="flex items-center gap-6 sm:gap-10">
             {/* 1. ALL */}
             <button
@@ -544,7 +541,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
               {activeFilter === "all" && (
                 <motion.span
                   layoutId="filterActiveLine"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E97835] shadow-[0_0_8px_rgba(233,120,53,0.8)]"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
@@ -558,11 +555,12 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                 activeFilter === "facebook" ? "text-white" : "text-white/45 hover:text-white/80"
               )}
             >
+              <FaFacebookF className="h-3 w-3 text-blue-400" />
               <span>FACEBOOK</span>
               {activeFilter === "facebook" && (
                 <motion.span
                   layoutId="filterActiveLine"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E97835] shadow-[0_0_8px_rgba(233,120,53,0.8)]"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
@@ -576,91 +574,54 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                 activeFilter === "youtube" ? "text-white" : "text-white/45 hover:text-white/80"
               )}
             >
+              <FaYoutube className="h-3.5 w-3.5 text-red-500" />
               <span>YOUTUBE</span>
               {activeFilter === "youtube" && (
                 <motion.span
                   layoutId="filterActiveLine"
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#E97835] shadow-[0_0_8px_rgba(233,120,53,0.8)]"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
             </button>
           </nav>
 
-          {/* Right: Noir / Color Mode Toggle & Item Count */}
-          <div className="flex items-center gap-4 text-xs">
-            <span className="hidden md:inline-block font-sans uppercase tracking-[0.2em] text-white/40 text-[11px]">
-              {filteredList.length} FRAMES
+          {/* Right: Item Count */}
+          <div className="flex items-center gap-3 text-xs">
+            <span className="font-sans uppercase tracking-[0.2em] text-white/50 text-xs font-semibold">
+              {filteredList.length} টি ছবি
             </span>
-
-            <div className="flex items-center gap-1.5 rounded-full bg-white/10 p-1 border border-white/15">
-              <button
-                onClick={() => setColorMode("noir")}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold tracking-wider uppercase transition-all cursor-pointer",
-                  colorMode === "noir"
-                    ? "bg-white text-black shadow-sm"
-                    : "text-white/60 hover:text-white"
-                )}
-              >
-                <Eye className="h-3 w-3" />
-                <span>NOIR</span>
-              </button>
-              <button
-                onClick={() => setColorMode("color")}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold tracking-wider uppercase transition-all cursor-pointer",
-                  colorMode === "color"
-                    ? "bg-[#E97835] text-white shadow-sm"
-                    : "text-white/60 hover:text-white"
-                )}
-              >
-                <Sparkles className="h-3 w-3" />
-                <span>VIVID</span>
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          FEATURED 3D COVER FLOW CAROUSEL SLIDER (MATCHING humble-method-084621.framer.app)
-          - Active center card (elevated, prominent, white pill button)
-          - Left & Right peek cards (scale down, 70% opacity)
-          - Floating '<' and '>' circular white arrow buttons
+          FEATURED 3D COVER FLOW CAROUSEL SLIDER
          ========================================================================= */}
       <section className="relative w-full border-b border-white/10 bg-black/40">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12">
           <CoverflowCarousel
             items={carouselItems}
-            onSelectPhoto={(item) =>
-              setActivePhoto({
-                imageUrl: item.imageUrl,
-                title: item.title,
-                location: item.location,
-                caption: item.caption,
-                provider: item.provider,
-                publishedAt: item.publishedAt,
-                sourceUrl: item.sourceUrl,
-              })
-            }
-            buttonText="View Product"
+            onSelectPhoto={(item) => {
+              const idx = filteredList.findIndex((p) => p.imageUrl === item.imageUrl);
+              openCarousel(idx >= 0 ? idx : 0);
+            }}
+            buttonText="ক্যারোসেলে খুলুন"
           />
         </div>
       </section>
 
       {/* =========================================================================
-          GALLERY MASONRY GRID (3 Responsive Stacks matching reference image)
-          - Smooth scroll-down reveal where photos dynamically enter the frame
+          GALLERY MASONRY GRID (Always in full vivid color)
          ========================================================================= */}
       <main className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 pt-10 pb-20">
         {/* Section Header */}
         <div className="flex items-center justify-between pb-4 mb-8 border-b border-white/10">
           <span className="font-sans text-xs font-bold uppercase tracking-[0.25em] text-white/60">
-            ALL FRAMES • MASONRY ARCHIVE
+            আলোকচিত্র সংগ্রহশালা
           </span>
           <span className="text-[11px] font-sans uppercase tracking-[0.2em] text-white/40">
-            SCROLL DOWN TO REVEAL MORE ({visibleCount} OF {filteredList.length})
+            স্ক্রোল করে আরও দেখুন ({visibleCount} OF {filteredList.length})
           </span>
         </div>
 
@@ -681,27 +642,24 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
           </div>
         </div>
 
-        {/* =========================================================================
-            SCROLL-DOWN TRIGGER / SENTINEL (Dynamically loads more photos as you scroll)
-           ========================================================================= */}
-        <div ref={sentinelRef} className="pt-16 pb-12 flex flex-col items-center justify-center text-center">
+        {/* Infinite Scroll Sentinel */}
+        <div ref={sentinelRef} className="h-20 w-full flex items-center justify-center mt-12">
           {isLoadingMore ? (
             <div className="flex items-center gap-2 text-white/70 text-xs font-bold uppercase tracking-[0.25em]">
-              <Loader2 className="h-4 w-4 animate-spin text-[#E97835]" />
-              <span>LOADING FRAMES...</span>
+              <span className="h-2 w-2 rounded-full bg-[#E97835] animate-ping" />
+              <span>লোডিং হচ্ছে...</span>
             </div>
           ) : visibleCount < filteredList.length ? (
             <button
               onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredList.length))}
-              className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-black px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-[#E97835] hover:text-white px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer shadow-sm"
             >
-              <span>LOAD MORE FRAMES ({filteredList.length - visibleCount} REMAINING)</span>
-              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span>আরও {filteredList.length - visibleCount} টি ছবি লোড করুন</span>
             </button>
           ) : (
             <div className="flex items-center gap-3 text-white/30 text-[11px] font-bold uppercase tracking-[0.25em]">
               <span className="h-px w-10 bg-white/15" />
-              <span>DREAM BIKER ARCHIVE • ALL FRAMES LOADED</span>
+              <span>সব ছবি প্রদর্শিত হয়েছে</span>
               <span className="h-px w-10 bg-white/15" />
             </div>
           )}
@@ -709,161 +667,220 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
       </main>
 
       {/* =========================================================================
-          FULLSCREEN LIGHTBOX MODAL WITH FRAMER MOTION ANIMATION
+          FULLSCREEN INTERACTIVE LIGHTBOX CAROUSEL MODAL
+          - Opens when clicking any photo
+          - Fluid slide transitions with swipe & drag gestures
+          - Bottom filmstrip carousel track with auto-scrolling
+          - Keyboard arrows & backdrop blur
          ========================================================================= */}
       <AnimatePresence>
-        {activePhoto && (
+        {carouselIndex !== null && activePhoto && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            onClick={() => setActivePhoto(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 sm:p-6 backdrop-blur-2xl"
+            className="fixed inset-0 z-50 flex flex-col justify-between bg-black/95 p-3 sm:p-6 backdrop-blur-2xl select-none overflow-hidden"
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setActivePhoto(null)}
-              aria-label="Close"
-              className="absolute top-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-110 cursor-pointer"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            {/* Prev Photo Arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const curIdx = filteredList.findIndex((p) => p.imageUrl === activePhoto.imageUrl);
-                if (curIdx > 0) {
-                  const prev = filteredList[curIdx - 1];
-                  setActivePhoto({
-                    imageUrl: prev.imageUrl,
-                    caption: prev.caption,
-                    title: prev.title,
-                    location: prev.location,
-                    provider: prev.provider,
-                    publishedAt: prev.publishedAt,
-                    sourceUrl: prev.sourceUrl,
-                  });
-                } else {
-                  const last = filteredList[filteredList.length - 1];
-                  setActivePhoto({
-                    imageUrl: last.imageUrl,
-                    caption: last.caption,
-                    title: last.title,
-                    location: last.location,
-                    provider: last.provider,
-                    publishedAt: last.publishedAt,
-                    sourceUrl: last.sourceUrl,
-                  });
-                }
-              }}
-              aria-label="Previous"
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-110 cursor-pointer"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </button>
-
-            {/* Next Photo Arrow */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                const curIdx = filteredList.findIndex((p) => p.imageUrl === activePhoto.imageUrl);
-                if (curIdx >= 0 && curIdx < filteredList.length - 1) {
-                  const next = filteredList[curIdx + 1];
-                  setActivePhoto({
-                    imageUrl: next.imageUrl,
-                    caption: next.caption,
-                    title: next.title,
-                    location: next.location,
-                    provider: next.provider,
-                    publishedAt: next.publishedAt,
-                    sourceUrl: next.sourceUrl,
-                  });
-                } else {
-                  const first = filteredList[0];
-                  setActivePhoto({
-                    imageUrl: first.imageUrl,
-                    caption: first.caption,
-                    title: first.title,
-                    location: first.location,
-                    provider: first.provider,
-                    publishedAt: first.publishedAt,
-                    sourceUrl: first.sourceUrl,
-                  });
-                }
-              }}
-              aria-label="Next"
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-110 cursor-pointer"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
-
-            {/* Modal Dialog Content Container */}
-            <motion.div
-              initial={{ scale: 0.93, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.93, opacity: 0 }}
-              transition={{ type: "spring", damping: 26, stiffness: 280 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative flex flex-col items-center max-h-[92vh] max-w-5xl w-full"
-            >
-              {/* Image Frame */}
-              <div className="relative h-[65vh] sm:h-[72vh] w-full rounded-lg overflow-hidden shadow-2xl bg-black">
-                <Image
-                  src={activePhoto.imageUrl}
-                  alt={activePhoto.caption || activePhoto.title || "ফুল রেজোলিউশন ছবি"}
-                  fill
-                  priority
-                  sizes="(max-width: 1200px) 90vw, 1200px"
-                  className="object-contain"
-                />
-              </div>
-
-              {/* Caption & Metadata Bar */}
-              <div className="mt-4 w-full rounded-xl bg-white/10 p-4 sm:p-5 text-white backdrop-blur-xl border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
-                <div className="text-center sm:text-left">
-                  <div className="flex items-center justify-center sm:justify-start gap-2.5 mb-1.5">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#E97835] uppercase tracking-[0.2em]">
-                      {activePhoto.location || (activePhoto.provider === "YOUTUBE" ? "YOUTUBE" : "FACEBOOK")}
-                    </span>
-                    {activePhoto.publishedAt && (
-                      <>
-                        <span className="text-white/40">•</span>
-                        <span className="text-xs text-white/70">
-                          {new Date(activePhoto.publishedAt).toLocaleDateString("bn-BD", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                  {activePhoto.title && (
-                    <h4 className="font-heading text-sm sm:text-base font-bold text-white mb-1">
-                      {activePhoto.title}
-                    </h4>
+            {/* 1. TOP CAROUSEL HEADER BAR */}
+            <div className="flex items-center justify-between w-full max-w-6xl mx-auto z-30 pb-2">
+              {/* Left: Frame Counter & Platform Badge */}
+              <div className="flex items-center gap-3">
+                <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold font-mono text-[#E97835] border border-white/15">
+                  <Camera className="h-3.5 w-3.5" />
+                  <span>{carouselIndex + 1} / {filteredList.length}</span>
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white bg-white/10 border border-white/15">
+                  {activePhoto.provider === "YOUTUBE" ? (
+                    <>
+                      <FaYoutube className="h-3 w-3 text-red-500" />
+                      <span>ইউটিউব</span>
+                    </>
+                  ) : (
+                    <>
+                      <FaFacebookF className="h-3 w-3 text-blue-400" />
+                      <span>ফেসবুক</span>
+                    </>
                   )}
-                  <p className="text-xs sm:text-sm font-normal text-white/80 line-clamp-2 leading-relaxed">
-                    {activePhoto.caption}
-                  </p>
-                </div>
-
-                {activePhoto.sourceUrl && (
-                  <a
-                    href={activePhoto.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-all hover:bg-[#E97835] hover:text-white hover:scale-105 shadow-md shrink-0"
-                  >
-                    <span>মূল উৎস দেখুন</span>
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                )}
+                </span>
               </div>
-            </motion.div>
+
+              {/* Center: Title / Location */}
+              <div className="hidden md:block text-center max-w-md truncate">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">
+                  {activePhoto.location || activePhoto.title}
+                </span>
+              </div>
+
+              {/* Right: Close Button */}
+              <button
+                onClick={() => setCarouselIndex(null)}
+                aria-label="বন্ধ করুন"
+                className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-all hover:bg-white/25 hover:scale-110 active:scale-95 cursor-pointer shadow-md"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* 2. MAIN CAROUSEL SLIDE STAGE (WITH DRAG & SWIPE GESTURES) */}
+            <div className="relative flex-1 flex items-center justify-center w-full max-w-6xl mx-auto my-2 overflow-hidden">
+              {/* Floating Previous Arrow Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrevPhoto();
+                }}
+                aria-label="পূর্ববর্তী ছবি"
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-black/60 sm:bg-white/10 text-white backdrop-blur-md border border-white/20 transition-all hover:bg-[#E97835] hover:border-[#E97835] hover:scale-110 active:scale-95 cursor-pointer shadow-2xl"
+              >
+                <ChevronLeft className="h-6 w-6 sm:h-7 sm:w-7" />
+              </button>
+
+              {/* Floating Next Arrow Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNextPhoto();
+                }}
+                aria-label="পরবর্তী ছবি"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-black/60 sm:bg-white/10 text-white backdrop-blur-md border border-white/20 transition-all hover:bg-[#E97835] hover:border-[#E97835] hover:scale-110 active:scale-95 cursor-pointer shadow-2xl"
+              >
+                <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" />
+              </button>
+
+              {/* Animated Carousel Slide Frame */}
+              <AnimatePresence custom={slideDirection} mode="wait">
+                <motion.div
+                  key={`carousel-slide-${carouselIndex}`}
+                  custom={slideDirection}
+                  variants={{
+                    enter: (dir: number) => ({
+                      x: dir > 0 ? 350 : -350,
+                      opacity: 0,
+                      scale: 0.94,
+                    }),
+                    center: {
+                      x: 0,
+                      opacity: 1,
+                      scale: 1,
+                    },
+                    exit: (dir: number) => ({
+                      x: dir < 0 ? 350 : -350,
+                      opacity: 0,
+                      scale: 0.94,
+                    }),
+                  }}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 320, damping: 32 },
+                    opacity: { duration: 0.25 },
+                    scale: { duration: 0.25 },
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.7}
+                  onDragEnd={(_, { offset, velocity }) => {
+                    const swipe = Math.abs(offset.x) * velocity.x;
+                    if (swipe < -8000 || offset.x < -90) {
+                      handleNextPhoto();
+                    } else if (swipe > 8000 || offset.x > 90) {
+                      handlePrevPhoto();
+                    }
+                  }}
+                  className="relative h-full max-h-[58vh] sm:max-h-[66vh] w-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+                >
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <Image
+                      src={activePhoto.imageUrl}
+                      alt={activePhoto.caption || activePhoto.title || "ড্রিম বাইকার ছবি"}
+                      fill
+                      priority
+                      sizes="(max-width: 1200px) 95vw, 1200px"
+                      className="object-contain"
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* 3. CAPTION & METADATA BAR */}
+            <div className="w-full max-w-6xl mx-auto rounded-xl bg-white/10 p-3 sm:p-4 text-white backdrop-blur-xl border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl z-20">
+              <div className="text-center sm:text-left flex-1 min-w-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#E97835] uppercase tracking-[0.2em]">
+                    <MapPin className="h-3 w-3" />
+                    {activePhoto.location}
+                  </span>
+                  {activePhoto.publishedAt && (
+                    <>
+                      <span className="text-white/40">•</span>
+                      <span className="text-[11px] text-white/70">
+                        {new Date(activePhoto.publishedAt).toLocaleDateString("bn-BD", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
+                    </>
+                  )}
+                </div>
+                {activePhoto.title && (
+                  <h4 className="font-heading text-sm sm:text-base font-bold text-white mb-0.5 truncate">
+                    {activePhoto.title}
+                  </h4>
+                )}
+                <p className="text-xs text-white/80 line-clamp-1">
+                  {activePhoto.caption}
+                </p>
+              </div>
+
+              {activePhoto.sourceUrl && (
+                <a
+                  href={activePhoto.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all hover:bg-[#E97835] hover:text-white hover:scale-105 shadow-md shrink-0"
+                >
+                  <span>মূল উৎস দেখুন</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </div>
+
+            {/* 4. BOTTOM HORIZONTAL CAROUSEL FILMSTRIP (THUMBNAIL TRACK) */}
+            <div className="w-full max-w-6xl mx-auto pt-3 z-20">
+              <div
+                ref={thumbnailStripRef}
+                className="flex items-center gap-2 sm:gap-3 overflow-x-auto py-1 px-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent scroll-smooth"
+              >
+                {filteredList.map((thumb, idx) => {
+                  const isActive = idx === carouselIndex;
+
+                  return (
+                    <button
+                      key={thumb.id}
+                      onClick={() => handleJumpToPhoto(idx)}
+                      className={cn(
+                        "relative h-12 w-16 sm:h-14 sm:w-20 shrink-0 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer",
+                        isActive
+                          ? "ring-2 ring-[#E97835] ring-offset-2 ring-offset-black scale-105 opacity-100 shadow-lg shadow-[#E97835]/30"
+                          : "opacity-40 hover:opacity-85 hover:scale-102"
+                      )}
+                    >
+                      <Image
+                        src={thumb.imageUrl}
+                        alt={`থাম্বনেইল ${idx + 1}`}
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
