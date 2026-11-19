@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { AnimatedContent } from "@/components/shared/animated-content";
 
 export const metadata: Metadata = {
-  title: "ব্যবহারের শর্তাবলি | ড্রিম বাইকার",
+  title: "ব্যবহারের শর্তাবলি",
+  alternates: { canonical: "/terms-and-conditions" },
   description:
     "ড্রিম বাইকার (হানিফ)-এর ব্যক্তিগত পোর্টফোলিও, মানবিক কার্যক্রম এবং মিডিয়া প্ল্যাটফর্ম ব্যবহারের অফিশিয়াল শর্তাবলি।",
 };

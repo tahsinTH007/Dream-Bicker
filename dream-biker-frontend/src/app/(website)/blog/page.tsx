@@ -4,7 +4,8 @@ import { BlogListClient } from "@/features/blog/components/blog-list-client";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
 
 export const metadata: Metadata = {
-  title: "ব্লগ ও সোশ্যাল ডায়েরি | ড্রিম বাইকার (হানিফ)",
+  title: "ব্লগ ও সোশ্যাল ডায়েরি",
+  alternates: { canonical: "/blog" },
   description:
     "ড্রিম বাইকার (হানিফ)-এর ফেসবুক পোস্ট, মাঠপর্যায়ের অভিজ্ঞতা এবং প্রকাশিত ভিডিও পাবলিকেশনসমূহ এক প্ল্যাটফর্মে পড়ুন।",
 };

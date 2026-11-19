@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { AnimatedContent } from "@/components/shared/animated-content";
 
 export const metadata: Metadata = {
-  title: "গোপনীয়তা নীতি | ড্রিম বাইকার",
+  title: "গোপনীয়তা নীতি",
+  alternates: { canonical: "/privacy-policy" },
   description:
     "ড্রিম বাইকার (হানিফ)-এর ব্যক্তিগত পোর্টফোলিও, মানবিক কার্যক্রম এবং ব্লগ প্ল্যাটফর্মের অফিশিয়াল গোপনীয়তা নীতি।",
 };

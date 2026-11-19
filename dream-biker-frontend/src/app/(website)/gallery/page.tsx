@@ -3,7 +3,8 @@ import { GalleryView } from "@/features/gallery/components/gallery-view";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
 
 export const metadata: Metadata = {
-  title: "ফটোগ্যালারি | ড্রিম বাইকার (হানিফ)",
+  title: "ফটোগ্যালারি",
+  alternates: { canonical: "/gallery" },
   description:
     "বাংলাদেশের প্রত্যন্ত অঞ্চলে ড্রিম বাইকার (হানিফ)-এর মানবিক কার্যক্রম, মেঠোপথের যাত্রা এবং ফেসবুক ও ইউটিউব থেকে সংগৃহীত ছবির অ্যালবাম।",
 };

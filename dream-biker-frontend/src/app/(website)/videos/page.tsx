@@ -4,7 +4,8 @@ import { VideosListClient } from "@/features/videos/components/videos-list-clien
 import { socialStorage } from "@/server/social/storage/social-storage.service";
 
 export const metadata: Metadata = {
-  title: "ভিডিও ও রিলস | ড্রিম বাইকার (হানিফ)",
+  title: "ভিডিও ও রিলস",
+  alternates: { canonical: "/videos" },
   description:
     "ড্রিম বাইকার (হানিফ)-এর ইউটিউব ও ফেসবুক থেকে সংগৃহীত মাঠপর্যায়ের মানবিক তথ্যচিত্র, ভ্রমণ ডায়েরি এবং জনপ্রিয় রিলস ভিডিও উপভোগ করুন।",
 };
