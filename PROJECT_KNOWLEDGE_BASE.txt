@@ -243,7 +243,7 @@ The platform integrates directly with Google's YouTube Data API v3 and Meta's Fa
 
 ### 8.2 Facebook Graph API (`src/server/social/facebook/`)
 - **Page ID**: `BuydreambyHanif` (`FACEBOOK_PAGE_ID`).
-- **Access Token**: `FACEBOOK_ACCESS_TOKEN` (Long-lived Page Access Token with `pages_read_engagement`, `pages_read_user_content`).
+- **Access Token**: `FACEBOOK_PAGE_ACCESS_TOKEN` (Long-lived Page Access Token with `pages_read_engagement`, `pages_read_user_content`).
 - **Data Extracted**: Public status posts, video reels, cover images, and high-resolution photo attachments.
 
 ### 8.3 Dual Storage Architecture (`src/server/social/storage/`)
@@ -320,7 +320,7 @@ When working in this codebase, any AI agent **MUST** follow these rules:
 4. **Preserve Bengali Cultural Tone**:
    - Keep copy respectful, inspiring, and aligned with Dream Biker's humanitarian mission: *"মানবতাই শান্তির প্রতীক"*.
 5. **Security Best Practices**:
-   - Never expose API keys or secrets (`YOUTUBE_API_KEY`, `FACEBOOK_ACCESS_TOKEN`, `SYNC_SECRET_KEY`) to the client bundle (do NOT prefix them with `NEXT_PUBLIC_`).
+   - Never expose API keys or secrets (`YOUTUBE_API_KEY`, `FACEBOOK_PAGE_ACCESS_TOKEN`, `SYNC_SECRET_KEY`) to the client bundle (do NOT prefix them with `NEXT_PUBLIC_`).
 
 ---
 
@@ -358,8 +358,9 @@ npm run build
    - `YOUTUBE_API_KEY`
    - `YOUTUBE_CHANNEL_HANDLE`
    - `FACEBOOK_PAGE_ID`
-   - `FACEBOOK_ACCESS_TOKEN`
+   - `FACEBOOK_PAGE_ACCESS_TOKEN`
    - `SYNC_SECRET_KEY`
+   - `CRON_SECRET` *(needed for the scheduled sync)*
    - `DATABASE_URL` *(Optional, falls back to in-memory store if omitted)*
 4. Deploy. Cron jobs in `vercel.json` will trigger automated sync every 30 minutes.
 

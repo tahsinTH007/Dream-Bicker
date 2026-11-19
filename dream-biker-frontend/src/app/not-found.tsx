@@ -29,7 +29,7 @@ export default function NotFound() {
           </Link>
         </Button>
         <Button asChild variant="secondary">
-          <Link href="/stories">মানবিক গল্প দেখুন</Link>
+          <Link href="/blog">মানবিক গল্প দেখুন</Link>
         </Button>
       </div>
     </div>

@@ -127,3 +127,20 @@ model SocialSyncLog {
 
   @@index([startedAt(sort: Desc)])
 }
+
+// Messages submitted through the website contact form (/api/contact)
+model ContactMessage {
+  id          String    @id @default(cuid())
+  fullName    String
+  email       String
+  phone       String?
+  subject     String
+  inquiryType String
+  message     String    @db.Text
+  ipAddress   String?
+  userAgent   String?
+  handledAt   DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([createdAt(sort: Desc)])
+}

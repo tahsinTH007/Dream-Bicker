@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma, isDatabaseConfigured } from "@/lib/db/prisma";
+import { serverEnv } from "@/lib/env/server";
 import {
   NormalizedAccount,
   NormalizedVideo,
@@ -650,8 +651,8 @@ export class SocialStorageService {
     return [
       {
         provider: "YOUTUBE",
-        enabled: Boolean(process.env.YOUTUBE_API_KEY),
-        configured: Boolean(process.env.YOUTUBE_API_KEY),
+        enabled: Boolean(serverEnv.YOUTUBE_API_KEY),
+        configured: Boolean(serverEnv.YOUTUBE_API_KEY),
         lastSyncedAt: memoryStore.lastSyncedAt["YOUTUBE"] || null,
         itemCounts: {
           videos: memoryStore.videos.filter((v) => v.provider === "YOUTUBE").length,
@@ -661,8 +662,8 @@ export class SocialStorageService {
       },
       {
         provider: "FACEBOOK",
-        enabled: Boolean(process.env.FACEBOOK_PAGE_ACCESS_TOKEN),
-        configured: Boolean(process.env.FACEBOOK_PAGE_ACCESS_TOKEN && process.env.FACEBOOK_PAGE_ID),
+        enabled: Boolean(serverEnv.FACEBOOK_PAGE_ACCESS_TOKEN),
+        configured: Boolean(serverEnv.FACEBOOK_PAGE_ACCESS_TOKEN && serverEnv.FACEBOOK_PAGE_ID),
         lastSyncedAt: memoryStore.lastSyncedAt["FACEBOOK"] || null,
         itemCounts: {
           videos: memoryStore.videos.filter((v) => v.provider === "FACEBOOK").length,

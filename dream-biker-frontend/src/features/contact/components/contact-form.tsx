@@ -29,6 +29,20 @@ export function ContactForm() {
 
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = React.useState<string>("");
+  // When the server can't take the message, offer a prefilled email instead.
+  const [offerEmailFallback, setOfferEmailFallback] = React.useState<boolean>(false);
+  // Honeypot field (hidden from people, filled in by bots)
+  const [website, setWebsite] = React.useState<string>("");
+
+  const mailtoHref = React.useMemo(() => {
+    const lines = [`নাম: ${formData.fullName}`, `ইমেইল: ${formData.email}`];
+    if (formData.phone) lines.push(`ফোন: ${formData.phone}`);
+    lines.push(`উদ্দেশ্য: ${formData.inquiryType}`, "", formData.message);
+    const body = lines.join("\n");
+    return `mailto:md.hanifhossan6991@gmail.com?subject=${encodeURIComponent(
+      formData.subject
+    )}&body=${encodeURIComponent(body)}`;
+  }, [formData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -38,8 +52,9 @@ export function ContactForm() {
     if (status === "error") setStatus("idle");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setOfferEmailFallback(false);
 
     // Frontend validation
     if (!formData.fullName.trim()) {
@@ -57,7 +72,7 @@ export function ContactForm() {
       setErrorMessage("অনুগ্রহ করে বার্তার বিষয় উল্লেখ করুন।");
       return;
     }
-    if (!formData.message.trim() || formData.message.length < 10) {
+    if (formData.message.trim().length < 10) {
       setStatus("error");
       setErrorMessage("বার্তাটি কমপক্ষে ১০ অক্ষরের হতে হবে।");
       return;
@@ -65,10 +80,35 @@ export function ContactForm() {
 
     setStatus("submitting");
 
-    // Validated submission simulation
-    setTimeout(() => {
-      setStatus("success");
-    }, 800);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, website }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        return;
+      }
+
+      const data: { code?: string } = await response.json().catch(() => ({}));
+      setStatus("error");
+
+      if (data.code === "VALIDATION_ERROR") {
+        setErrorMessage("কিছু তথ্য সঠিক নয়। অনুগ্রহ করে ফর্মটি আবার যাচাই করুন।");
+      } else if (data.code === "RATE_LIMITED") {
+        setErrorMessage("অল্প সময়ে অনেকগুলো বার্তা পাঠানো হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।");
+      } else {
+        // NOT_CONFIGURED, SERVER_ERROR or anything unexpected: the message was NOT saved.
+        setErrorMessage("দুঃখিত, বার্তাটি এই মুহূর্তে পাঠানো যায়নি। নিচের বোতামে ক্লিক করে সরাসরি ইমেইল করুন।");
+        setOfferEmailFallback(true);
+      }
+    } catch {
+      setStatus("error");
+      setErrorMessage("নেটওয়ার্ক সমস্যার কারণে বার্তাটি পাঠানো যায়নি। সরাসরি ইমেইল করতে পারেন।");
+      setOfferEmailFallback(true);
+    }
   };
 
   return (
@@ -150,6 +190,20 @@ export function ContactForm() {
             onSubmit={handleSubmit}
             className="space-y-5"
           >
+            {/* Honeypot: hidden from people and screen readers, left empty by real visitors */}
+            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+              <label htmlFor="website">Website</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+              />
+            </div>
+
             {/* Full Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
@@ -274,7 +328,15 @@ export function ContactForm() {
                 className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 p-3.5 text-xs text-red-700"
               >
                 <AlertCircle className="h-4 w-4 shrink-0 text-red-600" />
-                <span>{errorMessage}</span>
+                <span className="flex-1">{errorMessage}</span>
+                {offerEmailFallback && (
+                  <a
+                    href={mailtoHref}
+                    className="shrink-0 rounded-lg bg-red-600 px-3 py-1.5 font-semibold text-white hover:bg-red-700 transition-colors"
+                  >
+                    ইমেইলে পাঠান
+                  </a>
+                )}
               </motion.div>
             )}
 

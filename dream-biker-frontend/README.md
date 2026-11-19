@@ -81,15 +81,15 @@ cp .env.example .env.local
 | `YOUTUBE_CHANNEL_ID` | Dream Biker YouTube Channel ID | `UC...` (or auto-resolved from handle) |
 | `YOUTUBE_CHANNEL_HANDLE` | Dream Biker YouTube Handle | `@DreamBiker532` |
 | `FACEBOOK_PAGE_ID` | Dream Biker Facebook Page ID or Username | `BuydreambyHanif` |
-| `FACEBOOK_ACCESS_TOKEN` | Meta Page Access Token (Long-Lived) | `EAA...` |
+| `FACEBOOK_PAGE_ACCESS_TOKEN` | Meta Page Access Token (Long-Lived) | `EAA...` |
 | `FACEBOOK_APP_ID` | Meta Developer App ID *(optional)* | `1234567890` |
 | `FACEBOOK_APP_SECRET` | Meta Developer App Secret *(optional)* | `abcdef...` |
 | `DATABASE_URL` | PostgreSQL connection string *(optional, fallback works without it)* | `postgresql://user:pass@localhost:5432/dreambiker` |
-| `SYNC_SECRET_KEY` | Secret token to secure manual and cron synchronization endpoints | `your-secure-sync-secret-key-min-16-chars` |
-| `CRON_SECRET` | Vercel Cron header authorization token *(optional)* | `vercel-cron-secret` |
-| `NEXT_PUBLIC_APP_URL` | Canonical website URL | `http://localhost:3000` |
+| `SYNC_SECRET_KEY` | Secret for manual sync/admin calls (min 16 chars, no default: unset = endpoints locked) | `your-secure-sync-secret-key-min-16-chars` |
+| `CRON_SECRET` | Vercel Cron bearer token. **Required on Vercel** or the scheduled sync is rejected (min 16 chars) | `random-cron-secret-min-16-chars` |
+| `NEXT_PUBLIC_SITE_URL` | Canonical website URL | `http://localhost:3000` |
 
-> **Security Guarantee**: Neither `YOUTUBE_API_KEY` nor `FACEBOOK_ACCESS_TOKEN` nor `SYNC_SECRET_KEY` use the `NEXT_PUBLIC_` prefix. They are strictly isolated to server-side code and are never exposed to the client bundle.
+> **Security Guarantee**: Neither `YOUTUBE_API_KEY` nor `FACEBOOK_PAGE_ACCESS_TOKEN` nor `SYNC_SECRET_KEY` use the `NEXT_PUBLIC_` prefix. They are strictly isolated to server-side code and are never exposed to the client bundle.
 
 ---
 
@@ -136,7 +136,7 @@ cp .env.example .env.local
 5. **Configure `.env.local`**:
    ```env
    FACEBOOK_PAGE_ID="BuydreambyHanif"
-   FACEBOOK_ACCESS_TOKEN="EAA...YourLongLivedPageToken"
+   FACEBOOK_PAGE_ACCESS_TOKEN="EAA...YourLongLivedPageToken"
    ```
 
 ---
@@ -254,8 +254,9 @@ npm run build
    - `YOUTUBE_API_KEY`
    - `YOUTUBE_CHANNEL_HANDLE`
    - `FACEBOOK_PAGE_ID`
-   - `FACEBOOK_ACCESS_TOKEN`
+   - `FACEBOOK_PAGE_ACCESS_TOKEN`
    - `SYNC_SECRET_KEY`
+   - `CRON_SECRET` *(needed for the scheduled sync)*
    - `DATABASE_URL` *(if using Supabase, Neon, or Railway PostgreSQL)*
 4. Click **Deploy**. Vercel will automatically compile the Next.js App Router project and set up the cron jobs defined in `vercel.json`.
 

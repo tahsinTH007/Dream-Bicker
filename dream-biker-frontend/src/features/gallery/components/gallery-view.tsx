@@ -22,7 +22,7 @@ interface GalleryViewProps {
   initialPhotos: NormalizedPhoto[];
 }
 
-interface CuratedGalleryItem {
+interface GalleryItem {
   id: string;
   imageUrl: string;
   location: string;
@@ -33,226 +33,6 @@ interface CuratedGalleryItem {
   publishedAt: string;
   sourceUrl?: string;
 }
-
-// 18 Curated High-Definition Photographic Frames
-const curatedMasterPhotos: CuratedGalleryItem[] = [
-  // 1. Column 1 Hero: Half Dome Mountain at dusk
-  {
-    id: "photo-1",
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85",
-    location: "YOSEMITE, CALIFORNIA",
-    title: "নীরব পর্বতমালার চূড়ায় ভোরের আলো",
-    caption: "ভোরের প্রথম রশ্মিতে জাগ্রত হওয়া পাহাড়ের বুক। নির্জন প্রকৃতির নিস্তব্ধতা যেখানে হৃদয়ের গভীর অনুভূতিকে স্পর্শ করে।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4]",
-    publishedAt: "2026-02-14T10:00:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 2. Column 2 Top: Intimate creature / subject on dark canvas
-  {
-    id: "photo-2",
-    imageUrl: "https://images.unsplash.com/photo-1507666405895-422eee7d517f?auto=format&fit=crop&w=1000&q=85",
-    location: "CAIRNGORMS, SCOTLAND",
-    title: "অন্ধকারের বুক চিরে মায়াবী দৃষ্টি",
-    caption: "নিস্তব্ধ বনে শান্ত দৃষ্টিতে তাকিয়ে থাকা নিঃসঙ্গ প্রাণী। প্রকৃতির মাঝে লুকিয়ে থাকা এক অনুপম জীবনবোধ।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-02-12T14:30:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 3. Column 3 Hero: Warm golden sunset mountain & desert
-  {
-    id: "photo-3",
-    imageUrl: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=85",
-    location: "NAMIB DESERT, SUNSET",
-    title: "সোনালি গোধূলির আলোয় শান্ত প্রান্তর",
-    caption: "ধূসর মরুর বুকে অস্তগামী সূর্যের শেষ আভা। জীবনের ক্লান্তি ধুয়ে যাওয়া এক শান্ত সন্ধ্যার স্মৃতি।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4]",
-    publishedAt: "2026-02-10T18:00:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 4. Column 2 Bottom: White misty ocean horizon
-  {
-    id: "photo-4",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85",
-    location: "NORTH SEA, NORDIC COAST",
-    title: "কুয়াশাঘেরা সাগরের অনন্ত বিস্তার",
-    caption: "সীমানাহীন জলরাশি আর ধূসর আকাশের মিলনমেলা। শান্ত ঢেউয়ের ছন্দে হারিয়ে যাওয়ার ব্যাকুলতা।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-02-08T09:15:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 5. Riverbank fisherman at dawn
-  {
-    id: "photo-5",
-    imageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=85",
-    location: "PADMA RIVER, BANGLADESH",
-    title: "ভোরের আলোয় পদ্মা পাড়ের জীবন",
-    caption: "পদ্মার শান্ত স্রোতে জালের বিস্তার। প্রকৃতির সাথে লড়াই করে বেঁচে থাকা নদীপাড়ের সংগ্রামী মানুষের প্রাত্যহিক গল্প।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2026-02-05T06:30:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 6. Old artisan workshop
-  {
-    id: "photo-6",
-    imageUrl: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=85",
-    location: "OLD DHAKA, CRAFTS",
-    title: "শ্রমজীবী প্রবীণ কারিগরের নিপুণ হাতের স্পর্শ",
-    caption: "শত বছরের ঐতিহ্য বুকে ধারণ করে বেঁচে থাকা প্রবীণ শিল্পীর একান্ত মুহূর্ত। শ্রমের ভেতর লুকিয়ে থাকা আত্মতৃপ্তি।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[4/3]",
-    publishedAt: "2026-02-01T15:20:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 7. Mountain highway motovlog journey
-  {
-    id: "photo-7",
-    imageUrl: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85",
-    location: "BANDARBAN HILL TRACTS",
-    title: "পাহাড়ি আঁকাবাঁকা পথে দুই চাকার অভিযান",
-    caption: "সবুজ পাহাড়ের বুক চিরে চলে যাওয়া মেঠোপথ। মুক্ত বাতাসের গন্ধ আর নতুন দিগন্তের সন্ধানে নিরন্তর পথচলা।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[16/10] sm:aspect-[3/4]",
-    publishedAt: "2026-01-28T11:45:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 8. Tea garden rain
-  {
-    id: "photo-8",
-    imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=85",
-    location: "SRIMANGAL, SYLHET",
-    title: "বৃষ্টিভেজা সবুজ চা বাগানের মায়াবী রূপ",
-    caption: "মেঘ আর কুয়াশার চাদরে ঢাকা চা বাগানের সতেজ শ্যামলিমা। প্রকৃতির বুকে এক টুকরো অপার্থিব শান্তি।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[1/1] sm:aspect-[4/3]",
-    publishedAt: "2026-01-24T16:00:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 9. Rural village sunset
-  {
-    id: "photo-9",
-    imageUrl: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1000&q=85",
-    location: "RANGPUR, CHAR AREA",
-    title: "চরাঞ্চলের মেঠোপথে গোধূলির আভা",
-    caption: "দিনের ক্লান্তি শেষে ঘরে ফেরা গ্রামীণ রাখাল আর শান্ত মেঠোপথ। গ্রামবাংলার চিরচেনা স্নিগ্ধ রূপ।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2026-01-20T17:30:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 10. Winter relief distribution
-  {
-    id: "photo-10",
-    imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85",
-    location: "KURIGRAM, WINTER RELIEF",
-    title: "শীতবস্ত্র বিতরণের এক আবেগঘন মুহূর্ত",
-    caption: "তীব্র শীতে অসহায় প্রবীণদের মুখে উষ্ণ হাসির ছোঁয়া। ভালোবাসা ও সহমর্মিতার চেয়ে বড় মানবিক শক্তি আর কিছু হতে পারে না।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[16/10]",
-    publishedAt: "2026-01-15T10:00:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 11. Solitary tree in golden plains
-  {
-    id: "photo-11",
-    imageUrl: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=1000&q=85",
-    location: "BOGURA, NORTHERN PLAINS",
-    title: "বিস্তীর্ণ মাঠে নিঃসঙ্গ বৃক্ষের ছায়া",
-    caption: "একাকী দাঁড়িয়ে থাকা বটগাছ যেন সময়ের নীরব সাক্ষী। দিগন্তজোড়া ফসলি জমির বুকে শান্ত আশ্রয়।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2026-01-10T14:15:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 12. Island life & children smile
-  {
-    id: "photo-12",
-    imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85",
-    location: "SANDWIP ISLAND, CHITTAGONG",
-    title: "চরাঞ্চলের শিশুদের অনাবিল হাসি",
-    caption: "সুবিধাবঞ্চিত শিশুদের নিষ্পাপ মুখের চঞ্চল আনন্দ। এই হাসিটুকুই আমাদের দীর্ঘ পথচলার সবচেয়ে বড় প্রেরণা।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2026-01-05T12:00:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 13. Coastal highway bike ride
-  {
-    id: "photo-13",
-    imageUrl: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1000&q=85",
-    location: "MARINE DRIVE, COX'S BAZAR",
-    title: "নীল সমুদ্রের তীর ঘেঁষে অন্তহীন যাত্রা",
-    caption: "বিশ্বের দীর্ঘতম সমুদ্র সৈকতের কোল ঘেঁষে ছুটে চলা। সমুদ্রের গর্জন আর ইঞ্জিনের গুঞ্জনের অপূর্ব মেলবন্ধন।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[16/10]",
-    publishedAt: "2025-12-30T16:45:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 14. Ancient banyan tree roots
-  {
-    id: "photo-14",
-    imageUrl: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85",
-    location: "SUNDARBANS FOREST BORDER",
-    title: "গহীন অরণ্যের রহস্য ও নিস্তব্ধতা",
-    caption: "ম্যানগ্রোভ বনের শিকড়ে আটকে থাকা প্রাকৃতিক স্থাপত্য। সবুজের গভীরতায় প্রকৃতির আদিম শক্তির স্পন্দন।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[3/4]",
-    publishedAt: "2025-12-25T11:20:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 15. River reflection at dusk
-  {
-    id: "photo-15",
-    imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85",
-    location: "MEGHNA RIVER, CHANDPUR",
-    title: "মেঘনার বুকে সন্ধ্যার রক্তিম প্রতিচ্ছবি",
-    caption: "নদীর জলের বুকে প্রতিফলিত অস্তসূর্যের লাল আভা। প্রতিটি দিন শেষ হয় এক নতুন আশার বার্তা নিয়ে।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2025-12-20T17:50:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 16. Village school distribution
-  {
-    id: "photo-16",
-    imageUrl: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1000&q=85",
-    location: "NETROKONA, HAOR BASIN",
-    title: "হাওরপাড়ের শিশুদের হাতে বইখাতা",
-    caption: "শিক্ষা উপকরণ পেয়ে হাওরের অবহেলিত শিশুদের চোখে নতুন স্বপ্নের দীপ্তি। মানবসেবাই হোক আমাদের ব্রত।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[16/10]",
-    publishedAt: "2025-12-15T09:30:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-  // 17. Misty mountain pass
-  {
-    id: "photo-17",
-    imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
-    location: "SAJEK VALLEY, RANGAMATI",
-    title: "মেঘের দেশে একলা বাইকার",
-    caption: "পাহাড়ের চূড়ায় সাদা মেঘের মেলা। মনে হয় যেন হাত বাড়ালেই ছোঁয়া যাবে অনন্ত আকাশ।",
-    provider: "YOUTUBE",
-    aspect: "aspect-[3/4] sm:aspect-[4/5]",
-    publishedAt: "2025-12-10T08:00:00.000Z",
-    sourceUrl: "https://www.youtube.com/@DreamBiker532",
-  },
-  // 18. Portrait of elderly villager
-  {
-    id: "photo-18",
-    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1000&q=85",
-    location: "SIRAJGANJ, JAMUNA BASIN",
-    title: "অভিজ্ঞতার রেখা আঁকা বৃদ্ধের মুখচ্ছবি",
-    caption: "শব্দহীন চোখের চাহনি যা হাজারো না বলা কথা ব্যক্ত করে। মানুষের প্রতি নিখাদ ভালোবাসাই আমাদের পাথেয়।",
-    provider: "FACEBOOK",
-    aspect: "aspect-[4/3] sm:aspect-[1/1]",
-    publishedAt: "2025-12-01T12:00:00.000Z",
-    sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-  },
-];
 
 export function GalleryView({ initialPhotos }: GalleryViewProps) {
   // Filter state: "all", "facebook", "youtube"
@@ -269,9 +49,9 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
   // Ref for thumbnail filmstrip to auto-scroll
   const thumbnailStripRef = React.useRef<HTMLDivElement | null>(null);
 
-  // Combine initialPhotos from API with curated photos
-  const allPhotosCombined: CuratedGalleryItem[] = React.useMemo(() => {
-    const list: CuratedGalleryItem[] = [...curatedMasterPhotos];
+  // Normalize synced social photos into gallery items (deduplicated by image URL)
+  const allPhotosCombined: GalleryItem[] = React.useMemo(() => {
+    const list: GalleryItem[] = [];
 
     initialPhotos.forEach((apiPhoto, idx) => {
       if (!list.some((item) => item.imageUrl === apiPhoto.imageUrl)) {
@@ -436,7 +216,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
   const column3 = visiblePhotos.filter((_, idx) => idx % 3 === 2);
 
   // Render individual photo card (Always in full vivid color)
-  const renderCard = (photo: CuratedGalleryItem, globalIndex: number) => {
+  const renderCard = (photo: GalleryItem, globalIndex: number) => {
     const isYT = photo.provider === "YOUTUBE";
 
     return (
@@ -601,7 +381,11 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
       <section className="relative w-full border-b border-white/10 bg-black/40">
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12">
           <CoverflowCarousel
+            // Remount on filter change so the slide position starts at 0 for the new list
+            key={activeFilter}
             items={carouselItems}
+            // The fullscreen lightbox owns the arrow keys while it is open
+            keyboardEnabled={carouselIndex === null}
             onSelectPhoto={(item) => {
               const idx = filteredList.findIndex((p) => p.imageUrl === item.imageUrl);
               openCarousel(idx >= 0 ? idx : 0);
@@ -621,9 +405,15 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
             আলোকচিত্র সংগ্রহশালা
           </span>
           <span className="text-[11px] font-sans uppercase tracking-[0.2em] text-white/40">
-            স্ক্রোল করে আরও দেখুন ({visibleCount} OF {filteredList.length})
+            স্ক্রোল করে আরও দেখুন ({Math.min(visibleCount, filteredList.length)} OF {filteredList.length})
           </span>
         </div>
+
+        {filteredList.length === 0 && (
+          <div className="py-24 text-center text-sm text-white/50">
+            এই বিভাগে এখনো কোনো ছবি নেই।
+          </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 items-start">
           {/* Column 1 */}

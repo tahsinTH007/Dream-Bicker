@@ -23,6 +23,8 @@ interface CoverflowCarouselProps {
   onSelectPhoto?: (item: CoverflowItem) => void;
   className?: string;
   buttonText?: string;
+  /** Set false while another component (e.g. a lightbox) handles the arrow keys. */
+  keyboardEnabled?: boolean;
 }
 
 export function CoverflowCarousel({
@@ -30,6 +32,7 @@ export function CoverflowCarousel({
   onSelectPhoto,
   className,
   buttonText = "View Frame",
+  keyboardEnabled = true,
 }: CoverflowCarouselProps) {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [direction, setDirection] = React.useState<number>(0);
@@ -48,6 +51,7 @@ export function CoverflowCarousel({
 
   // Keyboard navigation when user is on page
   React.useEffect(() => {
+    if (!keyboardEnabled) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") {
         handlePrev();
@@ -58,7 +62,7 @@ export function CoverflowCarousel({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handlePrev, handleNext]);
+  }, [handlePrev, handleNext, keyboardEnabled]);
 
   if (total === 0) return null;
 
