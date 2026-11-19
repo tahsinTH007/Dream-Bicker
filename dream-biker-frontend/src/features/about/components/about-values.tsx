@@ -59,7 +59,7 @@ export function AboutValues() {
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 whileHover={{ y: -8 }}
-                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
+                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
               >
                 <div>
                   {/* Floating Icon Box */}
@@ -79,7 +79,7 @@ export function AboutValues() {
                 </div>
 
                 {/* Bottom Step Indicator */}
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-bold text-white/40 group-hover:text-[#E97835] transition-colors">
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-white/40 group-hover:text-[#E97835] transition-colors">
                   <span>মূল্যবোধ ০{idx + 1}</span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>

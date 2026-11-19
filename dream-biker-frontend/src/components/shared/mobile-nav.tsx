@@ -73,7 +73,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
 
         {/* Navigation Items (6 exact routes) */}
         <div className="flex-1 overflow-y-auto px-6 py-6">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-[#777777] mb-3">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#777777] mb-3">
             মেনু নেভিগেশন
           </p>
           <nav className="flex flex-col space-y-1.5">

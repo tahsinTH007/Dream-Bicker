@@ -171,7 +171,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                         {/* Platform & Type Badge */}
-                        <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/65 border border-white/20">
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow bg-black/75 border border-white/20">
                           {isFB ? (
                             <>
                               <FaFacebookF className="h-3 w-3 text-blue-400" />
@@ -209,7 +209,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                           </span>
 
                           {!hasMedia && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-[#F7F5EF] px-2 py-0.5 text-[10px] font-bold text-[#142B3B]">
+                            <span className="inline-flex items-center gap-1 rounded-md bg-[#F7F5EF] px-2 py-0.5 text-xs font-bold text-[#142B3B]">
                               <TypeIcon className="h-3 w-3" />
                               {typeLabel}
                             </span>

@@ -89,7 +89,7 @@ export function HeroSection() {
         <motion.div variants={container} initial="hidden" animate="show" className="max-w-2xl">
           {/* Eyebrow pill */}
           <motion.div variants={rise}>
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-[#FFC93C]/35 bg-gradient-to-r from-[#FFC93C]/15 to-[#FF6B2C]/10 px-4 py-1.5 text-sm font-semibold text-[#FFD970] shadow-[0_0_30px_-8px_rgba(255,201,60,0.6)] backdrop-blur-md">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-[#FFC93C]/35 bg-gradient-to-r from-[#FFC93C]/15 to-[#FF6B2C]/10 px-4 py-1.5 text-sm font-semibold text-[#FFD970] shadow-[0_0_30px_-8px_rgba(255,201,60,0.6)]">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFC93C] opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FFC93C]" />
@@ -163,7 +163,7 @@ export function HeroSection() {
 
             <Link
               href="/videos"
-              className="group inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 py-2 pl-2 pr-6 text-base font-bold text-white backdrop-blur-md transition-[transform,background-color,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 active:translate-y-0"
+              className="group inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 py-2 pl-2 pr-6 text-base font-bold text-white transition-[transform,background-color,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 active:translate-y-0"
             >
               <span
                 className="flex h-9 w-9 items-center justify-center rounded-full text-white shadow-[0_6px_18px_-4px_rgba(255,45,85,0.8)] transition-transform duration-300 ease-out group-hover:scale-110"
@@ -206,7 +206,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.75, ease: EASE_OUT }}
-        className="relative border-t border-white/10 bg-[#0B1511]/70 backdrop-blur-xl"
+        className="relative border-t border-white/10 bg-[#0B1511]/90"
       >
         {/* glowing gradient edge */}
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFC93C] to-transparent opacity-70" />
@@ -235,7 +235,7 @@ export function HeroSection() {
                     {/* starts as the stats bar fades in, slightly staggered */}
                     <CountUp to={stat.value} suffix={stat.suffix} duration={2.2} delay={0.6 + idx * 0.12} />
                   </p>
-                  <p className="text-xs font-medium text-white/65 sm:text-sm">{stat.label}</p>
+                  <p className="text-xs font-medium text-white/80 sm:text-sm">{stat.label}</p>
                 </div>
               </li>
             );

@@ -92,7 +92,7 @@ export function AboutHero() {
                 >
                   <Sparkles className="h-5 w-5 mb-1 animate-pulse" />
                   <p className="text-xs font-bold">দুই চাকায়</p>
-                  <p className="text-[10px] text-white/90">সীমাহীন ভালোবাসা</p>
+                  <p className="text-xs text-white/90">সীমাহীন ভালোবাসা</p>
                 </motion.div>
               </div>
             </motion.div>
@@ -165,7 +165,7 @@ export function AboutHero() {
                 >
                   <Compass className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">অভিযাত্রী</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">তৃণমূল বাংলা</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">তৃণমূল বাংলা</span>
                 </motion.div>
 
                 <motion.div
@@ -175,7 +175,7 @@ export function AboutHero() {
                 >
                   <Heart className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">মানবসেবক</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">মাঠপর্যায়ের কল্যাণ</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">মাঠপর্যায়ের কল্যাণ</span>
                 </motion.div>
 
                 <motion.div
@@ -185,7 +185,7 @@ export function AboutHero() {
                 >
                   <Shield className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">গল্পকার</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">মর্যাদা প্রথম</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">মর্যাদা প্রথম</span>
                 </motion.div>
               </div>
             </motion.div>

@@ -54,14 +54,14 @@ export function AboutIntroSection() {
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 whileHover={{ y: -4 }}
-                className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10 backdrop-blur-md"
+                className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10"
               >
                 <Quote className="h-5 w-5 text-[#E97835] mb-2" />
                 <p className="text-xs leading-relaxed italic text-white/90">
                   &quot;আমি শুধু নতুন জায়গা দেখার জন্য ঘুরি না; ঘুরি মানুষের
                   হৃদয়ের গভীরের ভালোবাসা প্রত্যক্ষ করতে।&quot;
                 </p>
-                <span className="mt-2 block text-[10px] font-bold uppercase tracking-wider text-[#E97835]">
+                <span className="mt-2 block text-xs font-bold uppercase tracking-wider text-[#E97835]">
                   — হানিফ (ড্রিম বাইকার)
                 </span>
               </motion.div>

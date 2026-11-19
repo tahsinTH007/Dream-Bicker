@@ -143,7 +143,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
                   </div>
 
                   {/* Platform badge */}
-                  <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold bg-black/70 backdrop-blur-md border border-white/20">
+                  <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold bg-black/70 border border-white/20">
                     {featuredVideo.provider === "YOUTUBE" ? (
                       <>
                         <FaYoutube className="h-4 w-4 text-red-500" />
@@ -252,7 +252,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
 
                     {/* Platform Badge */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/60 border border-white/20">
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow bg-black/70 border border-white/20">
                       {isYT ? (
                         <>
                           <FaYoutube className="h-3.5 w-3.5 text-red-500" />
@@ -268,7 +268,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
 
                     {/* Duration Badge */}
                     {video.duration && (
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-mono text-white/90 border border-white/10 backdrop-blur-sm">
+                      <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-xs font-mono text-white/90 border border-white/10">
                         <Clock className="h-3 w-3 text-[#E97835]" />
                         <span>{video.duration}</span>
                       </div>

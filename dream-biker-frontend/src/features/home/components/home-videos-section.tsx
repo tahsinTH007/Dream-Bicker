@@ -83,7 +83,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
                   {/* Platform Badge */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow-md backdrop-blur-sm bg-black/60 border border-white/20">
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow-md bg-black/70 border border-white/20">
                     {isYT ? (
                       <>
                         <FaYoutube className="h-3.5 w-3.5 text-red-500" />
@@ -99,7 +99,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
 
                   {/* Duration Badge */}
                   {video.duration && (
-                    <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-[11px] font-mono text-white/90 border border-white/10 backdrop-blur-sm">
+                    <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md bg-black/80 px-2 py-0.5 text-xs font-mono text-white/90 border border-white/10">
                       <Clock className="h-3 w-3 text-[#F5A623]" />
                       <span>{video.duration}</span>
                     </div>

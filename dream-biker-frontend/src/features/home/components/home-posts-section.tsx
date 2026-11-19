@@ -85,7 +85,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-106"
                       />
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/60 border border-white/20">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow bg-black/70 border border-white/20">
                         {isFB ? (
                           <>
                             <FaFacebookF className="h-3 w-3 text-blue-400" />

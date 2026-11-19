@@ -250,7 +250,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
               </button>
             ) : (
               filteredList.length > 0 && (
-                <span className="text-[11px] font-bold tracking-wider text-white/30">
+                <span className="text-xs font-bold tracking-wider text-white/30">
                   সব ছবি প্রদর্শিত হয়েছে
                 </span>
               )
@@ -271,7 +271,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-xl"
+            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95"
             onClick={() => setOpenIndex(null)}
           >
             {/* Floats over the slider so it costs no vertical space */}
@@ -341,7 +341,7 @@ function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
       {/* Hover overlay */}
       <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-t from-black/90 via-black/30 to-black/10 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:p-5">
         <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-2.5 py-1 text-[11px] font-bold text-white">
+          <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-2.5 py-1 text-xs font-bold text-white">
             {isYT ? (
               <FaYoutube className="h-3.5 w-3.5 text-red-500" />
             ) : (
@@ -358,7 +358,7 @@ function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
           <span className="line-clamp-2 block text-sm font-bold leading-snug text-white sm:text-base">
             {photo.title}
           </span>
-          <span className="flex items-center gap-1 text-[11px] font-bold text-[#E97835]">
+          <span className="flex items-center gap-1 text-xs font-bold text-[#E97835]">
             ক্যারোসেলে দেখুন
             <ArrowUpRight className="h-3 w-3" />
           </span>

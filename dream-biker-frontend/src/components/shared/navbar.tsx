@@ -37,7 +37,7 @@ export function Navbar() {
             ? cn(
                 "fixed inset-x-0 top-0",
                 isScrolled
-                  ? "bg-[#0A1620]/95 backdrop-blur-md shadow-lg border-white/10"
+                  ? "bg-[#0A1620]/95 shadow-lg border-white/10"
                   : "bg-transparent border-white/5"
               )
             : "sticky top-0 bg-[#0A1620] border-white/10"
@@ -52,7 +52,7 @@ export function Navbar() {
           {/* 2. Middle: Floating Pill Navigation Capsule (Desktop: 6 exact items) */}
           <nav
             aria-label="Main Navigation"
-            className="hidden md:flex items-center rounded-full bg-black/40 backdrop-blur-md px-2 py-1 border border-white/15 shadow-inner"
+            className="hidden md:flex items-center rounded-full bg-black/55 px-2 py-1 border border-white/15 shadow-inner"
           >
             {mainNavItems.map((item) => {
               const isActive =

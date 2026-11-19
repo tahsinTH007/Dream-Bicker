@@ -46,7 +46,7 @@ export function Footer() {
                 <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors text-shadow-md">
                   Dream Biker
                 </span>
-                <span className="text-[11px] font-medium text-white/70 text-shadow-sm">
+                <span className="text-xs font-medium text-white/70 text-shadow-sm">
                   মো. হানিফ হোসেন
                 </span>
               </div>

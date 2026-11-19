@@ -74,7 +74,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
                   <span className="text-xs text-white font-medium line-clamp-2 leading-snug">
                     {photo.caption}
                   </span>
-                  <span className="mt-1 text-[10px] text-[#F5A623] uppercase font-bold tracking-wider">
+                  <span className="mt-1 text-xs text-[#F5A623] uppercase font-bold tracking-wider">
                     {photo.provider === "YOUTUBE" ? "ইউটিউব" : "ফেসবুক"}
                   </span>
                 </div>

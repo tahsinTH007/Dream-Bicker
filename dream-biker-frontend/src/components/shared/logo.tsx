@@ -44,7 +44,7 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
           </span>
           <span
             className={cn(
-              "text-[11px] font-medium text-shadow-sm mt-1 hidden sm:block",
+              "text-xs font-medium text-shadow-sm mt-1 hidden sm:block",
               isLight ? "text-white/70" : "text-[#777777]",
             )}
           >

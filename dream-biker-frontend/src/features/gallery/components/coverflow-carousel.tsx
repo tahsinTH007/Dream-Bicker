@@ -151,7 +151,7 @@ export function CoverflowCarousel({
                 />
 
                 <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/30 to-transparent p-5 sm:p-7">
-                  <span className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white/80 sm:text-[11px]">
+                  <span className="mb-1.5 text-xs font-bold uppercase tracking-[0.25em] text-white/80 sm:text-xs">
                     {item.category}
                   </span>
                   <h3 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
