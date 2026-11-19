@@ -153,8 +153,22 @@ function initializeDefaultStore(): MemorySocialStore {
   };
 }
 
+function initializeEmptyStore(): MemorySocialStore {
+  return { accounts: [], videos: [], posts: [], photos: [], lastSyncedAt: {} };
+}
+
+/**
+ * Sample content (stock photos posing as videos/posts) is for development only.
+ * In production the site shows real synced content or empty states, unless
+ * SHOW_SAMPLE_CONTENT=true is set explicitly.
+ */
+export const showSampleContent: boolean =
+  serverEnv.SHOW_SAMPLE_CONTENT ?? process.env.NODE_ENV !== "production";
+
 // Global memory cache instance
-const memoryStore: MemorySocialStore = initializeDefaultStore();
+const memoryStore: MemorySocialStore = showSampleContent
+  ? initializeDefaultStore()
+  : initializeEmptyStore();
 
 export class SocialStorageService {
   /**

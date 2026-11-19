@@ -155,6 +155,13 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           </div>
         </motion.div>
 
+        {filteredPosts.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-[#EAE6DB] bg-[#F7F5EF]/50 px-6 py-14 text-center">
+            <p className="text-base font-semibold text-[#142B3B]">এখনো কোনো পোস্ট যুক্ত হয়নি।</p>
+            <p className="mt-1 text-sm text-[#777777]">ফেসবুক ও ইউটিউব থেকে পোস্ট শীঘ্রই এখানে দেখা যাবে।</p>
+          </div>
+        )}
+
         {/* Posts Grid with Animated Transitions */}
         <AnimatePresence mode="wait" initial={false}>
           <motion.div

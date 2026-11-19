@@ -143,6 +143,13 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
           </div>
         </motion.div>
 
+        {filteredVideos.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-[#EAE6DB] bg-[#F7F5EF]/50 px-6 py-14 text-center">
+            <p className="text-base font-semibold text-[#142B3B]">এখনো কোনো ভিডিও যুক্ত হয়নি।</p>
+            <p className="mt-1 text-sm text-[#777777]">ইউটিউব ও ফেসবুক থেকে ভিডিও শীঘ্রই এখানে দেখা যাবে।</p>
+          </div>
+        )}
+
         {/* Videos Grid with Animated Transitions */}
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
