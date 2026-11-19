@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Heart, Play, Star, Users, type LucideIcon } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
+import { CountUp } from "@/components/shared/count-up";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -231,7 +232,8 @@ export function HeroSection() {
                 </span>
                 <div>
                   <p className="text-xl font-extrabold leading-tight text-white sm:text-2xl">
-                    {stat.value}
+                    {/* starts as the stats bar fades in, slightly staggered */}
+                    <CountUp to={stat.value} suffix={stat.suffix} duration={2.2} delay={0.6 + idx * 0.12} />
                   </p>
                   <p className="text-xs font-medium text-white/65 sm:text-sm">{stat.label}</p>
                 </div>

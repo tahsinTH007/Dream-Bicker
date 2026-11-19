@@ -12,11 +12,13 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
   // Figures shown in the home hero stats bar. Update these by hand.
+  // `value` is the number that counts up; `suffix` is shown after it.
+  // Numbers are displayed with Bengali digits automatically.
   heroStats: [
-    { value: "৪৫ লাখ+", label: "ফেসবুক ফলোয়ার", icon: "followers" },
-    { value: "১৪০ কোটি+", label: "রিলস ভিউ", icon: "views" },
-    { value: "৯৮%", label: "রিকমেন্ডেশন", icon: "recommend" },
-    { value: "৬৯০+", label: "রিভিউ", icon: "reviews" },
+    { value: 45, suffix: " লাখ+", label: "ফেসবুক ফলোয়ার", icon: "followers" },
+    { value: 140, suffix: " কোটি+", label: "রিলস ভিউ", icon: "views" },
+    { value: 98, suffix: "%", label: "রিকমেন্ডেশন", icon: "recommend" },
+    { value: 690, suffix: "+", label: "রিভিউ", icon: "reviews" },
   ],
   contact: {
     email: "md.hanifhossan6991@gmail.com",

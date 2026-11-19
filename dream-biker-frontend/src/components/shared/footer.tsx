@@ -10,7 +10,7 @@ import { siteConfig } from "@/config/site.config";
 
 export function Footer() {
   return (
-    <footer className="relative w-full overflow-hidden text-white border-t border-white/15 shadow-2xl min-h-[170px] sm:min-h-[190px] flex items-center">
+    <footer className="relative w-full overflow-hidden text-white shadow-2xl min-h-[170px] sm:min-h-[190px] flex items-center">
       {/* 1. Full-Width Background Road Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -22,9 +22,6 @@ export function Footer() {
           sizes="100vw"
           className="object-cover object-center select-none pointer-events-none"
         />
-
-        {/* Subtle top border highlight */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
       </div>
 
       {/* 2. Main Footer Bar Content (Matching the reference single-bar layout) */}
