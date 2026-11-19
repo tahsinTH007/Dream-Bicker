@@ -5,6 +5,7 @@ const serverEnvSchema = z.object({
   // YouTube API
   YOUTUBE_API_KEY: z.string().optional(),
   YOUTUBE_CHANNEL_ID: z.string().optional(),
+  YOUTUBE_CHANNEL_HANDLE: z.string().optional(),
   YOUTUBE_API_ENABLED: z
     .string()
     .optional()
@@ -21,11 +22,21 @@ const serverEnvSchema = z.object({
     .optional()
     .transform((val) => val === "true" || val === "1"),
 
-  // Sync Protection & Security
-  SYNC_SECRET_KEY: z.string().default("dream_biker_sync_secret_dev"),
+  // Sync Protection & Security.
+  // No default: if neither secret is set, every protected endpoint rejects requests.
+  SYNC_SECRET_KEY: z.string().optional(),
+  // Vercel Cron sends `Authorization: Bearer ${CRON_SECRET}` automatically.
+  CRON_SECRET: z.string().optional(),
 
   // Site URL
   NEXT_PUBLIC_SITE_URL: z.string().default("http://localhost:3000"),
+
+  // Show built-in sample videos/posts/photos when nothing has been synced.
+  // Unset = on in development, off in production (sample data uses stock photos).
+  SHOW_SAMPLE_CONTENT: z
+    .string()
+    .optional()
+    .transform((val) => (val === undefined || val === "" ? undefined : val === "true" || val === "1")),
 
   // Optional PostgreSQL Database
   DATABASE_URL: z.string().optional(),
@@ -51,7 +62,14 @@ const serverEnvSchema = z.object({
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
 
 function getValidatedServerEnv(): ServerEnv {
-  const result = serverEnvSchema.safeParse(process.env);
+  const input: Record<string, string | undefined> = {
+    ...process.env,
+    // Accept the older documented name as an alias.
+    FACEBOOK_PAGE_ACCESS_TOKEN:
+      process.env.FACEBOOK_PAGE_ACCESS_TOKEN || process.env.FACEBOOK_ACCESS_TOKEN,
+  };
+
+  const result = serverEnvSchema.safeParse(input);
   if (!result.success) {
     console.warn(
       "⚠️ [ENV WARN] Some server environment variables are invalid or missing:",
@@ -59,19 +77,22 @@ function getValidatedServerEnv(): ServerEnv {
     );
     // Return safe fallbacks so the application never crashes on startup
     return {
-      YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY || "",
-      YOUTUBE_CHANNEL_ID: process.env.YOUTUBE_CHANNEL_ID || "",
-      YOUTUBE_API_ENABLED: process.env.YOUTUBE_API_ENABLED === "true",
-      FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID || "",
-      FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET || "",
-      FACEBOOK_PAGE_ID: process.env.FACEBOOK_PAGE_ID || "",
-      FACEBOOK_PAGE_ACCESS_TOKEN: process.env.FACEBOOK_PAGE_ACCESS_TOKEN || "",
-      FACEBOOK_GRAPH_API_VERSION: process.env.FACEBOOK_GRAPH_API_VERSION || "v22.0",
-      FACEBOOK_API_ENABLED: process.env.FACEBOOK_API_ENABLED === "true",
-      SYNC_SECRET_KEY: process.env.SYNC_SECRET_KEY || "dream_biker_sync_secret_dev",
-      NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-      DATABASE_URL: process.env.DATABASE_URL || "",
-      SOCIAL_SYNC_ENABLED: process.env.SOCIAL_SYNC_ENABLED !== "false",
+      YOUTUBE_API_KEY: input.YOUTUBE_API_KEY || "",
+      YOUTUBE_CHANNEL_ID: input.YOUTUBE_CHANNEL_ID || "",
+      YOUTUBE_CHANNEL_HANDLE: input.YOUTUBE_CHANNEL_HANDLE || "",
+      YOUTUBE_API_ENABLED: input.YOUTUBE_API_ENABLED === "true",
+      FACEBOOK_APP_ID: input.FACEBOOK_APP_ID || "",
+      FACEBOOK_APP_SECRET: input.FACEBOOK_APP_SECRET || "",
+      FACEBOOK_PAGE_ID: input.FACEBOOK_PAGE_ID || "",
+      FACEBOOK_PAGE_ACCESS_TOKEN: input.FACEBOOK_PAGE_ACCESS_TOKEN || "",
+      FACEBOOK_GRAPH_API_VERSION: input.FACEBOOK_GRAPH_API_VERSION || "v22.0",
+      FACEBOOK_API_ENABLED: input.FACEBOOK_API_ENABLED === "true",
+      SYNC_SECRET_KEY: input.SYNC_SECRET_KEY || "",
+      CRON_SECRET: input.CRON_SECRET || "",
+      NEXT_PUBLIC_SITE_URL: input.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      SHOW_SAMPLE_CONTENT: input.SHOW_SAMPLE_CONTENT ? input.SHOW_SAMPLE_CONTENT === "true" || input.SHOW_SAMPLE_CONTENT === "1" : undefined,
+      DATABASE_URL: input.DATABASE_URL || "",
+      SOCIAL_SYNC_ENABLED: input.SOCIAL_SYNC_ENABLED !== "false",
       SOCIAL_SYNC_INTERVAL_MINUTES: 30,
       SOCIAL_SYNC_INITIAL_LOOKBACK_DAYS: 365,
     };

@@ -30,12 +30,17 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "z-50 w-full transition-all duration-300",
+          // Same position and padding in both states: only colours/shadow fade,
+          // so nothing jumps when the page starts scrolling.
+          "z-50 w-full border-b py-3.5 sm:py-4 transition-[background-color,border-color,box-shadow] duration-300 ease-out",
           isHome
-            ? isScrolled
-              ? "fixed top-0 left-0 right-0 bg-[#0A1620]/95 backdrop-blur-md shadow-lg border-b border-white/10 py-3"
-              : "absolute top-0 left-0 right-0 bg-transparent py-3.5 sm:py-5 border-b border-white/5"
-            : "sticky top-0 bg-[#0A1620] py-3.5 sm:py-4 border-b border-white/10"
+            ? cn(
+                "fixed inset-x-0 top-0",
+                isScrolled
+                  ? "bg-[#0A1620]/95 shadow-lg border-white/10"
+                  : "bg-transparent border-white/5"
+              )
+            : "sticky top-0 bg-[#0A1620] border-white/10"
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -47,7 +52,7 @@ export function Navbar() {
           {/* 2. Middle: Floating Pill Navigation Capsule (Desktop: 6 exact items) */}
           <nav
             aria-label="Main Navigation"
-            className="hidden md:flex items-center rounded-full bg-black/40 backdrop-blur-md px-2 py-1 border border-white/15 shadow-inner"
+            className="hidden md:flex items-center rounded-full bg-black/55 px-2 py-1 border border-white/15 shadow-inner"
           >
             {mainNavItems.map((item) => {
               const isActive =

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export function AboutSocial() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28 bg-white">
+    <section className="relative overflow-hidden py-12 sm:py-16 bg-white">
       {/* Background soft ambient accents */}
       <div className="pointer-events-none absolute left-1/2 bottom-0 h-64 w-64 -translate-x-1/2 rounded-full bg-[#E97835]/5 blur-3xl" />
 
@@ -53,7 +53,7 @@ export function AboutSocial() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center mb-10"
+          className="flex justify-center mb-8"
         >
           <SocialLinks showLabels />
         </motion.div>

@@ -3,7 +3,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { AnimatedContent } from "@/components/shared/animated-content";
 
 export const metadata: Metadata = {
-  title: "গোপনীয়তা নীতি | ড্রিম বাইকার",
+  title: "গোপনীয়তা নীতি",
+  alternates: { canonical: "/privacy-policy" },
   description:
     "ড্রিম বাইকার (হানিফ)-এর ব্যক্তিগত পোর্টফোলিও, মানবিক কার্যক্রম এবং ব্লগ প্ল্যাটফর্মের অফিশিয়াল গোপনীয়তা নীতি।",
 };
@@ -15,10 +16,9 @@ export default function PrivacyPolicyPage() {
         badge="আইন ও গোপনীয়তা"
         title="গোপনীয়তা নীতি"
         description="ব্যক্তিগত গোপনীয়তা রক্ষা, সম্মানজনক মানবিক ভিডিও নীতিমালা এবং তথ্য সুরক্ষায় আমাদের সুস্পষ্ট প্রতিশ্রুতি।"
-        breadcrumbs={[{ label: "গোপনীয়তা নীতি" }]}
       />
 
-      <section className="py-16 sm:py-24 bg-white">
+      <section className="py-10 sm:py-14 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <AnimatedContent className="prose max-w-none text-[#222222]/85 space-y-8 leading-relaxed">
             <div>

@@ -77,7 +77,7 @@ export class FacebookService {
         let postType: "TEXT" | "PHOTO" | "VIDEO" | "LINK" = "TEXT";
 
         const attachments = item.attachments?.data || [];
-        for (const att of attachments) {
+        attachments.forEach((att, attIdx) => {
           if (att.type === "video_inline" || att.type === "video") {
             postType = "VIDEO";
           } else if (att.type === "photo") {
@@ -87,11 +87,16 @@ export class FacebookService {
           if (att.media?.image?.src) {
             mediaUrls.push(att.media.image.src);
 
+            // Stable key: Facebook's own object id when present, otherwise the
+            // attachment's position inside this post (never a global counter,
+            // which shifts whenever new posts arrive and creates duplicates).
+            const photoKey = `${item.id}-${att.target?.id || `a${attIdx}`}`;
+
             // Add main photo to gallery
             normalizedPhotos.push({
-              id: `fb-photo-${item.id}-${normalizedPhotos.length}`,
+              id: `fb-photo-${photoKey}`,
               provider: "FACEBOOK",
-              externalId: `photo-${item.id}-${normalizedPhotos.length}`,
+              externalId: `photo-${photoKey}`,
               sourcePostId: item.id,
               imageUrl: att.media.image.src,
               thumbnailUrl: att.media.image.src,
@@ -105,14 +110,16 @@ export class FacebookService {
           // Handle multi-photo album subattachments
           if (att.subattachments?.data) {
             postType = "PHOTO";
-            for (const sub of att.subattachments.data) {
+            att.subattachments.data.forEach((sub, subIdx) => {
               if (sub.media?.image?.src && !mediaUrls.includes(sub.media.image.src)) {
                 mediaUrls.push(sub.media.image.src);
 
+                const subKey = `${item.id}-${sub.target?.id || `a${attIdx}s${subIdx}`}`;
+
                 normalizedPhotos.push({
-                  id: `fb-subphoto-${item.id}-${normalizedPhotos.length}`,
+                  id: `fb-subphoto-${subKey}`,
                   provider: "FACEBOOK",
-                  externalId: `subphoto-${item.id}-${normalizedPhotos.length}`,
+                  externalId: `subphoto-${subKey}`,
                   sourcePostId: item.id,
                   imageUrl: sub.media.image.src,
                   thumbnailUrl: sub.media.image.src,
@@ -122,9 +129,9 @@ export class FacebookService {
                   publishedAt: item.created_time,
                 });
               }
-            }
+            });
           }
-        }
+        });
 
         normalizedPosts.push({
           id: `fb-post-${item.id}`,

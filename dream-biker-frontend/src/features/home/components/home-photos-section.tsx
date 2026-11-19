@@ -14,7 +14,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
   if (!photos || photos.length === 0) return null;
 
   return (
-    <section className="relative py-20 sm:py-24 bg-[#F7F5EF] text-[#222222] overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-[#F7F5EF] text-[#222222] overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -22,7 +22,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8"
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-white px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#142B3B] mb-3 shadow-xs">
@@ -54,10 +54,10 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              whileHover={{ y: -6 }}
             >
               <Link
                 href="/gallery"
@@ -74,7 +74,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
                   <span className="text-xs text-white font-medium line-clamp-2 leading-snug">
                     {photo.caption}
                   </span>
-                  <span className="mt-1 text-[10px] text-[#F5A623] uppercase font-bold tracking-wider">
+                  <span className="mt-1 text-xs text-[#F5A623] uppercase font-bold tracking-wider">
                     {photo.provider === "YOUTUBE" ? "ইউটিউব" : "ফেসবুক"}
                   </span>
                 </div>

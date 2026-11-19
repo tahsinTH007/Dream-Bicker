@@ -29,10 +29,9 @@ export function AboutHero() {
         badge="হানিফের পরিচিতি"
         title="মানবতার জন্য পরিভ্রমণ, আশার আলো ছড়ানো"
         description="একক মোটরসাইকেল যাত্রা থেকে দেশজুড়ে বিস্তৃত সমাজকল্যাণমূলক কার্যক্রম—ড্রিম বাইকারের পেছনের জীবনদর্শন ও মানবিক মূল্যবোধ।"
-        breadcrumbs={[{ label: "পরিচিতি" }]}
       />
 
-      <section className="py-16 sm:py-24 bg-white overflow-hidden">
+      <section className="py-10 sm:py-14 bg-white overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Left: Large Portrait Hero with Motion */}
@@ -54,7 +53,8 @@ export function AboutHero() {
                   className="relative aspect-[4/5] overflow-hidden rounded-[24px] border-4 border-white shadow-2xl bg-[#142B3B] group"
                 >
                   <Image
-                    src="/images/author/hanif_portrait.png"
+                    src="/images/hd/hanif_portrait.jpg"
+                    quality={90}
                     alt="হানিফ (ড্রিম বাইকার) প্রতিকৃতি"
                     fill
                     priority
@@ -68,10 +68,11 @@ export function AboutHero() {
                     <p className="text-xs uppercase font-bold tracking-wider text-[#E97835]">
                       প্রতিষ্ঠাতা ও নির্মাতা
                     </p>
-                    <h3 className="font-heading text-2xl font-bold tracking-tight">
+                    {/* explicit text-white: the global h1-h6 rule would otherwise make it navy on the dark photo */}
+                    <h3 className="font-heading text-2xl font-bold tracking-tight text-white text-shadow-md">
                       হানিফ (ড্রিম বাইকার)
                     </h3>
-                    <p className="text-xs text-white/80 mt-1">
+                    <p className="text-xs text-white/85 mt-1 text-shadow-sm">
                       বাংলাদেশি কন্টেন্ট ক্রিয়েটর ও মানবসেবক
                     </p>
                   </div>
@@ -87,11 +88,12 @@ export function AboutHero() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute -bottom-5 -left-5 rounded-2xl bg-[#E97835] text-white p-4 shadow-xl hidden sm:block border-2 border-white/20"
+                  // top-right corner: clear of the name/caption at the bottom of the card
+                  className="absolute -top-5 -right-5 z-10 rounded-2xl bg-[#E97835] text-white p-4 shadow-xl hidden sm:block border-2 border-white/20"
                 >
                   <Sparkles className="h-5 w-5 mb-1 animate-pulse" />
                   <p className="text-xs font-bold">দুই চাকায়</p>
-                  <p className="text-[10px] text-white/90">সীমাহীন ভালোবাসা</p>
+                  <p className="text-xs text-white/90">সীমাহীন ভালোবাসা</p>
                 </motion.div>
               </div>
             </motion.div>
@@ -112,15 +114,22 @@ export function AboutHero() {
               {/* Dynamic Animated Heading */}
               <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#142B3B] tracking-tight leading-snug mb-6">
                 &quot;প্রতিটি জীবনের একটি গল্প আছে।{" "}
-                <span className="relative inline-block text-[#E97835]">
-                  <AnimatePresence mode="wait">
+                {/* All phrases share one grid cell: the invisible copies reserve the
+                    space of the longest phrase, so the heading never reflows as they rotate. */}
+                <span className="relative inline-grid text-[#E97835]">
+                  {rotatingFocus.map((phrase) => (
+                    <span key={phrase} aria-hidden="true" className="invisible [grid-area:1/1]">
+                      {phrase}
+                    </span>
+                  ))}
+                  <AnimatePresence initial={false}>
                     <motion.span
                       key={rotatingFocus[focusIndex]}
-                      initial={{ opacity: 0, y: 14, filter: "blur(3px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -14, filter: "blur(3px)" }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="inline-block"
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -14 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="[grid-area:1/1]"
                     >
                       {rotatingFocus[focusIndex]}
                     </motion.span>
@@ -151,33 +160,33 @@ export function AboutHero() {
               {/* Trait Cards with Interactive Motion */}
               <div className="mt-8 grid grid-cols-3 gap-4 w-full pt-6 border-t border-[#EAE6DB]">
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >
                   <Compass className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">অভিযাত্রী</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">তৃণমূল বাংলা</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">তৃণমূল বাংলা</span>
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >
                   <Heart className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">মানবসেবক</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">মাঠপর্যায়ের কল্যাণ</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">মাঠপর্যায়ের কল্যাণ</span>
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >
                   <Shield className="h-6 w-6 text-[#E97835] mb-1.5" />
                   <span className="text-xs sm:text-sm font-bold text-[#142B3B]">গল্পকার</span>
-                  <span className="text-[10px] sm:text-xs text-[#777777]">মর্যাদা প্রথম</span>
+                  <span className="text-xs sm:text-xs text-[#777777]">মর্যাদা প্রথম</span>
                 </motion.div>
               </div>
             </motion.div>

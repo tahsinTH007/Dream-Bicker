@@ -6,7 +6,8 @@ import { AboutValues } from "@/features/about/components/about-values";
 import { AboutSocial } from "@/features/about/components/about-social";
 
 export const metadata: Metadata = {
-  title: "পরিচিতি | ড্রিম বাইকার (হানিফ)",
+  title: "পরিচিতি",
+  alternates: { canonical: "/about" },
   description:
     "ড্রিম বাইকার-এর পেছনের মানুষ হানিফ সম্পর্কে জানুন—তাঁর ব্যক্তিগত যাত্রা, মানবিক লক্ষ্য, মাইলফলক ও সহমর্মিতার জীবন দর্শন।",
 };

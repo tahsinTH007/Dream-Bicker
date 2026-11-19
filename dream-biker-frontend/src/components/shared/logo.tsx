@@ -36,7 +36,7 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
         <div className="flex flex-col">
           <span
             className={cn(
-              "font-heading text-xl sm:text-2xl font-black tracking-tight leading-none group-hover:text-[#E97835] transition-colors drop-shadow",
+              "font-heading text-xl sm:text-2xl font-black tracking-tight leading-none group-hover:text-[#E97835] transition-colors text-shadow-md",
               isLight ? "text-white" : "text-[#142B3B]",
             )}
           >
@@ -44,7 +44,7 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
           </span>
           <span
             className={cn(
-              "text-[11px] font-medium drop-shadow-sm mt-1 hidden sm:block",
+              "text-xs font-medium text-shadow-sm mt-1 hidden sm:block",
               isLight ? "text-white/70" : "text-[#777777]",
             )}
           >

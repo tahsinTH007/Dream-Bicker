@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Noto_Sans_Bengali } from "next/font/google";
+import { Galada, Inter, Manrope, Noto_Sans_Bengali, Sacramento } from "next/font/google";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -21,7 +21,27 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Calligraphic Bengali display face for the hero accent phrase ("শান্তির প্রতীক")
+const galada = Galada({
+  variable: "--font-bengali-display",
+  subsets: ["bengali", "latin"],
+  weight: "400",
+  display: "swap",
+});
+
+// Thin signature script for the "Dream Biker" autograph in the hero
+const sacramento = Sacramento({
+  variable: "--font-signature",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+// Absolute base for canonical/OG/Twitter URLs. Set NEXT_PUBLIC_SITE_URL in production.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     template: "%s | ড্রিম বাইকার - হানিফ",
     default: "ড্রিম বাইকার (হানিফ) | কন্টেন্ট ক্রিয়েটর ও মানবসেবক",
@@ -41,15 +61,20 @@ export const metadata: Metadata = {
     "মানবিক গল্প",
   ],
   authors: [{ name: "হানিফ (ড্রিম বাইকার)" }],
+  // Site-wide defaults only. No fixed url/title/description here: pages inherit
+  // this object as-is, so those would make every page preview (and count) as
+  // the home page. Facebook/X fall back to each page's own <title>,
+  // description and canonical URL.
   openGraph: {
-    title: "ড্রিম বাইকার (হানিফ) | কন্টেন্ট ক্রিয়েটর ও মানবসেবক",
-    description:
-      "প্রতিটি জীবনের একটি গল্প আছে। প্রতিটি মানবিক কাজই মূল্যবান। ড্রিম বাইকারের অফিশিয়াল ওয়েবসাইট।",
-    url: "https://dreambiker.com",
     siteName: "ড্রিম বাইকার",
     locale: "bn_BD",
     type: "website",
+    // og:image comes from src/app/opengraph-image.jpg (Next file convention)
   },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -61,7 +86,7 @@ export default function RootLayout({
     <html
       lang="bn"
       suppressHydrationWarning
-      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable}`}
+      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable} ${galada.variable} ${sacramento.variable}`}
     >
       <body
         suppressHydrationWarning

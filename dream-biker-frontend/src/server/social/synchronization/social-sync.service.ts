@@ -3,6 +3,7 @@ import { YouTubeService } from "../youtube/youtube.service";
 import { FacebookService } from "../facebook/facebook.service";
 import { socialStorage } from "../storage/social-storage.service";
 import { SyncResult } from "../social.types";
+import { isDatabaseConfigured } from "@/lib/db/prisma";
 
 export class SocialSyncService {
   private youtube: YouTubeService;
@@ -166,6 +167,8 @@ export class SocialSyncService {
     overallSuccess: boolean;
     totalItems: number;
     durationMs: number;
+    persisted: boolean;
+    warning?: string;
   }> {
     const startTime = Date.now();
 
@@ -208,12 +211,21 @@ export class SocialSyncService {
     const totalItems = results.reduce((acc, r) => acc + r.itemsSynced, 0);
     const overallSuccess = results.some((r) => r.success);
     const durationMs = Date.now() - startTime;
+    const persisted = isDatabaseConfigured();
 
     return {
       results,
       overallSuccess,
       totalItems,
       durationMs,
+      persisted,
+      ...(persisted
+        ? {}
+        : {
+            warning:
+              "DATABASE_URL is not configured: synced data is held only in this server instance's memory. " +
+              "On serverless hosts (e.g. Vercel) other instances keep serving placeholder data and it is lost on restart.",
+          }),
     };
   }
 }

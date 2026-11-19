@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 
 export function AboutIntroSection() {
   return (
-    <section className="relative py-20 sm:py-28 bg-white overflow-hidden">
+    <section className="relative py-12 sm:py-16 bg-white overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute -top-32 right-1/4 h-80 w-80 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
@@ -38,7 +38,8 @@ export function AboutIntroSection() {
                 className="relative aspect-[3/4] overflow-hidden rounded-[24px] border border-[#EAE6DB] shadow-xl bg-[#142B3B]"
               >
                 <Image
-                  src="/images/author/hanif_avatar.png"
+                  src="/images/hd/hanif_avatar.jpg"
+                  quality={90}
                   alt="হানিফ, ড্রিম বাইকারের প্রতিষ্ঠাতা"
                   fill
                   className="object-cover object-center transition-transform duration-700 hover:scale-105"
@@ -49,18 +50,18 @@ export function AboutIntroSection() {
               {/* Quote Capsule with Entrance and Stagger */}
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10 backdrop-blur-md"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
+                className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10"
               >
                 <Quote className="h-5 w-5 text-[#E97835] mb-2" />
                 <p className="text-xs leading-relaxed italic text-white/90">
                   &quot;আমি শুধু নতুন জায়গা দেখার জন্য ঘুরি না; ঘুরি মানুষের
                   হৃদয়ের গভীরের ভালোবাসা প্রত্যক্ষ করতে।&quot;
                 </p>
-                <span className="mt-2 block text-[10px] font-bold uppercase tracking-wider text-[#E97835]">
+                <span className="mt-2 block text-xs font-bold uppercase tracking-wider text-[#E97835]">
                   — হানিফ (ড্রিম বাইকার)
                 </span>
               </motion.div>
@@ -109,11 +110,11 @@ export function AboutIntroSection() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3 } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                whileHover={{ y: -4, borderColor: "#E97835" }}
-                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
+                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors hover:border-[#E97835]"
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Sparkles className="h-4 w-4 text-[#E97835]" />
@@ -129,11 +130,11 @@ export function AboutIntroSection() {
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.4 } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                whileHover={{ y: -4, borderColor: "#E97835" }}
-                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
+                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors hover:border-[#E97835]"
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Heart className="h-4 w-4 text-[#E97835]" />

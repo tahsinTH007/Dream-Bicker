@@ -33,7 +33,7 @@ const values = [
 
 export function AboutValues() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28 bg-[#0D1C26] text-white">
+    <section className="relative overflow-hidden py-12 sm:py-16 bg-[#0D1C26] text-white">
       {/* Background ambient decorative glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E97835]/10 blur-[150px]" />
 
@@ -44,7 +44,7 @@ export function AboutValues() {
           description="নৈতিক মানদণ্ড বজায় রেখে প্রতিটি গল্প সহানুভূতি দিয়ে তুলে ধরা এবং স্বচ্ছতার সাথে মাঠপর্যায়ের কার্যক্রম পরিচালনা করা।"
           isDark
           align="center"
-          className="mb-14 sm:mb-18"
+          className="mb-8 sm:mb-10"
         />
 
         {/* 4 Values Cards Grid with Staggered Entrance & Interactive Hover Motion */}
@@ -55,15 +55,11 @@ export function AboutValues() {
               <motion.div
                 key={val.title}
                 initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1], } }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.6,
-                  delay: idx * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -8 }}
+                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
               >
                 <div>
                   {/* Floating Icon Box */}
@@ -83,7 +79,7 @@ export function AboutValues() {
                 </div>
 
                 {/* Bottom Step Indicator */}
-                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] font-bold text-white/40 group-hover:text-[#E97835] transition-colors">
+                <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-white/40 group-hover:text-[#E97835] transition-colors">
                   <span>মূল্যবোধ ০{idx + 1}</span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>

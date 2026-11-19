@@ -17,6 +17,7 @@ import {
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { NormalizedPost } from "@/server/social/social.types";
+import { LatestSpotlight, type SpotlightItem } from "@/components/shared/latest-spotlight";
 import { cn } from "@/lib/utils";
 
 interface BlogListClientProps {
@@ -40,20 +41,58 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
   const fbCount = initialPosts.filter((p) => p.provider === "FACEBOOK").length;
   const ytCount = initialPosts.filter((p) => p.provider === "YOUTUBE").length;
 
+  // Data for the per-platform "latest updates" spotlights (independent of the filter tabs)
+  const spotlightItems: SpotlightItem[] = React.useMemo(
+    () =>
+      initialPosts.map((p) => ({
+        id: p.id,
+        provider: p.provider,
+        title: p.title || p.content.slice(0, 80),
+        description: p.content,
+        imageUrl: p.mediaUrls?.[0],
+        url: p.url,
+        publishedAt: p.publishedAt,
+        stats: [
+          ...(p.likeCount != null ? [{ icon: ThumbsUp, value: p.likeCount.toLocaleString("bn-BD") }] : []),
+          ...(p.commentCount != null ? [{ icon: MessageSquare, value: p.commentCount.toLocaleString("bn-BD") }] : []),
+          ...(p.shareCount != null ? [{ icon: Share2, value: p.shareCount.toLocaleString("bn-BD") }] : []),
+        ],
+      })),
+    [initialPosts]
+  );
+
   return (
-    <div className="relative py-12 sm:py-20 bg-white overflow-hidden">
+    <div className="relative py-8 sm:py-12 bg-white overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-24 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Latest updates, one section per platform (a platform with no posts is hidden) */}
+        <LatestSpotlight
+          provider="FACEBOOK"
+          items={spotlightItems}
+          kind="post"
+          heading="ফেসবুকের সর্বশেষ"
+          subheading="পেজের সাম্প্রতিক পোস্ট"
+          ctaLabel="ফেসবুকে পড়ুন"
+        />
+        <LatestSpotlight
+          provider="YOUTUBE"
+          items={spotlightItems}
+          kind="post"
+          heading="ইউটিউবের সর্বশেষ"
+          subheading="সাম্প্রতিক ভিডিও প্রকাশনা"
+          ctaLabel="ইউটিউবে দেখুন"
+        />
+
         {/* Filters */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-10 border-b border-[#EAE6DB]"
+          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
         >
-          <div className="flex items-center gap-2 rounded-2xl bg-[#F7F5EF] p-1.5 border border-[#EAE6DB]">
+          <div className="grid w-full grid-cols-3 gap-1 rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF] p-1.5 sm:flex sm:w-auto sm:items-center sm:gap-2">
             {/* All */}
             <motion.button
               whileTap={{ scale: 0.96 }}
@@ -62,13 +101,14 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "flex items-center justify-center whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "all"
                   ? "bg-[#142B3B] text-white shadow-sm"
                   : "text-[#222222]/80 hover:text-[#142B3B] hover:bg-white"
               )}
             >
-              সব পোস্ট ({initialPosts.length})
+              <span className="sm:hidden">সব ({initialPosts.length})</span>
+              <span className="hidden sm:inline">সব পোস্ট ({initialPosts.length})</span>
             </motion.button>
 
             {/* Facebook */}
@@ -79,14 +119,15 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:gap-2 sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "FACEBOOK"
-                  ? "bg-blue-600 text-white shadow-sm"
-                  : "text-[#222222]/80 hover:text-blue-600 hover:bg-white"
+                  ? "bg-[#1877F2] text-white shadow-sm"
+                  : "text-[#222222]/80 hover:text-[#1877F2] hover:bg-white"
               )}
             >
               <FaFacebookF className="h-3.5 w-3.5" />
-              <span>ফেসবুক পেজ পোস্ট ({fbCount})</span>
+              <span className="sm:hidden">ফেসবুক ({fbCount})</span>
+              <span className="hidden sm:inline">ফেসবুক পেজ পোস্ট ({fbCount})</span>
             </motion.button>
 
             {/* YouTube */}
@@ -97,14 +138,15 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:gap-2 sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "YOUTUBE"
-                  ? "bg-red-600 text-white shadow-sm"
-                  : "text-[#222222]/80 hover:text-red-600 hover:bg-white"
+                  ? "bg-[#FF0000] text-white shadow-sm"
+                  : "text-[#222222]/80 hover:text-[#FF0000] hover:bg-white"
               )}
             >
               <FaYoutube className="h-4 w-4" />
-              <span>ইউটিউব পাবলিকেশন ({ytCount})</span>
+              <span className="sm:hidden">ইউটিউব ({ytCount})</span>
+              <span className="hidden sm:inline">ইউটিউব পাবলিকেশন ({ytCount})</span>
             </motion.button>
           </div>
 
@@ -113,14 +155,21 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           </div>
         </motion.div>
 
+        {filteredPosts.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-[#EAE6DB] bg-[#F7F5EF]/50 px-6 py-14 text-center">
+            <p className="text-base font-semibold text-[#142B3B]">এখনো কোনো পোস্ট যুক্ত হয়নি।</p>
+            <p className="mt-1 text-sm text-[#777777]">ফেসবুক ও ইউটিউব থেকে পোস্ট শীঘ্রই এখানে দেখা যাবে।</p>
+          </div>
+        )}
+
         {/* Posts Grid with Animated Transitions */}
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={`blog-grid-${platformFilter}-${page}`}
+            key={`blog-grid-${platformFilter}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.25 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
             {visiblePosts.map((post, idx) => {
@@ -152,10 +201,10 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 <motion.article
                   key={post.id}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -8, scale: 1.015 }}
-                  className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
+                  animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: (idx % itemsPerPage) * 0.05, ease: [0.16, 1, 0.3, 1] } }}
+                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                  whileHover={{ y: -8 }}
+                  className={`group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
                 >
                   <div>
                     {/* Media Preview (Photo / YouTube Thumbnail) */}
@@ -171,7 +220,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                         {/* Platform & Type Badge */}
-                        <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/65 border border-white/20">
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow bg-black/75 border border-white/20">
                           {isFB ? (
                             <>
                               <FaFacebookF className="h-3 w-3 text-blue-400" />
@@ -209,7 +258,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                           </span>
 
                           {!hasMedia && (
-                            <span className="inline-flex items-center gap-1 rounded-md bg-[#F7F5EF] px-2 py-0.5 text-[10px] font-bold text-[#142B3B]">
+                            <span className="inline-flex items-center gap-1 rounded-md bg-[#F7F5EF] px-2 py-0.5 text-xs font-bold text-[#142B3B]">
                               <TypeIcon className="h-3 w-3" />
                               {typeLabel}
                             </span>
@@ -217,7 +266,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                         </div>
                       </div>
 
-                      <h3 className="font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug group-hover:text-[#E97835] transition-colors mb-3">
+                      <h3 className={`font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug transition-colors mb-3 ${isYT ? "group-hover:text-[#CC0000]" : "group-hover:text-[#1877F2]"}`}>
                         {post.title || post.content.slice(0, 80)}
                       </h3>
 
@@ -254,7 +303,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                       href={post.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-bold text-[#142B3B] group-hover:text-[#E97835] transition-colors"
+                      className={`inline-flex items-center gap-1.5 font-bold text-[#142B3B] transition-colors ${isYT ? "group-hover:text-[#CC0000]" : "group-hover:text-[#1877F2]"}`}
                     >
                       <span>{isYT ? "ভিডিও দেখুন" : "ফেসবুকে পড়ুন"}</span>
                       <ExternalLink className="h-3.5 w-3.5" />
@@ -271,7 +320,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-16 text-center"
+            className="mt-10 text-center"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
               <Button

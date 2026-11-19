@@ -64,7 +64,12 @@ export class YouTubeClient {
    * Fetch Channel by ID or by handle (@DreamBiker532)
    */
   public async getChannel(channelIdOrHandle?: string): Promise<YouTubeChannelListResponse> {
-    const target = channelIdOrHandle || serverEnv.YOUTUBE_CHANNEL_ID || "@DreamBiker532";
+    const handle = serverEnv.YOUTUBE_CHANNEL_HANDLE?.trim();
+    const target =
+      channelIdOrHandle ||
+      serverEnv.YOUTUBE_CHANNEL_ID ||
+      (handle ? (handle.startsWith("@") ? handle : `@${handle}`) : "") ||
+      "@DreamBiker532";
 
     if (target.startsWith("@")) {
       return this.fetchApi<YouTubeChannelListResponse>("channels", {

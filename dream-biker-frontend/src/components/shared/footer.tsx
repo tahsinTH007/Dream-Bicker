@@ -10,25 +10,22 @@ import { siteConfig } from "@/config/site.config";
 
 export function Footer() {
   return (
-    <footer className="relative w-full overflow-hidden text-white border-t border-white/15 shadow-2xl min-h-[170px] sm:min-h-[190px] flex items-center">
+    <footer className="relative w-full overflow-hidden text-white shadow-2xl min-h-[170px] sm:min-h-[190px] flex items-center">
       {/* 1. Full-Width Background Road Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/footer_bg_road.jpg"
+          src="/images/hd/footer_bg_road.jpg"
           alt="Dream Biker Motorcycle on Scenic Highway"
           fill
           priority={false}
-          quality={95}
+          quality={90}
           sizes="100vw"
           className="object-cover object-center select-none pointer-events-none"
         />
-
-        {/* Subtle top border highlight */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
       </div>
 
       {/* 2. Main Footer Bar Content (Matching the reference single-bar layout) */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 lg:gap-8">
           {/* Left Column: Brand Logo & Title */}
           <div className="flex items-center gap-4 sm:gap-6 shrink-0">
@@ -46,10 +43,10 @@ export function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors drop-shadow">
+                <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors text-shadow-md">
                   Dream Biker
                 </span>
-                <span className="text-[11px] font-medium text-white/70 drop-shadow-sm">
+                <span className="text-xs font-medium text-white/70 text-shadow-sm">
                   মো. হানিফ হোসেন
                 </span>
               </div>
@@ -64,7 +61,7 @@ export function Footer() {
             {/* Top Row: Navigation Links */}
             <nav
               aria-label="Footer Navigation"
-              className="flex items-center flex-wrap gap-x-5 lg:gap-x-7 gap-y-1.5 text-sm font-semibold text-white/90 drop-shadow-sm"
+              className="flex items-center flex-wrap gap-x-5 lg:gap-x-7 gap-y-1.5 text-sm font-semibold text-white/90 text-shadow-sm"
             >
               {mainNavItems.map((item) => (
                 <Link
@@ -78,7 +75,7 @@ export function Footer() {
             </nav>
 
             {/* Bottom Row: Copyright Notice */}
-            <p className="text-xs text-white/70 tracking-wide drop-shadow-sm">
+            <p className="text-xs text-white/70 tracking-wide text-shadow-sm">
               &copy; 2026 Dream Biker (হানিফ). সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
@@ -109,7 +106,7 @@ export function Footer() {
             </div>
 
             {/* Bottom Row: Support Contact Link */}
-            <div className="text-xs text-white/75 drop-shadow-sm">
+            <div className="text-xs text-white/75 text-shadow-sm">
               <span>Support: </span>
               <a
                 href={`mailto:${siteConfig.contact.email}`}

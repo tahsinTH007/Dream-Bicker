@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma, isDatabaseConfigured } from "@/lib/db/prisma";
+import { serverEnv } from "@/lib/env/server";
 import {
   NormalizedAccount,
   NormalizedVideo,
@@ -152,8 +153,22 @@ function initializeDefaultStore(): MemorySocialStore {
   };
 }
 
+function initializeEmptyStore(): MemorySocialStore {
+  return { accounts: [], videos: [], posts: [], photos: [], lastSyncedAt: {} };
+}
+
+/**
+ * Sample content (stock photos posing as videos/posts) is for development only.
+ * In production the site shows real synced content or empty states, unless
+ * SHOW_SAMPLE_CONTENT=true is set explicitly.
+ */
+export const showSampleContent: boolean =
+  serverEnv.SHOW_SAMPLE_CONTENT ?? process.env.NODE_ENV !== "production";
+
 // Global memory cache instance
-const memoryStore: MemorySocialStore = initializeDefaultStore();
+const memoryStore: MemorySocialStore = showSampleContent
+  ? initializeDefaultStore()
+  : initializeEmptyStore();
 
 export class SocialStorageService {
   /**
@@ -650,8 +665,8 @@ export class SocialStorageService {
     return [
       {
         provider: "YOUTUBE",
-        enabled: Boolean(process.env.YOUTUBE_API_KEY),
-        configured: Boolean(process.env.YOUTUBE_API_KEY),
+        enabled: Boolean(serverEnv.YOUTUBE_API_KEY),
+        configured: Boolean(serverEnv.YOUTUBE_API_KEY),
         lastSyncedAt: memoryStore.lastSyncedAt["YOUTUBE"] || null,
         itemCounts: {
           videos: memoryStore.videos.filter((v) => v.provider === "YOUTUBE").length,
@@ -661,8 +676,8 @@ export class SocialStorageService {
       },
       {
         provider: "FACEBOOK",
-        enabled: Boolean(process.env.FACEBOOK_PAGE_ACCESS_TOKEN),
-        configured: Boolean(process.env.FACEBOOK_PAGE_ACCESS_TOKEN && process.env.FACEBOOK_PAGE_ID),
+        enabled: Boolean(serverEnv.FACEBOOK_PAGE_ACCESS_TOKEN),
+        configured: Boolean(serverEnv.FACEBOOK_PAGE_ACCESS_TOKEN && serverEnv.FACEBOOK_PAGE_ID),
         lastSyncedAt: memoryStore.lastSyncedAt["FACEBOOK"] || null,
         itemCounts: {
           videos: memoryStore.videos.filter((v) => v.provider === "FACEBOOK").length,

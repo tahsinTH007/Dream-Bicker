@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/shared/section-heading";
 
 export function AboutBio() {
   return (
-    <section className="py-20 sm:py-28 bg-[#F7F5EF]/60 border-y border-[#EAE6DB] overflow-hidden">
+    <section className="py-12 sm:py-16 bg-[#F7F5EF]/60 border-y border-[#EAE6DB] overflow-hidden">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label="পটভূমি ও গল্প"
@@ -21,7 +21,7 @@ export function AboutBio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
-          className="mb-12 mt-4 rounded-2xl border border-[#EAE6DB] bg-white p-4 sm:p-5 flex items-center gap-3.5 text-xs text-[#777777] shadow-sm"
+          className="mb-8 mt-4 rounded-2xl border border-[#EAE6DB] bg-white p-4 sm:p-5 flex items-center gap-3.5 text-xs text-[#777777] shadow-sm"
         >
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#E97835]/15 text-[#E97835]">
             <Info className="h-4 w-4" />
@@ -39,8 +39,8 @@ export function AboutBio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-all duration-300"
+            whileHover={{ y: -6 }}
+            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
           >
             {/* Top decorative gradient bar */}
             <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -70,11 +70,11 @@ export function AboutBio() {
           {/* Card 2: অনুপ্রেরণা ও প্রত্যয় */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] } }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-all duration-300"
+            transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            whileHover={{ y: -6 }}
+            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
           >
             {/* Top decorative gradient bar */}
             <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

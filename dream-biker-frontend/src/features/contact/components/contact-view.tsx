@@ -14,10 +14,9 @@ export function ContactView() {
         badge="সরাসরি যোগাযোগ"
         title="হানিফের সাথে যোগাযোগ করুন"
         description="মানবিক সহায়তা, ডকুমেন্টারি সহযোগিতা, গণমাধ্যম সাক্ষাৎকার বা স্বেচ্ছাসেবী হিসেবে যুক্ত হতে বার্তা পাঠান।"
-        breadcrumbs={[{ label: "যোগাযোগ" }]}
       />
 
-      <section className="relative py-12 sm:py-20 bg-white overflow-hidden">
+      <section className="relative py-8 sm:py-12 bg-white overflow-hidden">
         {/* Ambient lighting */}
         <div className="absolute top-10 left-10 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
@@ -46,7 +45,7 @@ export function ContactView() {
               {/* Direct Info Cards with Hover Lift */}
               <div className="space-y-4">
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
@@ -69,7 +68,7 @@ export function ContactView() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
@@ -89,7 +88,7 @@ export function ContactView() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">

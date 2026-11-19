@@ -15,7 +15,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
   if (!posts || posts.length === 0) return null;
 
   return (
-    <section className="relative py-20 sm:py-24 bg-white text-[#222222] overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-white text-[#222222] overflow-hidden">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-0 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none -translate-y-1/2" />
 
@@ -26,7 +26,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12"
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8"
         >
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#E97835]/30 bg-[#FDF3ED] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E97835] mb-3">
@@ -68,11 +68,11 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
               <motion.article
                 key={post.id}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -8, scale: 1.015 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -8 }}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl ${isFB ? "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15" : "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15"}`}
               >
                 <div>
                   {/* Optional Media Preview */}
@@ -85,7 +85,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-106"
                       />
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow backdrop-blur-sm bg-black/60 border border-white/20">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow bg-black/70 border border-white/20">
                         {isFB ? (
                           <>
                             <FaFacebookF className="h-3 w-3 text-blue-400" />
@@ -121,7 +121,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                       </div>
                     </div>
 
-                    <h3 className="font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug group-hover:text-[#E97835] transition-colors mb-3">
+                    <h3 className={`font-heading text-lg font-bold text-[#142B3B] line-clamp-2 leading-snug transition-colors mb-3 ${isFB ? "group-hover:text-[#1877F2]" : "group-hover:text-[#CC0000]"}`}>
                       {post.title || post.content.slice(0, 75)}
                     </h3>
 
@@ -152,7 +152,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-semibold text-[#142B3B] group-hover:text-[#E97835] transition-colors"
+                    className={`inline-flex items-center gap-1 font-semibold text-[#142B3B] transition-colors ${isFB ? "group-hover:text-[#1877F2]" : "group-hover:text-[#CC0000]"}`}
                   >
                     <span>মূল পোস্ট</span>
                     <ExternalLink className="h-3 w-3" />
