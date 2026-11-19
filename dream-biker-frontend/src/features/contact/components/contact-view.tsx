@@ -46,7 +46,7 @@ export function ContactView() {
               {/* Direct Info Cards with Hover Lift */}
               <div className="space-y-4">
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
@@ -69,7 +69,7 @@ export function ContactView() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
@@ -89,7 +89,7 @@ export function ContactView() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -4, scale: 1.015 }}
+                  whileHover={{ y: -4 }}
                   className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">

@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, Heart } from "lucide-react";
 import { mainNavItems } from "@/config/navigation.config";
 import { Logo } from "./logo";
@@ -30,19 +31,34 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[100] md:hidden">
+    <AnimatePresence>
+      {isOpen && (
+    <motion.div
+      key="mobile-nav"
+      className="fixed inset-0 z-[100] md:hidden"
+      initial="closed"
+      animate="open"
+      exit="closed"
+    >
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-[#0A1620]/80 backdrop-blur-sm transition-opacity duration-300"
+      <motion.div
+        variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="fixed inset-0 bg-[#0A1620]/80 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Drawer Container */}
-      <div className="fixed inset-y-0 right-0 z-[101] flex w-full max-w-sm flex-col bg-white shadow-2xl transition-transform duration-300">
+      {/* Drawer Container (slides in from the right) */}
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label="মেনু"
+        variants={{ open: { x: 0 }, closed: { x: "100%" } }}
+        transition={{ type: "spring", stiffness: 380, damping: 40 }}
+        className="fixed inset-y-0 right-0 z-[101] flex w-full max-w-sm flex-col bg-white shadow-2xl will-change-transform"
+      >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#EAE6DB] px-6 py-4 bg-[#F7F5EF]/60">
           <Logo />
@@ -120,7 +136,9 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           </p>
           <SocialLinks showLabels />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

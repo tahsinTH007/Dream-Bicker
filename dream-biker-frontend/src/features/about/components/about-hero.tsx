@@ -112,15 +112,22 @@ export function AboutHero() {
               {/* Dynamic Animated Heading */}
               <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#142B3B] tracking-tight leading-snug mb-6">
                 &quot;প্রতিটি জীবনের একটি গল্প আছে।{" "}
-                <span className="relative inline-block text-[#E97835]">
-                  <AnimatePresence mode="wait">
+                {/* All phrases share one grid cell: the invisible copies reserve the
+                    space of the longest phrase, so the heading never reflows as they rotate. */}
+                <span className="relative inline-grid text-[#E97835]">
+                  {rotatingFocus.map((phrase) => (
+                    <span key={phrase} aria-hidden="true" className="invisible [grid-area:1/1]">
+                      {phrase}
+                    </span>
+                  ))}
+                  <AnimatePresence initial={false}>
                     <motion.span
                       key={rotatingFocus[focusIndex]}
-                      initial={{ opacity: 0, y: 14, filter: "blur(3px)" }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, y: -14, filter: "blur(3px)" }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="inline-block"
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -14 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="[grid-area:1/1]"
                     >
                       {rotatingFocus[focusIndex]}
                     </motion.span>
@@ -151,7 +158,7 @@ export function AboutHero() {
               {/* Trait Cards with Interactive Motion */}
               <div className="mt-8 grid grid-cols-3 gap-4 w-full pt-6 border-t border-[#EAE6DB]">
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >
@@ -161,7 +168,7 @@ export function AboutHero() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >
@@ -171,7 +178,7 @@ export function AboutHero() {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ y: -6, scale: 1.04 }}
+                  whileHover={{ y: -6 }}
                   transition={{ duration: 0.2 }}
                   className="flex flex-col items-center text-center p-3.5 rounded-2xl bg-[#F7F5EF] border border-[#EAE6DB] hover:border-[#E97835]/50 hover:bg-white hover:shadow-md cursor-default transition-colors"
                 >

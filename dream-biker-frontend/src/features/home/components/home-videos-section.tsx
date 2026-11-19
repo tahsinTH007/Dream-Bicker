@@ -65,10 +65,10 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -8, scale: 1.015 }}
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -8 }}
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0E1F2C] transition-colors duration-300 hover:border-[#F5A623]/50 hover:shadow-2xl hover:shadow-[#F5A623]/10"
               >
                 {/* Thumbnail Container */}

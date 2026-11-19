@@ -39,8 +39,8 @@ export function AboutBio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-all duration-300"
+            whileHover={{ y: -6 }}
+            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
           >
             {/* Top decorative gradient bar */}
             <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -70,11 +70,11 @@ export function AboutBio() {
           {/* Card 2: অনুপ্রেরণা ও প্রত্যয় */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] } }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -6, scale: 1.015 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-all duration-300"
+            transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            whileHover={{ y: -6 }}
+            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
           >
             {/* Top decorative gradient bar */}
             <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

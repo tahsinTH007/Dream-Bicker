@@ -68,11 +68,11 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
               <motion.article
                 key={post.id}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -8, scale: 1.015 }}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -8 }}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
               >
                 <div>
                   {/* Optional Media Preview */}

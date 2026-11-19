@@ -33,7 +33,7 @@ export function PageHeader({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-[#E97835] blur-3xl pointer-events-none"
+        className="absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-[#E97835] blur-3xl pointer-events-none will-change-[transform,opacity]"
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

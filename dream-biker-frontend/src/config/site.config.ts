@@ -11,6 +11,13 @@ export const siteConfig = {
   label: "কন্টেন্ট ক্রিয়েটর | মানবসেবক",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
+  // Figures shown in the home hero stats bar. Update these by hand.
+  heroStats: [
+    { value: "4.5M", label: "Facebook Followers", icon: "followers" },
+    { value: "1.4B", label: "Reel Views", icon: "views" },
+    { value: "98%", label: "Recommendation", icon: "recommend" },
+    { value: "690", label: "Reviews", icon: "reviews" },
+  ],
   contact: {
     email: "md.hanifhossan6991@gmail.com",
     location: "বাংলাদেশ",

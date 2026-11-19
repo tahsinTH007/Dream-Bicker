@@ -62,7 +62,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "all"
                   ? "bg-[#142B3B] text-white shadow-sm"
                   : "text-[#222222]/80 hover:text-[#142B3B] hover:bg-white"
@@ -79,7 +79,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "FACEBOOK"
                   ? "bg-blue-600 text-white shadow-sm"
                   : "text-[#222222]/80 hover:text-blue-600 hover:bg-white"
@@ -97,7 +97,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 setPage(1);
               }}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all cursor-pointer",
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-[color,background-color,border-color,box-shadow] cursor-pointer",
                 platformFilter === "YOUTUBE"
                   ? "bg-red-600 text-white shadow-sm"
                   : "text-[#222222]/80 hover:text-red-600 hover:bg-white"
@@ -114,13 +114,13 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
         </motion.div>
 
         {/* Posts Grid with Animated Transitions */}
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={`blog-grid-${platformFilter}-${page}`}
+            key={`blog-grid-${platformFilter}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.25 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
             {visiblePosts.map((post, idx) => {
@@ -152,10 +152,10 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                 <motion.article
                   key={post.id}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -8, scale: 1.015 }}
-                  className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-all duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
+                  animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: (idx % itemsPerPage) * 0.05, ease: [0.16, 1, 0.3, 1] } }}
+                  transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                  whileHover={{ y: -8 }}
+                  className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl hover:border-[#E97835]/40"
                 >
                   <div>
                     {/* Media Preview (Photo / YouTube Thumbnail) */}

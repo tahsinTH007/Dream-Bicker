@@ -54,10 +54,10 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              whileHover={{ y: -6 }}
             >
               <Link
                 href="/gallery"

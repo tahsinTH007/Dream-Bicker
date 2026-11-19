@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Noto_Sans_Bengali } from "next/font/google";
+import { Inter, Kaushan_Script, Manrope, Noto_Sans_Bengali, Sacramento } from "next/font/google";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -18,6 +18,22 @@ const inter = Inter({
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Brush script for the hero accent word ("Peace.")
+const kaushanScript = Kaushan_Script({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
+// Thin signature script for the "Dream Biker" autograph in the hero
+const sacramento = Sacramento({
+  variable: "--font-signature",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -61,7 +77,7 @@ export default function RootLayout({
     <html
       lang="bn"
       suppressHydrationWarning
-      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable}`}
+      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable} ${kaushanScript.variable} ${sacramento.variable}`}
     >
       <body
         suppressHydrationWarning

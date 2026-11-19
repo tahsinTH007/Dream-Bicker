@@ -49,10 +49,10 @@ export function AboutIntroSection() {
               {/* Quote Capsule with Entrance and Stagger */}
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
                 className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10 backdrop-blur-md"
               >
                 <Quote className="h-5 w-5 text-[#E97835] mb-2" />
@@ -109,11 +109,11 @@ export function AboutIntroSection() {
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3 } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                whileHover={{ y: -4, borderColor: "#E97835" }}
-                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
+                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors hover:border-[#E97835]"
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Sparkles className="h-4 w-4 text-[#E97835]" />
@@ -129,11 +129,11 @@ export function AboutIntroSection() {
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.4 } }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                whileHover={{ y: -4, borderColor: "#E97835" }}
-                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -4 }}
+                className="rounded-xl border border-[#EAE6DB] bg-[#F7F5EF]/50 p-4 transition-colors hover:border-[#E97835]"
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <Heart className="h-4 w-4 text-[#E97835]" />

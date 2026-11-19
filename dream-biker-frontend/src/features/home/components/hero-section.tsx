@@ -1,208 +1,179 @@
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Play, Heart, Compass } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { motion, type Variants } from "framer-motion";
+import { ArrowRight, Heart, Play, Star, Users, type LucideIcon } from "lucide-react";
+import { siteConfig } from "@/config/site.config";
 
-const dynamicPhrases = [
-  "প্রতিটি মানবিক কাজই",
-  "অসহায়ের পাশে দাঁড়ানোই",
-  "নিঃস্বার্থ ভালোবাসা ছড়ানোই",
-  "তৃণমূল মানুষের সেবাই",
-];
+const ACCENT = "#F5B427";
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const statIcons: Record<string, LucideIcon> = {
+  followers: Users,
+  views: Play,
+  recommend: Heart,
+  reviews: Star,
+};
+
+// One orchestrated entrance: children rise in sequence using only opacity +
+// transform (GPU-friendly, no blur/filter animation).
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+};
+
+const rise: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
+};
 
 export function HeroSection() {
-  const [phraseIndex, setPhraseIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setPhraseIndex((prev) => (prev + 1) % dynamicPhrases.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <section className="relative w-full min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden bg-[#07131D] text-white pt-24 sm:pt-28 lg:pt-32 pb-16 sm:pb-20 lg:pb-24">
-      {/* 1. Full-Width Photographic Hero Background */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative isolate flex min-h-[640px] flex-col overflow-hidden bg-[#0B1410] text-white sm:min-h-[700px] lg:min-h-[92vh]">
+      {/* Background photo */}
+      <motion.div
+        initial={{ scale: 1.06, opacity: 0.6 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.6, ease: EASE_OUT }}
+        className="absolute inset-0 -z-10 will-change-transform"
+      >
         <Image
           src="/images/hero_bg_hanif.jpg"
-          alt="ড্রিম বাইকার - মোহাম্মদ হানিফ"
+          alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
           fill
           priority
-          quality={92}
+          quality={90}
           sizes="100vw"
-          className="object-cover object-[75%_center] sm:object-[78%_center] lg:object-[82%_center] xl:object-right select-none pointer-events-none"
+          className="pointer-events-none select-none object-cover object-[72%_30%] sm:object-[70%_30%]"
         />
+      </motion.div>
 
-        {/* Desktop Left-to-Right Dark Gradient for Text Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07131D]/95 via-[#07131D]/80 to-transparent lg:from-[#07131D]/95 lg:via-[#07131D]/70 lg:to-transparent pointer-events-none" />
+      {/* Readability overlays: left fade for text, top fade for navbar, bottom fade for stats */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#0B1410]/95 via-[#0B1410]/60 to-transparent sm:via-[#0B1410]/45" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/60 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 bg-gradient-to-t from-[#0B1410] via-[#0B1410]/50 to-transparent sm:hidden" />
 
-        {/* Mobile & Tablet Vertical Gradient (Bottom-Up) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07131D] via-[#07131D]/75 to-transparent sm:hidden pointer-events-none" />
-
-        {/* Top Navbar Shadow Fade */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#07131D]/80 via-transparent to-transparent pointer-events-none" />
-
-        {/* Bottom Smooth Blend to Next Section */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#07131D] via-[#07131D]/40 to-transparent pointer-events-none" />
-      </div>
-
-      {/* 2. Main Content Container */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl lg:max-w-2xl xl:max-w-3xl flex flex-col items-start text-left">
-          {/* Creator & Humanitarian Badge with Motion */}
-          <motion.div
-            initial={{ opacity: 0, y: -16, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#E97835]/40 bg-[#E97835]/15 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold tracking-wider uppercase text-[#E97835] mb-5 sm:mb-6 shadow-sm"
-          >
-            <span className="h-2 w-2 rounded-full bg-[#E97835] animate-pulse" />
-            কন্টেন্ট ক্রিয়েটর | মানবসেবক
-          </motion.div>
-
-          {/* Main Heading with Staggered Entrance & Dynamic Rotating Text */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.25] sm:leading-[1.2] text-white"
-          >
-            প্রতিটি জীবনের একটি গল্প আছে।{" "}
-            <span className="relative inline-block text-[#E97835]">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={dynamicPhrases[phraseIndex]}
-                  initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -16, filter: "blur(4px)" }}
-                  transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-                  className="inline-block"
-                >
-                  {dynamicPhrases[phraseIndex]}
-                </motion.span>
-              </AnimatePresence>
-              <svg
-                className="absolute -bottom-2 left-0 w-full text-[#E97835]/40"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0,8 Q50,0 100,8"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="none"
-                />
-              </svg>
-            </span>{" "}
-            মূল্যবান।
-          </motion.h1>
-
-          {/* Introduction Paragraph with Motion */}
+      {/* Main content */}
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pb-10 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+        <motion.div variants={container} initial="hidden" animate="show" className="max-w-xl">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-5 sm:mt-6 text-base sm:text-lg lg:text-xl text-white/85 leading-relaxed font-normal max-w-xl sm:max-w-2xl"
+            variants={rise}
+            className="mb-4 flex items-center gap-3 font-[family-name:var(--font-manrope)] text-xs font-extrabold uppercase tracking-[0.25em]"
+            style={{ color: ACCENT }}
           >
-            আমি{" "}
-            <strong className="text-white font-semibold">
-              হানিফ (ড্রিম বাইকার)
-            </strong>
-            । দুই চাকার বাহন আর একটি ক্যামেরা নিয়ে আমি পরিভ্রমণ করি বাংলাদেশের
-            প্রত্যন্ত জনপদে—অদেখা মানুষের জীবনের নীরব গল্প তুলে ধরতে, অসহায়
-            মানুষের পাশে দাঁড়াতে এবং মানবতার আলো ছড়িয়ে দিতে।
+            A Journey of Humanity
+            <span className="h-px w-10" style={{ backgroundColor: ACCENT }} />
           </motion.p>
 
-          {/* Action CTA Buttons with Motion */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 flex flex-wrap items-center gap-4"
+          <motion.h1
+            variants={rise}
+            className="font-[family-name:var(--font-manrope)] text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
           >
-            <Button
-              asChild
-              variant="orange"
-              size="lg"
-              className="rounded-full px-7 py-3 text-sm font-bold gap-2 shadow-xl shadow-[#E97835]/25 hover:scale-105 active:scale-95 transition-all"
+            Humanity Is a
+            <br />
+            Symbol of{" "}
+            <span
+              className="inline-block font-[family-name:var(--font-script)] font-normal"
+              style={{ color: ACCENT }}
             >
-              <Link href="/about">
-                আমার যাত্রা জানুন
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+              Peace.
+            </span>
+          </motion.h1>
 
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-full px-7 py-3 text-sm font-bold gap-2 border-white/20 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 hover:text-white hover:scale-105 active:scale-95 transition-all"
-            >
-              <Link href="/videos">
-                <Play className="h-4 w-4 fill-current text-white" />
-                ভিডিওগুলো দেখুন
-              </Link>
-            </Button>
-          </motion.div>
-
-          {/* Highlights Row with Motion */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-white/15 w-full max-w-xl sm:max-w-2xl"
+          <motion.p
+            variants={rise}
+            className="mt-6 max-w-md font-[family-name:var(--font-manrope)] text-base leading-relaxed text-white/85 sm:text-lg"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 backdrop-blur-md text-white border border-white/15">
-                <Compass className="h-5 w-5 text-[#E97835]" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white">তৃণমূল বাংলা</div>
-                <div className="text-xs text-white/70">
-                  প্রত্যন্ত অঞ্চলের ডায়েরি
-                </div>
-              </div>
-            </div>
+            Let&apos;s spread kindness, support the needy, and make this world a better place
+            together.
+          </motion.p>
 
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E97835] text-white shadow-md">
-                <Heart className="h-5 w-5 fill-current" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white">মানবতা প্রথম</div>
-                <div className="text-xs text-white/70">মর্যাদা ও কল্যাণ</div>
-              </div>
-            </div>
+          <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/about"
+              className="group inline-flex items-center gap-2 rounded-full px-7 py-3 font-[family-name:var(--font-manrope)] text-sm font-bold text-[#1A1405] shadow-lg shadow-black/25 transition-[transform,background-color] duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0"
+              style={{ backgroundColor: ACCENT }}
+            >
+              Explore My Journey
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+            </Link>
 
-            <div className="col-span-2 sm:col-span-1 flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 backdrop-blur-md text-white border border-white/15">
-                <span className="font-bold text-xs text-[#E97835]">HD</span>
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white">ডকুমেন্টারি</div>
-                <div className="text-xs text-white/70">বাস্তব জীবনের গল্প</div>
-              </div>
-            </div>
+            <Link
+              href="/videos"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-white/70 px-6 py-3 font-[family-name:var(--font-manrope)] text-sm font-bold text-white backdrop-blur-sm transition-[transform,background-color,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white hover:bg-white/10 active:translate-y-0"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#0B1410]">
+                <Play className="ml-px h-2.5 w-2.5 fill-current" />
+              </span>
+              Watch Videos
+            </Link>
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* "Dream Biker" signature */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
+          className="pointer-events-none absolute right-6 top-[38%] hidden -rotate-12 select-none md:block lg:right-12"
+          aria-hidden="true"
+        >
+          <span className="block font-[family-name:var(--font-signature)] text-6xl leading-none text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] lg:text-7xl">
+            Dream Biker
+          </span>
+          <svg viewBox="0 0 200 20" className="ml-auto -mt-1 h-4 w-40" fill="none">
+            <motion.path
+              d="M4 14 C 60 4, 130 4, 196 10"
+              stroke={ACCENT}
+              strokeWidth="3"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1, delay: 1.3, ease: EASE_OUT }}
+            />
+          </svg>
+        </motion.div>
       </div>
 
-      {/* Floating Accent Brand Tag on Large Screens */}
+      {/* Stats bar */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden lg:flex absolute bottom-8 right-8 xl:right-12 z-10 items-center gap-2.5 rounded-full bg-black/40 backdrop-blur-md px-4 py-2 border border-white/15 text-white/90"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.7, ease: EASE_OUT }}
+        className="relative border-t border-white/10 bg-[#141414]/80 backdrop-blur-md"
       >
-        <span className="h-2 w-2 rounded-full bg-[#E97835]" />
-        <span className="font-heading text-[11px] font-bold uppercase tracking-[0.2em]">
-          DREAM BIKER • মোহাম্মদ হানিফ
-        </span>
+        <ul className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
+          {siteConfig.heroStats.map((stat, idx) => {
+            const Icon = statIcons[stat.icon] ?? Star;
+            return (
+              <li
+                key={stat.label}
+                className={[
+                  "flex items-center justify-center gap-3 py-5 sm:py-6",
+                  // vertical dividers between items (2 per row on mobile, 4 on desktop)
+                  idx % 2 === 1 ? "border-l border-white/15" : "",
+                  idx === 2 ? "md:border-l md:border-white/15" : "",
+                  idx >= 2 ? "border-t border-white/10 md:border-t-0" : "",
+                ].join(" ")}
+              >
+                <Icon
+                  className={`h-6 w-6 shrink-0 sm:h-7 sm:w-7 ${stat.icon === "reviews" ? "" : "text-white"}`}
+                  style={stat.icon === "reviews" ? { color: ACCENT } : undefined}
+                  strokeWidth={1.8}
+                />
+                <div className="font-[family-name:var(--font-manrope)]">
+                  <p className="text-xl font-extrabold leading-none text-white sm:text-2xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-[11px] font-medium text-white/70 sm:text-xs">
+                    {stat.label}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </motion.div>
     </section>
   );

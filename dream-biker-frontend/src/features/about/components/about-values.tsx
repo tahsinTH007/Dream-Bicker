@@ -55,15 +55,11 @@ export function AboutValues() {
               <motion.div
                 key={val.title}
                 initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1], } }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{
-                  duration: 0.6,
-                  delay: idx * 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-all duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -8 }}
+                className="group relative rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-[#E97835] hover:bg-white/[0.08] hover:shadow-2xl hover:shadow-[#E97835]/10 flex flex-col justify-between"
               >
                 <div>
                   {/* Floating Icon Box */}
