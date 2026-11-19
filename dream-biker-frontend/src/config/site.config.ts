@@ -13,10 +13,10 @@ export const siteConfig = {
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
   // Figures shown in the home hero stats bar. Update these by hand.
   heroStats: [
-    { value: "4.5M", label: "Facebook Followers", icon: "followers" },
-    { value: "1.4B", label: "Reel Views", icon: "views" },
-    { value: "98%", label: "Recommendation", icon: "recommend" },
-    { value: "690", label: "Reviews", icon: "reviews" },
+    { value: "৪৫ লাখ+", label: "ফেসবুক ফলোয়ার", icon: "followers" },
+    { value: "১৪০ কোটি+", label: "রিলস ভিউ", icon: "views" },
+    { value: "৯৮%", label: "রিকমেন্ডেশন", icon: "recommend" },
+    { value: "৬৯০+", label: "রিভিউ", icon: "reviews" },
   ],
   contact: {
     email: "md.hanifhossan6991@gmail.com",

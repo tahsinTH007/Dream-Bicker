@@ -6,37 +6,58 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Heart, Play, Star, Users, type LucideIcon } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
 
-const ACCENT = "#F5B427";
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const statIcons: Record<string, LucideIcon> = {
-  followers: Users,
-  views: Play,
-  recommend: Heart,
-  reviews: Star,
+// Warm sunrise palette used across the hero
+const GOLD = "#FFC93C";
+const ORANGE = "#FF6B2C";
+
+const statStyles: Record<string, { icon: LucideIcon; chip: string; glow: string }> = {
+  followers: {
+    icon: Users,
+    chip: "from-[#1877F2] to-[#5AA9FF]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(24,119,242,0.7)]",
+  },
+  views: {
+    icon: Play,
+    chip: "from-[#FF2D55] to-[#FF8A3D]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(255,45,85,0.7)]",
+  },
+  recommend: {
+    icon: Heart,
+    chip: "from-[#10B981] to-[#5EEAD4]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(16,185,129,0.7)]",
+  },
+  reviews: {
+    icon: Star,
+    chip: "from-[#FFC93C] to-[#FF8A00]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(255,170,0,0.7)]",
+  },
 };
 
-// One orchestrated entrance: children rise in sequence using only opacity +
-// transform (GPU-friendly, no blur/filter animation).
+// One orchestrated entrance using only opacity + transform (GPU-friendly)
 const container: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 };
 
 const rise: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 26 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
 };
 
 export function HeroSection() {
   return (
-    <section className="relative isolate flex min-h-[640px] flex-col overflow-hidden bg-[#0B1410] text-white sm:min-h-[700px] lg:min-h-[92vh]">
-      {/* Background photo */}
+    <section className="relative isolate flex min-h-[700px] flex-col overflow-hidden bg-[#07100C] text-white sm:min-h-[740px] lg:min-h-svh">
+      {/* Photo starts BELOW the navbar (72px mobile / 80px desktop) and is pinned
+          to its top edge, so his head is never hidden behind the navbar,
+          whatever the screen's width-to-height ratio. On large screens it
+          occupies the right part only and the left melts into the dark bg. */}
       <motion.div
-        initial={{ scale: 1.06, opacity: 0.6 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, ease: EASE_OUT }}
-        className="absolute inset-0 -z-10 will-change-transform"
+        className="absolute inset-x-0 bottom-0 top-[72px] -z-20 origin-top will-change-transform sm:top-[80px] lg:left-auto lg:w-[72%]"
       >
         <Image
           src="/images/hero_bg_hanif.jpg"
@@ -44,93 +65,136 @@ export function HeroSection() {
           fill
           priority
           quality={90}
-          sizes="100vw"
-          className="pointer-events-none select-none object-cover object-[72%_30%] sm:object-[70%_30%]"
+          sizes="(min-width: 1024px) 72vw, 100vw"
+          className="pointer-events-none select-none object-cover object-[68%_top] lg:object-[60%_top]"
         />
+        {/* soft top edge under the navbar */}
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#07100C] to-transparent" />
+        {/* left edge melts into the background (large screens) */}
+        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-gradient-to-r from-[#07100C] via-[#07100C]/70 to-transparent lg:block" />
       </motion.div>
 
-      {/* Readability overlays: left fade for text, top fade for navbar, bottom fade for stats */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#0B1410]/95 via-[#0B1410]/60 to-transparent sm:via-[#0B1410]/45" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/60 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 bg-gradient-to-t from-[#0B1410] via-[#0B1410]/50 to-transparent sm:hidden" />
+      {/* Text readability on small/medium screens where text sits over the photo */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#07100C]/95 via-[#07100C]/75 to-[#07100C]/10 lg:from-[#07100C]/60 lg:via-transparent lg:to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-64 bg-gradient-to-t from-[#07100C] via-[#07100C]/60 to-transparent" />
+
+      {/* Colour glows: warm sunrise light behind the headline */}
+      <div className="pointer-events-none absolute -left-40 top-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[#FF6B2C]/25 blur-[130px]" />
+      <div className="pointer-events-none absolute left-1/4 top-10 -z-10 h-[360px] w-[360px] rounded-full bg-[#FFC93C]/15 blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-1/4 -z-10 hidden h-[420px] w-[420px] rounded-full bg-[#10B981]/10 blur-[140px] lg:block" />
 
       {/* Main content */}
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pb-10 pt-28 sm:px-6 sm:pt-32 lg:px-8">
-        <motion.div variants={container} initial="hidden" animate="show" className="max-w-xl">
-          <motion.p
-            variants={rise}
-            className="mb-4 flex items-center gap-3 font-[family-name:var(--font-manrope)] text-xs font-extrabold uppercase tracking-[0.25em]"
-            style={{ color: ACCENT }}
-          >
-            A Journey of Humanity
-            <span className="h-px w-10" style={{ backgroundColor: ACCENT }} />
-          </motion.p>
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pb-12 pt-32 sm:px-6 sm:pt-36 lg:px-8 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-24">
+        <motion.div variants={container} initial="hidden" animate="show" className="max-w-2xl">
+          {/* Eyebrow pill */}
+          <motion.div variants={rise}>
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-[#FFC93C]/35 bg-gradient-to-r from-[#FFC93C]/15 to-[#FF6B2C]/10 px-4 py-1.5 text-sm font-semibold text-[#FFD970] shadow-[0_0_30px_-8px_rgba(255,201,60,0.6)] backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFC93C] opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FFC93C]" />
+              </span>
+              মানবতার পথে এক অবিরাম যাত্রা
+            </span>
+          </motion.div>
 
+          {/* Headline */}
           <motion.h1
             variants={rise}
-            className="font-[family-name:var(--font-manrope)] text-[2.6rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            className="mt-6 text-5xl font-extrabold leading-[1.25] tracking-tight text-white sm:text-6xl xl:text-7xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-5xl"
           >
-            Humanity Is a
-            <br />
-            Symbol of{" "}
-            <span
-              className="inline-block font-[family-name:var(--font-script)] font-normal"
-              style={{ color: ACCENT }}
-            >
-              Peace.
+            মানবতাই
+            <span className="relative mt-1 block w-fit pb-3">
+              <span
+                className="bg-clip-text font-[family-name:var(--font-bengali-display)] font-normal leading-[1.35] text-transparent drop-shadow-[0_4px_24px_rgba(255,120,40,0.35)]"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${GOLD} 0%, #FFA53C 45%, ${ORANGE} 100%)`,
+                }}
+              >
+                শান্তির প্রতীক।
+              </span>
+              {/* hand-drawn underline */}
+              <svg
+                viewBox="0 0 300 16"
+                preserveAspectRatio="none"
+                className="absolute -bottom-0.5 left-0 h-3 w-full sm:h-4"
+                fill="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="heroUnderline" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stopColor={GOLD} />
+                    <stop offset="100%" stopColor={ORANGE} />
+                  </linearGradient>
+                </defs>
+                <motion.path
+                  d="M3 11 C 80 3, 200 3, 297 9"
+                  stroke="url(#heroUnderline)"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 1.1, delay: 0.9, ease: EASE_OUT }}
+                />
+              </svg>
             </span>
           </motion.h1>
 
           <motion.p
             variants={rise}
-            className="mt-6 max-w-md font-[family-name:var(--font-manrope)] text-base leading-relaxed text-white/85 sm:text-lg"
+            className="mt-6 [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg"
           >
-            Let&apos;s spread kindness, support the needy, and make this world a better place
-            together.
+            আসুন দয়া ছড়িয়ে দিই, অসহায় মানুষের পাশে দাঁড়াই এবং সবাই মিলে এই পৃথিবীকে আরও সুন্দর করে
+            তুলি।
           </motion.p>
 
-          <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-4">
+          {/* CTAs */}
+          <motion.div variants={rise} className="mt-9 [@media(min-width:1024px)_and_(max-height:780px)]:mt-6 flex flex-wrap items-center gap-4">
             <Link
               href="/about"
-              className="group inline-flex items-center gap-2 rounded-full px-7 py-3 font-[family-name:var(--font-manrope)] text-sm font-bold text-[#1A1405] shadow-lg shadow-black/25 transition-[transform,background-color] duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0"
-              style={{ backgroundColor: ACCENT }}
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-8 py-3.5 text-base font-bold text-[#2A1300] shadow-[0_12px_32px_-10px_rgba(255,107,44,0.85)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_rgba(255,107,44,1)] active:translate-y-0"
+              style={{ backgroundImage: `linear-gradient(100deg, ${GOLD} 0%, #FFA53C 55%, ${ORANGE} 100%)` }}
             >
-              Explore My Journey
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
+              {/* light sweep on hover */}
+              <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/40 blur-sm transition-transform duration-700 ease-out group-hover:translate-x-[420%]" />
+              <span className="relative">আমার যাত্রা জানুন</span>
+              <ArrowRight className="relative h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
             </Link>
 
             <Link
               href="/videos"
-              className="group inline-flex items-center gap-2.5 rounded-full border border-white/70 px-6 py-3 font-[family-name:var(--font-manrope)] text-sm font-bold text-white backdrop-blur-sm transition-[transform,background-color,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white hover:bg-white/10 active:translate-y-0"
+              className="group inline-flex items-center gap-3 rounded-full border border-white/25 bg-white/10 py-2 pl-2 pr-6 text-base font-bold text-white backdrop-blur-md transition-[transform,background-color,border-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 active:translate-y-0"
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#0B1410]">
-                <Play className="ml-px h-2.5 w-2.5 fill-current" />
+              <span
+                className="flex h-9 w-9 items-center justify-center rounded-full text-white shadow-[0_6px_18px_-4px_rgba(255,45,85,0.8)] transition-transform duration-300 ease-out group-hover:scale-110"
+                style={{ backgroundImage: "linear-gradient(135deg, #FF2D55, #FF8A3D)" }}
+              >
+                <Play className="ml-0.5 h-4 w-4 fill-current" />
               </span>
-              Watch Videos
+              ভিডিও দেখুন
             </Link>
           </motion.div>
         </motion.div>
 
-        {/* "Dream Biker" signature */}
+        {/* "Dream Biker" autograph over the photo */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
+          initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
-          className="pointer-events-none absolute right-6 top-[38%] hidden -rotate-12 select-none md:block lg:right-12"
+          className="pointer-events-none absolute right-6 top-[46%] hidden -rotate-12 select-none md:block lg:right-14"
           aria-hidden="true"
         >
-          <span className="block font-[family-name:var(--font-signature)] text-6xl leading-none text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] lg:text-7xl">
+          <span className="block font-[family-name:var(--font-signature)] text-6xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] lg:text-7xl">
             Dream Biker
           </span>
-          <svg viewBox="0 0 200 20" className="ml-auto -mt-1 h-4 w-40" fill="none">
+          <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-40" fill="none">
             <motion.path
               d="M4 14 C 60 4, 130 4, 196 10"
-              stroke={ACCENT}
+              stroke={GOLD}
               strokeWidth="3"
               strokeLinecap="round"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: 1.3, ease: EASE_OUT }}
+              transition={{ duration: 1, delay: 1.4, ease: EASE_OUT }}
             />
           </svg>
         </motion.div>
@@ -138,37 +202,38 @@ export function HeroSection() {
 
       {/* Stats bar */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.7, ease: EASE_OUT }}
-        className="relative border-t border-white/10 bg-[#141414]/80 backdrop-blur-md"
+        transition={{ duration: 0.8, delay: 0.75, ease: EASE_OUT }}
+        className="relative border-t border-white/10 bg-[#0B1511]/70 backdrop-blur-xl"
       >
-        <ul className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
+        {/* glowing gradient edge */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFC93C] to-transparent opacity-70" />
+
+        <ul className="mx-auto grid max-w-7xl grid-cols-2 px-2 sm:px-6 md:grid-cols-4 lg:px-8">
           {siteConfig.heroStats.map((stat, idx) => {
-            const Icon = statIcons[stat.icon] ?? Star;
+            const style = statStyles[stat.icon] ?? statStyles.reviews;
+            const Icon = style.icon;
             return (
               <li
                 key={stat.label}
                 className={[
-                  "flex items-center justify-center gap-3 py-5 sm:py-6",
-                  // vertical dividers between items (2 per row on mobile, 4 on desktop)
-                  idx % 2 === 1 ? "border-l border-white/15" : "",
-                  idx === 2 ? "md:border-l md:border-white/15" : "",
+                  "group flex items-center justify-center gap-3 px-2 py-5 sm:gap-4 sm:py-6 [@media(min-width:1024px)_and_(max-height:780px)]:py-4",
+                  idx % 2 === 1 ? "border-l border-white/10" : "",
+                  idx === 2 ? "md:border-l md:border-white/10" : "",
                   idx >= 2 ? "border-t border-white/10 md:border-t-0" : "",
                 ].join(" ")}
               >
-                <Icon
-                  className={`h-6 w-6 shrink-0 sm:h-7 sm:w-7 ${stat.icon === "reviews" ? "" : "text-white"}`}
-                  style={stat.icon === "reviews" ? { color: ACCENT } : undefined}
-                  strokeWidth={1.8}
-                />
-                <div className="font-[family-name:var(--font-manrope)]">
-                  <p className="text-xl font-extrabold leading-none text-white sm:text-2xl">
+                <span
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br text-white transition-transform duration-300 ease-out group-hover:-translate-y-1 sm:h-12 sm:w-12 ${style.chip} ${style.glow}`}
+                >
+                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.2} />
+                </span>
+                <div>
+                  <p className="text-xl font-extrabold leading-tight text-white sm:text-2xl">
                     {stat.value}
                   </p>
-                  <p className="mt-1 text-[11px] font-medium text-white/70 sm:text-xs">
-                    {stat.label}
-                  </p>
+                  <p className="text-xs font-medium text-white/65 sm:text-sm">{stat.label}</p>
                 </div>
               </li>
             );

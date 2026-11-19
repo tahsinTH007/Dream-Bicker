@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Kaushan_Script, Manrope, Noto_Sans_Bengali, Sacramento } from "next/font/google";
+import { Galada, Inter, Manrope, Noto_Sans_Bengali, Sacramento } from "next/font/google";
 import "./globals.css";
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -21,10 +21,10 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Brush script for the hero accent word ("Peace.")
-const kaushanScript = Kaushan_Script({
-  variable: "--font-script",
-  subsets: ["latin"],
+// Calligraphic Bengali display face for the hero accent phrase ("শান্তির প্রতীক")
+const galada = Galada({
+  variable: "--font-bengali-display",
+  subsets: ["bengali", "latin"],
   weight: "400",
   display: "swap",
 });
@@ -77,7 +77,7 @@ export default function RootLayout({
     <html
       lang="bn"
       suppressHydrationWarning
-      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable} ${kaushanScript.variable} ${sacramento.variable}`}
+      className={`${notoSansBengali.variable} ${inter.variable} ${manrope.variable} ${galada.variable} ${sacramento.variable}`}
     >
       <body
         suppressHydrationWarning
