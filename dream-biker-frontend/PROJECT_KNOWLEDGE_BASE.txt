@@ -222,6 +222,13 @@ The user provided authentic photographs of Hanif, which are saved in the project
 | `public/images/author/hanif_2.png` | Mirror copy of `hanif_portrait.png` | Author bio thumbnail |
 | `public/images/author/hanif_3.png` | Mirror copy of `hanif_avatar.png` | Testimonials & quote box |
 
+### 7.1 Official Brand Emblem & Logo
+The official Dream Biker emblem portrays Hanif with sunglasses and beard riding a motorcycle with metallic wings and the curved green banner "DREAM BIKER":
+- `public/images/logo/dream_biker_logo.png` — Full master resolution (1024x1024) PNG with transparent background.
+- `public/images/logo/dream_biker_emblem.png` — Tightly cropped (728x600) transparent emblem used across Navbar, Mobile Drawer, and Footer.
+- `public/images/logo/logo.png` — Default logo path.
+- `src/app/icon.png` — Official Next.js favicon & PWA icon automatically loaded in all browser tabs.
+
 ---
 
 ## 8. SOCIAL MEDIA SYNCHRONIZATION ENGINE

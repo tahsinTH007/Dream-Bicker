@@ -36,27 +36,14 @@ export function Footer() {
               href="/"
               className="group flex items-center gap-3 select-none transition-opacity hover:opacity-95"
             >
-              <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-black/40 text-white shadow-md border border-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:scale-105">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-5 w-5 sm:h-6 sm:w-6 text-[#E97835]"
-                >
-                  <circle cx="5.5" cy="17.5" r="3.5" />
-                  <circle cx="18.5" cy="17.5" r="3.5" />
-                  <path d="M15 6h-3l-3 6.5h7.5" />
-                  <path d="M19 17.5l-3.5-7.5H12" />
-                  <path d="M5.5 17.5L9 10" />
-                  <path d="M14 6l1.5-2h3" />
-                </svg>
-                <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E97835] opacity-75"></span>
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#E97835]"></span>
-                </span>
+              <div className="relative flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/images/logo/dream_biker_emblem.png"
+                  alt="Dream Biker Logo"
+                  width={64}
+                  height={54}
+                  className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(233,120,53,0.35)]"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#E97835] transition-colors drop-shadow">
