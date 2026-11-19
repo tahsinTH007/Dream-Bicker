@@ -271,25 +271,24 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-[110] flex flex-col bg-black/90 backdrop-blur-xl"
+            className="fixed inset-0 z-[110] flex items-center justify-center bg-black/90 backdrop-blur-xl"
             onClick={() => setOpenIndex(null)}
           >
-            <div className="flex items-center justify-end p-4 sm:p-6">
-              <button
-                onClick={() => setOpenIndex(null)}
-                aria-label="বন্ধ করুন"
-                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/25"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+            {/* Floats over the slider so it costs no vertical space */}
+            <button
+              onClick={() => setOpenIndex(null)}
+              aria-label="বন্ধ করুন"
+              className="absolute right-3 top-3 z-50 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-200 hover:bg-white/25 sm:right-6 sm:top-6"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
             <motion.div
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.4, ease: EASE_OUT }}
-              className="flex flex-1 items-center justify-center px-2 pb-6"
+              className="flex w-full items-center justify-center px-2"
               onClick={(e) => e.stopPropagation()}
             >
               <CoverflowCarousel

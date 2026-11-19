@@ -71,11 +71,11 @@ export function CoverflowCarousel({
   return (
     <div
       className={cn(
-        "relative flex w-full select-none flex-col items-center justify-center overflow-hidden py-4 sm:py-8",
+        "relative flex w-full select-none flex-col items-center justify-center overflow-hidden py-2 sm:py-4",
         className
       )}
     >
-      <div className="relative flex h-[440px] w-full max-w-[1400px] items-center justify-center perspective-[1200px] sm:h-[520px] lg:h-[580px]">
+      <div className="relative flex h-[min(460px,calc(100svh-96px))] w-full max-w-[1400px] items-center justify-center perspective-[1200px] sm:h-[min(520px,calc(100svh-96px))] lg:h-[min(580px,calc(100svh-96px))]">
         {total > 1 && (
           <>
             <button
@@ -135,7 +135,7 @@ export function CoverflowCarousel({
                 // zIndex must switch instantly; animating it makes cards flicker through each other
                 style={{ zIndex: isCenter ? 30 : distance === 1 ? 20 : 10, transformStyle: "preserve-3d" }}
                 className={cn(
-                  "absolute h-[400px] w-[280px] overflow-hidden rounded-2xl border border-white/10 bg-[#141414] shadow-[0_20px_50px_rgba(0,0,0,0.7)] will-change-transform sm:h-[480px] sm:w-[340px] sm:rounded-3xl lg:h-[540px] lg:w-[410px]",
+                  "absolute aspect-[41/54] h-[min(400px,calc(100svh-124px))] max-w-[80vw] overflow-hidden rounded-2xl border border-white/10 bg-[#141414] shadow-[0_20px_50px_rgba(0,0,0,0.7)] will-change-transform sm:h-[min(480px,calc(100svh-124px))] sm:rounded-3xl lg:h-[min(540px,calc(100svh-124px))]",
                   isCenter ? "cursor-grab active:cursor-grabbing" : "cursor-pointer",
                   distance > 1 && "pointer-events-none"
                 )}
@@ -150,11 +150,11 @@ export function CoverflowCarousel({
                   className="pointer-events-none object-cover"
                 />
 
-                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/30 to-transparent p-6 sm:p-8">
+                <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/30 to-transparent p-5 sm:p-7">
                   <span className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-white/80 sm:text-[11px]">
                     {item.category}
                   </span>
-                  <h3 className="mb-4 line-clamp-2 text-lg font-bold leading-snug text-white sm:text-2xl">
+                  <h3 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl">
                     {item.title}
                   </h3>
 
@@ -183,7 +183,7 @@ export function CoverflowCarousel({
       {/* Position indicator */}
       {total > 1 &&
         (total <= MAX_DOTS ? (
-          <div className="z-20 mt-4 flex items-center justify-center gap-2 sm:mt-6">
+          <div className="z-20 mt-3 flex items-center justify-center gap-2">
             {items.map((_, dotIdx) => (
               <button
                 key={dotIdx}
@@ -197,7 +197,7 @@ export function CoverflowCarousel({
             ))}
           </div>
         ) : (
-          <div className="z-20 mt-4 font-mono text-sm font-bold text-white/70 sm:mt-6">
+          <div className="z-20 mt-3 font-mono text-sm font-bold text-white/70">
             {currentIndex + 1} / {total}
           </div>
         ))}
