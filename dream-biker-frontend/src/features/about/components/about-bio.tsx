@@ -1,109 +1,116 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Info, Compass, Sparkles, Quote } from "lucide-react";
+import { Target, HeartHandshake, Lightbulb, Telescope, Quote, type LucideIcon } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
+
+interface Pillar {
+  icon: LucideIcon;
+  title: string;
+  paragraphs: string[];
+}
+
+// Text supplied by Dream Biker (client copy, keep wording as is)
+const pillars: Pillar[] = [
+  {
+    icon: Target,
+    title: "আমাদের লক্ষ্য ও উদ্দেশ্য",
+    paragraphs: [
+      "দেশের প্রত্যন্ত জনপদে পৌঁছে সাধারণ মানুষের জীবনযাপন, সংস্কৃতি, ঐতিহ্য, পেশা ও জীবনসংগ্রামের গল্প তুলে ধরা আমাদের অন্যতম প্রধান লক্ষ্য। প্রবীণ কারিগরের হারিয়ে যেতে বসা শিল্প, সংগ্রামী মায়ের জীবনযুদ্ধ, সুবিধাবঞ্চিত শিশুর স্বপ্ন কিংবা প্রতিকূলতাকে জয় করে এগিয়ে চলা তরুণের সাফল্য—প্রতিটি গল্পই আমাদের কাছে গুরুত্বপূর্ণ।",
+      "ডিজিটাল যোগাযোগ ও সামাজিক যোগাযোগমাধ্যমকে ইতিবাচকভাবে ব্যবহার করে আমরা চাই, এসব গল্প দেশের মানুষের পাশাপাশি বিশ্বের দরবারেও পৌঁছে যাক।",
+    ],
+  },
+  {
+    icon: HeartHandshake,
+    title: "মানবিক কার্যক্রম",
+    paragraphs: [
+      "আমরা বিশ্বাস করি, কনটেন্ট তৈরির মাধ্যমে শুধু মানুষের গল্প তুলে ধরাই নয়, মানুষের প্রয়োজনে পাশে দাঁড়ানোও আমাদের সামাজিক দায়িত্ব।",
+      "এই বিশ্বাস থেকেই Dream Biker বিভিন্ন সময়ে অসহায়, সুবিধাবঞ্চিত ও প্রান্তিক জনগোষ্ঠীর পাশে দাঁড়ানোর চেষ্টা করে আসছে।",
+      "প্রতিটি উদ্যোগে আমরা মানুষের আত্মসম্মান, ব্যক্তিগত মর্যাদা ও অনুভূতির প্রতি সর্বোচ্চ শ্রদ্ধাশীল থাকার চেষ্টা করি।",
+    ],
+  },
+  {
+    icon: Lightbulb,
+    title: "আমাদের বিশ্বাস",
+    paragraphs: [
+      "আমরা বিশ্বাস করি, একটি ছোট উদ্যোগও কারও জীবনে বড় পরিবর্তনের সূচনা করতে পারে। একটি মানবিক গল্প জাগিয়ে তুলতে পারে হাজারো মানুষের বিবেক। আর সম্মিলিত প্রচেষ্টা তৈরি করতে পারে একটি সুন্দর ও সহমর্মী সমাজ।",
+      "তাই আমাদের কাছে প্রতিটি ভ্রমণ শুধু একটি নতুন গন্তব্যে পৌঁছানো নয়; বরং নতুন কিছু জানা, নতুন মানুষের সঙ্গে পরিচিত হওয়া এবং সামর্থ্য অনুযায়ী মানুষের পাশে দাঁড়ানোর একটি সুযোগ।",
+    ],
+  },
+  {
+    icon: Telescope,
+    title: "আমাদের ভবিষ্যৎ স্বপ্ন",
+    paragraphs: [
+      "Dream Biker-এর স্বপ্ন বাংলাদেশের প্রতিটি প্রান্তে পৌঁছে যাওয়া। দেশের অজানা জনপদ, অবহেলিত মানুষের গল্প এবং মানবিক উদ্যোগগুলোকে ডিজিটাল প্ল্যাটফর্মের মাধ্যমে আরও বড় পরিসরে তুলে ধরা।",
+      "আমরা চাই, Dream Biker হয়ে উঠুক এমন একটি প্ল্যাটফর্ম, যেখানে ভ্রমণ, সংস্কৃতি, মানবিকতা ও সামাজিক দায়বদ্ধতা একসঙ্গে এগিয়ে যাবে।",
+      "এই পথচলায় আমাদের সবচেয়ে বড় অনুপ্রেরণা সাধারণ মানুষের ভালোবাসা, সহযোগিতা এবং বিশ্বাস।",
+    ],
+  },
+];
+
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function AboutBio() {
   return (
     <section className="py-12 sm:py-16 bg-[#F7F5EF]/60 border-y border-[#EAE6DB] overflow-hidden">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          label="পটভূমি ও গল্প"
-          title="ড্রিম বাইকার-এর শুরুর গল্প"
-          description="একক মোটরসাইকেল ভ্রমণ থেকে শুরু করে গভীর সহানুভূতি ও ভালোবাসার এক মানবিক পথচলা।"
+          label="আমাদের পথচলা"
+          title="লক্ষ্য, কার্যক্রম, বিশ্বাস ও স্বপ্ন"
+          description="ভ্রমণের প্রতিটি পথে, মানবতার পাশে।"
           align="center"
         />
 
-        {/* Notice of authenticated bio with gentle motion */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {pillars.map(({ icon: Icon, title, paragraphs }, idx) => (
+            <motion.article
+              key={title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: (idx % 2) * 0.12, ease: EASE_OUT } }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              whileHover={{ y: -6 }}
+              className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-7 shadow-sm transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-[#E97835]/40 hover:shadow-xl sm:p-8"
+            >
+              {/* Top accent bar on hover */}
+              <div className="absolute left-8 right-8 top-0 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+              <div className="mb-4 flex items-center gap-3">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#E97835]/10 text-[#E97835] transition-colors duration-300 group-hover:bg-[#E97835] group-hover:text-white">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h3 className="text-xl font-bold text-[#142B3B] transition-colors group-hover:text-[#E97835] sm:text-2xl">
+                  {title}
+                </h3>
+              </div>
+
+              <div className="space-y-3 text-sm leading-relaxed text-[#555555] sm:text-base">
+                {paragraphs.map((text) => (
+                  <p key={text.slice(0, 24)}>{text}</p>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* Closing line */}
+        <motion.figure
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 mt-4 rounded-2xl border border-[#EAE6DB] bg-white p-4 sm:p-5 flex items-center gap-3.5 text-xs text-[#777777] shadow-sm"
+          transition={{ duration: 0.6, ease: EASE_OUT }}
+          className="mt-8 flex flex-col items-center gap-3 rounded-3xl bg-[#142B3B] px-6 py-8 text-center text-white shadow-xl sm:flex-row sm:gap-5 sm:text-left"
         >
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#E97835]/15 text-[#E97835]">
-            <Info className="h-4 w-4" />
-          </div>
-          <span>
-            <strong className="text-[#142B3B]">সম্পাদকীয় দ্রষ্টব্য:</strong> ব্যক্তিগত জীবনী ও বিস্তারিত তথ্যাবলি সরাসরি হানিফ ভাইয়ের অনুমোদিত রেকর্ড অনুযায়ী নিয়মিত পর্যবেক্ষণ ও সমৃদ্ধ করা হয়।
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#E97835]">
+            <Quote className="h-6 w-6" />
           </span>
-        </motion.div>
-
-        {/* Story Grid with Interactive Hover Cards & Motion */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: যাত্রার সূচনা */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
-          >
-            {/* Top decorative gradient bar */}
-            <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E97835]/10 text-[#E97835] group-hover:bg-[#E97835] group-hover:text-white transition-colors duration-300">
-                <Compass className="h-6 w-6" />
-              </div>
-              <span className="text-xs font-bold text-[#E97835] uppercase tracking-wider bg-[#F7F5EF] px-3 py-1 rounded-full">
-                অধ্যায় ০১
-              </span>
-            </div>
-
-            <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#142B3B] mb-4 group-hover:text-[#E97835] transition-colors">
-              যাত্রার সূচনা
-            </h3>
-            
-            <p className="text-sm text-[#666666] leading-relaxed mb-4">
-              একটি সাধারণ মোটরসাইকেল আর বাংলাদেশের প্রত্যন্ত অঞ্চলকে কাছ থেকে দেখার তীব্র ইচ্ছা থেকেই এই গল্পের শুরু। মহাসড়কের বাইরে অচেনা মেঠোপথ দিয়ে চলার সময় হানিফ লক্ষ্য করেন অসংখ্য বয়োবৃদ্ধ দোকানি, পরিশ্রমী মা আর অর্থনৈতিক প্রতিকূলতার মধ্যেও হাসিমুখে লড়াই করে যাওয়া তরুণদের।
+          <blockquote>
+            <p className="text-lg font-bold leading-snug sm:text-xl">
+              <span className="text-[#FF9A5C]">Dream Biker</span> – শুধু পথের গল্প নয়, মানুষের জীবনের গল্প।
             </p>
-            
-            <p className="text-sm text-[#666666] leading-relaxed">
-              কেবল পাশ কাটিয়ে চলে না গিয়ে তিনি বাইকের ইঞ্জিন বন্ধ করে এক কাপ চা হাতে তাদের সাথে বসতেন, শুনতেন তাদের জীবনের আনন্দ-বেদনার কথা। সেই আন্তরিক আড্ডাগুলোই ভ্রমণকে কেবল ঘোরাঘুরি থেকে জীবনের ব্রতে রূপ দেয়।
-            </p>
-          </motion.div>
-
-          {/* Card 2: অনুপ্রেরণা ও প্রত্যয় */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            whileInView={{ opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.15, ease: [0.16, 1, 0.3, 1] } }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 320, damping: 26 }}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-3xl border border-[#EAE6DB] bg-white p-8 sm:p-9 shadow-sm hover:shadow-xl hover:border-[#E97835]/40 transition-[color,background-color,border-color,box-shadow] duration-300"
-          >
-            {/* Top decorative gradient bar */}
-            <div className="absolute top-0 left-8 right-8 h-1 rounded-full bg-gradient-to-r from-[#E97835] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E97835]/10 text-[#E97835] group-hover:bg-[#E97835] group-hover:text-white transition-colors duration-300">
-                <Sparkles className="h-6 w-6" />
-              </div>
-              <span className="text-xs font-bold text-[#E97835] uppercase tracking-wider bg-[#F7F5EF] px-3 py-1 rounded-full">
-                অধ্যায় ০২
-              </span>
-            </div>
-
-            <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#142B3B] mb-4 group-hover:text-[#E97835] transition-colors">
-              অনুপ্রেরণা ও প্রত্যয়
-            </h3>
-
-            <p className="text-sm text-[#666666] leading-relaxed mb-4">
-              হানিফের সবচেয়ে বড় অনুপ্রেরণা সাধারণ বাংলাদেশীদের অপরাজেয় মনোবল। বন্যা, নদীভাঙন কিংবা দারিদ্র্যের কষাঘাত সত্ত্বেও অপরিচিত মুসাফিরের প্রতি তাদের অকৃত্রিম আতিথেয়তা ও ভালোবাসা কোনো সীমানা মানে না।
-            </p>
-
-            <div className="mt-4 rounded-2xl bg-[#F7F5EF] p-4 border border-[#EAE6DB] flex items-start gap-3">
-              <Quote className="h-5 w-5 text-[#E97835] shrink-0 mt-0.5" />
-              <p className="text-xs sm:text-sm text-[#142B3B] italic font-medium leading-relaxed">
-                &quot;যাদের নিজেদের বলতে খুব সামান্যই আছে, তারা যদি একজন পথচারী বাইকারকে এতটা ভালোবাসা দিতে পারেন—তবে আমাদের মতো যাদের কথা বলার মাধ্যম আছে, তাদের দায়িত্ব এদের পাশে দাঁড়ানো।&quot;
-              </p>
-            </div>
-          </motion.div>
-        </div>
+            <p className="mt-1 text-sm text-white/80 sm:text-base">ভ্রমণের প্রতিটি পথে, মানবতার পাশে।</p>
+          </blockquote>
+        </motion.figure>
       </div>
     </section>
   );

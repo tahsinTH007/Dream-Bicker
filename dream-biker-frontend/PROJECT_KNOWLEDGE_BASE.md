@@ -18,7 +18,7 @@
 - **YouTube**: [`@DreamBiker532`](https://www.youtube.com/@DreamBiker532)
 - **Facebook**: [`BuydreambyHanif`](https://www.facebook.com/BuydreambyHanif)
 - **Contact**: `md.hanifhossan6991@gmail.com`
-- Hero stats (৪৫ লাখ+ ফলোয়ার, ১৪০ কোটি+ রিলস ভিউ, ৯৮% রিকমেন্ডেশন, ৬৯০+ রিভিউ) live in `siteConfig.heroStats` and **must be confirmed by Hanif**.
+- Hero stats are live from the APIs (YouTube now; Facebook once its token is set). `siteConfig.heroStatsFallback.facebookFollowers` (45 lakh) is **unverified**.
 
 ---
 
@@ -115,10 +115,10 @@ Compact vertical rhythm (client asked for less space): sections ~`py-12 sm:py-16
 ---
 
 ## 6. PAGES & COMPONENTS
-- **Home hero** (`features/home/components/hero-section.tsx`): Bengali copy (label, "মানবতাই / শান্তির প্রতীক।" with gold-orange gradient + animated underline, subtext, two CTAs). Photo `hd/hero_bg_hanif.jpg` starts **below the navbar** and is pinned to its top so the head is never cut; fills one screen on desktop (tighter spacing on short screens). Stats bar uses `CountUp` (counts up in Bengali digits when in view).
-- **Navbar**: fixed on home (transparent → solid on scroll, only colours transition), sticky elsewhere. No search, no TikTok. Mobile drawer slides in/out.
+- **Home hero** (`features/home/components/hero-section.tsx`): Bengali copy from the client's Dream Biker text (label শুধু পথের গল্প নয়…, headline ভ্রমণের পথে মানুষের গল্প, / মানবতার পাশে আমাদের পথচলা। with gold-orange Galada accent + animated underline, mission subtext, two CTAs). Photo `hd/hero_bg_hanif.jpg` starts **below the navbar** and is pinned to its top so the head is never cut; fills one screen on desktop. Stats bar = **live** YouTube subscribers/views/videos + Facebook followers from `src/server/social/hero-stats.ts` (5-min cached API calls; fallback `siteConfig.heroStatsFallback`), shown in Bengali units (লাখ/কোটি, rounded down) with `CountUp`.
+- **Navbar**: logo shows only "Dream Biker" (no personal name underneath). Fixed on home (transparent → solid on scroll, only colours transition), sticky elsewhere. No search, no TikTok. Mobile drawer slides in/out.
 - **Footer**: `hd/footer_bg_road.jpg` background, no top border/line, text uses text-shadow. No WhatsApp/TikTok/scroll-to-top.
-- **About**: portrait card uses `hd/hanif_portrait.jpg`; floating "দুই চাকায়" badge sits top-right (must not cover the caption). Timeline with scroll progress line; rotating phrase reserves space (no reflow).
+- **About**: intro block and the four pillar cards (লক্ষ্য ও উদ্দেশ্য, মানবিক কার্যক্রম, আমাদের বিশ্বাস, ভবিষ্যৎ স্বপ্ন) + closing quote use the **client-supplied Dream Biker text verbatim** — don't reword it. Portrait card uses `hd/hanif_portrait.jpg`; floating "দুই চাকায়" badge sits top-right. Timeline with scroll progress line. The home about section uses the first paragraphs of the same text.
 - **Videos**: two "latest updates" spotlights (`components/shared/latest-spotlight.tsx`), YouTube and Facebook, newest 5 each, auto-advance 7s with progress bar, pause on hover, hidden when the platform has no items. Below: filter tabs (3 equal columns with short labels on phones) and the archive grid with empty states. Cards hover in platform colour. Videos open on YouTube/Facebook.
 - **Blog**: **Facebook page posts only** (client decision). One Facebook spotlight, then the post grid; no filter tabs. YouTube videos are never turned into blog posts, and YouTube Community posts are not available through the YouTube Data API (verified: `activities` returns only uploads/subscriptions).
 - **Gallery**: page header, filter tabs, stable masonry (1/2/3 columns). Clicking a photo opens the **coverflow carousel in a modal** at that photo (Esc/backdrop closes, arrows/swipe, centre button opens the source post). Cards and stage size to the viewport height. There is no separate lightbox.
