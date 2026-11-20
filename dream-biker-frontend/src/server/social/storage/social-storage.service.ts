@@ -165,10 +165,20 @@ function initializeEmptyStore(): MemorySocialStore {
 export const showSampleContent: boolean =
   serverEnv.SHOW_SAMPLE_CONTENT ?? process.env.NODE_ENV !== "production";
 
-// Global memory cache instance
-const memoryStore: MemorySocialStore = showSampleContent
+/** Copy of `items` sorted by publishedAt, newest first. */
+function newestFirst<T extends { publishedAt: string }>(items: T[]): T[] {
+  return [...items].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+}
+
+// One in-memory store per server process, kept on globalThis. Next compiles
+// API routes and pages as separate bundles (and hot reload re-evaluates
+// modules), so a plain module-level object would give each route its own
+// copy: a sync would fill one copy while pages read another. Serverless
+// hosts still run several processes, which is why production needs DATABASE_URL.
+const globalForStore = globalThis as unknown as { __dreamBikerSocialStore?: MemorySocialStore };
+const memoryStore: MemorySocialStore = (globalForStore.__dreamBikerSocialStore ??= showSampleContent
   ? initializeDefaultStore()
-  : initializeEmptyStore();
+  : initializeEmptyStore());
 
 export class SocialStorageService {
   /**
@@ -495,7 +505,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.videos;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.videos);
     if (isPlatformFilter) {
       filtered = filtered.filter((v) => v.provider === platformUpper);
     }
@@ -569,7 +580,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.posts;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.posts);
     if (isPlatformFilter) {
       filtered = filtered.filter((p) => p.provider === platformUpper);
     }
@@ -641,7 +653,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.photos;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.photos);
     if (isPlatformFilter) {
       filtered = filtered.filter((p) => p.provider === platformUpper);
     }
