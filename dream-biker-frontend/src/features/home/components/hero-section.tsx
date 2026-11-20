@@ -94,16 +94,16 @@ export function HeroSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFC93C] opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FFC93C]" />
               </span>
-              মানবতার পথে এক অবিরাম যাত্রা
+              শুধু পথের গল্প নয়, মানুষের জীবনের গল্প
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={rise}
-            className="mt-6 text-5xl font-extrabold leading-[1.25] tracking-tight text-white sm:text-6xl xl:text-7xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-5xl"
+            className="mt-6 text-4xl font-extrabold leading-[1.3] tracking-tight text-white sm:text-5xl xl:text-6xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-4xl"
           >
-            মানবতাই
+            ভ্রমণের পথে মানুষের গল্প,
             <span className="relative mt-1 block w-fit pb-3">
               <span
                 className="bg-clip-text font-[family-name:var(--font-bengali-display)] font-normal leading-[1.35] text-transparent drop-shadow-[0_4px_24px_rgba(255,120,40,0.35)]"
@@ -111,7 +111,7 @@ export function HeroSection() {
                   backgroundImage: `linear-gradient(90deg, ${GOLD} 0%, #FFA53C 45%, ${ORANGE} 100%)`,
                 }}
               >
-                শান্তির প্রতীক।
+                মানবতার পাশে আমাদের পথচলা।
               </span>
               {/* hand-drawn underline */}
               <svg
@@ -144,8 +144,8 @@ export function HeroSection() {
             variants={rise}
             className="mt-6 [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg"
           >
-            আসুন দয়া ছড়িয়ে দিই, অসহায় মানুষের পাশে দাঁড়াই এবং সবাই মিলে এই পৃথিবীকে আরও সুন্দর করে
-            তুলি।
+            বাংলাদেশের প্রত্যন্ত অঞ্চল, গ্রাম ও চরাঞ্চলের মানুষের জীবনসংগ্রাম, স্বপ্ন, সম্ভাবনা এবং বাস্তব চিত্র
+            সবার সামনে তুলে ধরাই আমাদের লক্ষ্য।
           </motion.p>
 
           {/* CTAs */}
@@ -157,7 +157,7 @@ export function HeroSection() {
             >
               {/* light sweep on hover */}
               <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/40 blur-sm transition-transform duration-700 ease-out group-hover:translate-x-[420%]" />
-              <span className="relative">আমার যাত্রা জানুন</span>
+              <span className="relative">আমাদের পথচলা জানুন</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
             </Link>
 
