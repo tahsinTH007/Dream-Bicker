@@ -6,6 +6,7 @@ import { HomePostsSection } from "@/features/home/components/home-posts-section"
 import { HomePhotosSection } from "@/features/home/components/home-photos-section";
 import { SocialCtaSection } from "@/features/home/components/social-cta-section";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
+import { getHeroStats } from "@/server/social/hero-stats";
 import { siteConfig } from "@/config/site.config";
 import { socialConfig } from "@/config/social.config";
 
@@ -37,7 +38,9 @@ const personJsonLd = {
 
 export default async function HomePage() {
   // Fetch real synchronized social data on the server
-  const [videosData, postsData, photosData] = await Promise.all([
+  const [heroStats, videosData, postsData, photosData] = await Promise.all([
+    // live YouTube + Facebook numbers (5-min cache), with config fallbacks
+    getHeroStats(),
     socialStorage.getVideos({ limit: 6 }),
     socialStorage.getPosts({ limit: 3 }),
     socialStorage.getPhotos({ limit: 8 }),
@@ -52,7 +55,7 @@ export default async function HomePage() {
       />
 
       {/* 1. Cinematic Hero Section with Integrated Stats Bar */}
-      <HeroSection />
+      <HeroSection stats={heroStats} />
 
       {/* 2. About Introduction Preview */}
       <AboutIntroSection />
