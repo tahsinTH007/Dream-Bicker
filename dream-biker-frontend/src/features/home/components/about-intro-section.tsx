@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Quote, Heart, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { DreamBikerStory } from "@/components/shared/dream-biker-story";
 
 export function AboutIntroSection() {
   return (
@@ -162,6 +163,9 @@ export function AboutIntroSection() {
             </motion.div>
           </motion.div>
         </div>
+
+        {/* The full Dream Biker story, section by section (closing lines are on the photo badge above) */}
+        <DreamBikerStory className="mt-14 sm:mt-16" showClosing={false} />
       </div>
     </section>
   );
