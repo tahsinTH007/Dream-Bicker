@@ -38,22 +38,21 @@ export class SocialSyncService {
       }
 
       // 2. Fetch videos, thumbnails, and documentary articles
-      const { videos, photos, posts } = await this.youtube.fetchRecentVideos(50);
+      const { videos, photos } = await this.youtube.fetchRecentVideos(50);
 
       await Promise.all([
         socialStorage.upsertVideos(videos),
         socialStorage.upsertPhotos(photos),
-        socialStorage.upsertPosts(posts),
       ]);
 
-      const totalItems = videos.length + photos.length + posts.length;
+      const totalItems = videos.length + photos.length;
       const durationMs = Date.now() - startTime;
 
       await socialStorage.logSync(
         "YOUTUBE",
         "SUCCESS",
         totalItems,
-        `Synchronized ${videos.length} videos, ${photos.length} thumbnails, ${posts.length} posts.`,
+        `Synchronized ${videos.length} videos and ${photos.length} thumbnails.`,
         undefined,
         durationMs
       );
