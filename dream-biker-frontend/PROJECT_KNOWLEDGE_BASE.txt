@@ -119,7 +119,8 @@ Compact vertical rhythm (client asked for less space): sections ~`py-12 sm:py-16
 - **Navbar**: fixed on home (transparent → solid on scroll, only colours transition), sticky elsewhere. No search, no TikTok. Mobile drawer slides in/out.
 - **Footer**: `hd/footer_bg_road.jpg` background, no top border/line, text uses text-shadow. No WhatsApp/TikTok/scroll-to-top.
 - **About**: portrait card uses `hd/hanif_portrait.jpg`; floating "দুই চাকায়" badge sits top-right (must not cover the caption). Timeline with scroll progress line; rotating phrase reserves space (no reflow).
-- **Videos / Blog**: two "latest updates" spotlights (`components/shared/latest-spotlight.tsx`), one per platform, newest 5 each, auto-advance 7s with progress bar, pause on hover, hidden when the platform has no items. Below: filter tabs (3 equal columns with short labels on phones) and the archive grid with empty states. Cards hover in platform colour. Videos/posts open on YouTube/Facebook.
+- **Videos**: two "latest updates" spotlights (`components/shared/latest-spotlight.tsx`), YouTube and Facebook, newest 5 each, auto-advance 7s with progress bar, pause on hover, hidden when the platform has no items. Below: filter tabs (3 equal columns with short labels on phones) and the archive grid with empty states. Cards hover in platform colour. Videos open on YouTube/Facebook.
+- **Blog**: **Facebook page posts only** (client decision). One Facebook spotlight, then the post grid; no filter tabs. YouTube videos are never turned into blog posts, and YouTube Community posts are not available through the YouTube Data API (verified: `activities` returns only uploads/subscriptions).
 - **Gallery**: page header, filter tabs, stable masonry (1/2/3 columns). Clicking a photo opens the **coverflow carousel in a modal** at that photo (Esc/backdrop closes, arrows/swipe, centre button opens the source post). Cards and stage size to the viewport height. There is no separate lightbox.
 - **Contact**: form posts to `/api/contact`; on failure offers a prefilled `mailto:` instead of faking success.
 - **Social CTA cards**: medium size, Facebook blue / YouTube red, no images, circle-expand hover.
@@ -136,7 +137,7 @@ Next 16 only allows `quality` values listed in `images.qualities` (`next.config.
 ## 8. SOCIAL SYNC ENGINE
 
 ### 8.1 Sources
-- YouTube Data API v3 (`server/social/youtube/`): channel by `YOUTUBE_CHANNEL_ID`, else `YOUTUBE_CHANNEL_HANDLE`, else `@DreamBiker532`. Fetches the latest 50 uploads (+ stats/durations in batches of 50).
+- YouTube Data API v3 (`server/social/youtube/`): channel by `YOUTUBE_CHANNEL_ID`, else `YOUTUBE_CHANNEL_HANDLE`, else `@DreamBiker532`. Fetches the latest 50 uploads (+ stats/durations in batches of 50) as videos and gallery thumbnails only — no blog posts.
 - Facebook Graph API v22 (`server/social/facebook/`): latest 30 posts (photos incl. album sub-photos) and 25 videos. Photo IDs come from Facebook object IDs or the position inside the post (stable across syncs).
 - Older content is not backfilled yet.
 
@@ -179,7 +180,8 @@ Facebook CDN image URLs are signed and **expire**; stored URLs will break over t
 5. Home hero: Bengali text, bold gold-orange design, photo never hidden by the navbar, stats count up.
 6. No breadcrumbs; compact vertical spacing.
 7. Gallery: header like other pages; carousel opens on photo click (no lightbox).
-8. Videos/Blog: separate YouTube and Facebook "latest" sections; platform colours for hovers.
+8. Videos: separate YouTube and Facebook "latest" sections; platform colours for hovers.
+11. Blog: Facebook posts only (no YouTube videos or Community posts).
 9. Timeline: numbered orange nodes with halo, scroll-progress line.
 10. Workflow: commit every verified change on the `dev` branch; never push without being asked.
 

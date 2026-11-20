@@ -7,20 +7,20 @@ export const metadata: Metadata = {
   title: "ব্লগ ও সোশ্যাল ডায়েরি",
   alternates: { canonical: "/blog" },
   description:
-    "ড্রিম বাইকার (হানিফ)-এর ফেসবুক পোস্ট, মাঠপর্যায়ের অভিজ্ঞতা এবং প্রকাশিত ভিডিও পাবলিকেশনসমূহ এক প্ল্যাটফর্মে পড়ুন।",
+    "ড্রিম বাইকার (হানিফ)-এর ফেসবুক পেজের পোস্ট, মাঠপর্যায়ের অভিজ্ঞতা ও মানবিক কার্যক্রমের দিনলিপি এক জায়গায় পড়ুন।",
 };
 
 export const revalidate = 300;
 
 export default async function BlogPage() {
-  const result = await socialStorage.getPosts({ limit: 100 });
+  const result = await socialStorage.getPosts({ platform: "facebook", limit: 100 });
 
   return (
     <>
       <PageHeader
         badge="ব্লগ ও সোশ্যাল আপডেট"
         title="মাঠপর্যায়ের অভিজ্ঞতা ও সামাজিক ডায়েরি"
-        description="ফেসবুক পেজ পোস্ট ও ইউটিউব প্রকাশিত তথ্যচিত্রের মাধ্যমে সাধারণ মানুষের দিনলিপি এবং মানবিক সহমর্মিতার ভাবনা।"
+        description="ফেসবুক পেজের পোস্টে সাধারণ মানুষের দিনলিপি, মাঠপর্যায়ের অভিজ্ঞতা এবং মানবিক সহমর্মিতার ভাবনা।"
       />
       <BlogListClient initialPosts={result.items} />
     </>

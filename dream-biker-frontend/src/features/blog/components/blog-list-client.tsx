@@ -18,33 +18,28 @@ import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { NormalizedPost } from "@/server/social/social.types";
 import { LatestSpotlight, type SpotlightItem } from "@/components/shared/latest-spotlight";
-import { cn } from "@/lib/utils";
 
 interface BlogListClientProps {
   initialPosts: NormalizedPost[];
 }
 
 export function BlogListClient({ initialPosts }: BlogListClientProps) {
-  const [platformFilter, setPlatformFilter] = React.useState<"all" | "FACEBOOK" | "YOUTUBE">("all");
   const [page, setPage] = React.useState<number>(1);
   const itemsPerPage = 9;
 
-  const filteredPosts = React.useMemo(() => {
-    return initialPosts.filter((p) => {
-      if (platformFilter === "all") return true;
-      return p.provider === platformFilter;
-    });
-  }, [initialPosts, platformFilter]);
+  // The blog shows Facebook page posts only. (YouTube Community posts aren't
+  // available through the YouTube API, and videos belong on the Videos page.)
+  const filteredPosts = React.useMemo(
+    () => initialPosts.filter((p) => p.provider === "FACEBOOK"),
+    [initialPosts]
+  );
 
   const visiblePosts = filteredPosts.slice(0, page * itemsPerPage);
 
-  const fbCount = initialPosts.filter((p) => p.provider === "FACEBOOK").length;
-  const ytCount = initialPosts.filter((p) => p.provider === "YOUTUBE").length;
-
-  // Data for the per-platform "latest updates" spotlights (independent of the filter tabs)
+  // Data for the "latest from Facebook" spotlight
   const spotlightItems: SpotlightItem[] = React.useMemo(
     () =>
-      initialPosts.map((p) => ({
+      filteredPosts.map((p) => ({
         id: p.id,
         provider: p.provider,
         title: p.title || p.content.slice(0, 80),
@@ -58,7 +53,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           ...(p.shareCount != null ? [{ icon: Share2, value: p.shareCount.toLocaleString("bn-BD") }] : []),
         ],
       })),
-    [initialPosts]
+    [filteredPosts]
   );
 
   return (
@@ -67,7 +62,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
       <div className="absolute top-24 left-1/4 h-96 w-96 rounded-full bg-[#E97835]/5 blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Latest updates, one section per platform (a platform with no posts is hidden) */}
+        {/* Latest Facebook posts */}
         <LatestSpotlight
           provider="FACEBOOK"
           items={spotlightItems}
@@ -76,96 +71,29 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
           subheading="পেজের সাম্প্রতিক পোস্ট"
           ctaLabel="ফেসবুকে পড়ুন"
         />
-        <LatestSpotlight
-          provider="YOUTUBE"
-          items={spotlightItems}
-          kind="post"
-          heading="ইউটিউবের সর্বশেষ"
-          subheading="সাম্প্রতিক ভিডিও প্রকাশনা"
-          ctaLabel="ইউটিউবে দেখুন"
-        />
 
-        {/* Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
-        >
-          <div className="grid w-full grid-cols-3 gap-1 rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF] p-1.5 sm:flex sm:w-auto sm:items-center sm:gap-2">
-            {/* All */}
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              onClick={() => {
-                setPlatformFilter("all");
-                setPage(1);
-              }}
-              className={cn(
-                "flex items-center justify-center whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
-                platformFilter === "all"
-                  ? "bg-[#142B3B] text-white shadow-sm"
-                  : "text-[#222222]/80 hover:text-[#142B3B] hover:bg-white"
-              )}
-            >
-              <span className="sm:hidden">সব ({initialPosts.length})</span>
-              <span className="hidden sm:inline">সব পোস্ট ({initialPosts.length})</span>
-            </motion.button>
-
-            {/* Facebook */}
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              onClick={() => {
-                setPlatformFilter("FACEBOOK");
-                setPage(1);
-              }}
-              className={cn(
-                "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:gap-2 sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
-                platformFilter === "FACEBOOK"
-                  ? "bg-[#1877F2] text-white shadow-sm"
-                  : "text-[#222222]/80 hover:text-[#1877F2] hover:bg-white"
-              )}
-            >
-              <FaFacebookF className="h-3.5 w-3.5" />
-              <span className="sm:hidden">ফেসবুক ({fbCount})</span>
-              <span className="hidden sm:inline">ফেসবুক পেজ পোস্ট ({fbCount})</span>
-            </motion.button>
-
-            {/* YouTube */}
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              onClick={() => {
-                setPlatformFilter("YOUTUBE");
-                setPage(1);
-              }}
-              className={cn(
-                "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-2 py-2 text-xs font-bold sm:gap-2 sm:px-4 sm:text-sm transition-[color,background-color,border-color,box-shadow] cursor-pointer",
-                platformFilter === "YOUTUBE"
-                  ? "bg-[#FF0000] text-white shadow-sm"
-                  : "text-[#222222]/80 hover:text-[#FF0000] hover:bg-white"
-              )}
-            >
-              <FaYoutube className="h-4 w-4" />
-              <span className="sm:hidden">ইউটিউব ({ytCount})</span>
-              <span className="hidden sm:inline">ইউটিউব পাবলিকেশন ({ytCount})</span>
-            </motion.button>
-          </div>
-
-          <div className="text-xs text-[#777777] font-medium">
+        {/* Archive heading (single source, so no filter tabs) */}
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[#EAE6DB] pb-6">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-4 py-1.5 text-sm font-bold text-white">
+            <FaFacebookF className="h-3.5 w-3.5" />
+            ফেসবুক পেজের সব পোস্ট
+          </span>
+          <span className="text-xs font-medium text-[#777777]">
             মোট <strong>{filteredPosts.length}</strong> টি পোস্ট
-          </div>
-        </motion.div>
+          </span>
+        </div>
 
         {filteredPosts.length === 0 && (
           <div className="rounded-2xl border border-dashed border-[#EAE6DB] bg-[#F7F5EF]/50 px-6 py-14 text-center">
             <p className="text-base font-semibold text-[#142B3B]">এখনো কোনো পোস্ট যুক্ত হয়নি।</p>
-            <p className="mt-1 text-sm text-[#777777]">ফেসবুক ও ইউটিউব থেকে পোস্ট শীঘ্রই এখানে দেখা যাবে।</p>
+            <p className="mt-1 text-sm text-[#777777]">ফেসবুক পেজের পোস্ট শীঘ্রই এখানে দেখা যাবে।</p>
           </div>
         )}
 
         {/* Posts Grid with Animated Transitions */}
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={`blog-grid-${platformFilter}`}
+            key="blog-grid"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

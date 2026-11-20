@@ -15,7 +15,7 @@ For design rules, past client decisions and agent rules, see [`PROJECT_KNOWLEDGE
 | `/` | Hero (Bengali, stats count-up), about intro, latest videos, posts and photos, social links |
 | `/about` | Biography, timeline, values |
 | `/videos` | Latest YouTube and Facebook spotlights, then the filterable archive; videos open on the platform |
-| `/blog` | Same pattern for posts |
+| `/blog` | Facebook page posts only: latest-posts spotlight, then the post grid |
 | `/gallery` | Photos from posts and video thumbnails; click a photo to open the carousel |
 | `/contact` | Contact details and form |
 | `/privacy-policy`, `/terms-and-conditions` | Legal |
