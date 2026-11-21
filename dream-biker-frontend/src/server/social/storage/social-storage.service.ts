@@ -23,13 +23,10 @@ function initializeEmptyStore(): MemorySocialStore {
   return { accounts: [], videos: [], posts: [], photos: [], lastSyncedAt: {} };
 }
 
-/**
- * Sample content (mock/placeholder data) is enabled by default so the site
- * is fully populated out of the box (both in development and in production),
- * until real social accounts are synced or unless explicitly turned off via SHOW_SAMPLE_CONTENT=false.
- */
-export const showSampleContent: boolean =
-  serverEnv.SHOW_SAMPLE_CONTENT ?? true;
+/** Copy of `items` sorted by publishedAt, newest first. */
+function newestFirst<T extends { publishedAt: string }>(items: T[]): T[] {
+  return [...items].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+}
 
 // One in-memory store per server process, kept on globalThis. Next compiles
 // API routes and pages as separate bundles (and hot reload re-evaluates
