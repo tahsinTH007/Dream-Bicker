@@ -31,12 +31,6 @@ const serverEnvSchema = z.object({
   // Site URL
   NEXT_PUBLIC_SITE_URL: z.string().default("http://localhost:3000"),
 
-  // Show built-in sample videos/posts/photos when nothing has been synced.
-  // Unset = on in development, off in production (sample data uses stock photos).
-  SHOW_SAMPLE_CONTENT: z
-    .string()
-    .optional()
-    .transform((val) => (val === undefined || val === "" ? undefined : val === "true" || val === "1")),
 
   // Optional PostgreSQL Database
   DATABASE_URL: z.string().optional(),
@@ -90,7 +84,6 @@ function getValidatedServerEnv(): ServerEnv {
       SYNC_SECRET_KEY: input.SYNC_SECRET_KEY || "",
       CRON_SECRET: input.CRON_SECRET || "",
       NEXT_PUBLIC_SITE_URL: input.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-      SHOW_SAMPLE_CONTENT: input.SHOW_SAMPLE_CONTENT ? input.SHOW_SAMPLE_CONTENT === "true" || input.SHOW_SAMPLE_CONTENT === "1" : undefined,
       DATABASE_URL: input.DATABASE_URL || "",
       SOCIAL_SYNC_ENABLED: input.SOCIAL_SYNC_ENABLED !== "false",
       SOCIAL_SYNC_INTERVAL_MINUTES: 30,

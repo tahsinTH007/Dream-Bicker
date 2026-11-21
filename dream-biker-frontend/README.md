@@ -51,7 +51,6 @@ All are server-side except `NEXT_PUBLIC_SITE_URL`. See [`.env.example`](./.env.e
 | `CRON_SECRET` | Secret Vercel Cron sends; required for scheduled syncs |
 | `DATABASE_URL` | PostgreSQL. Required in production (content persistence, contact messages) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for SEO/share metadata |
-| `SHOW_SAMPLE_CONTENT` | Sample (stock-photo) content when nothing is synced. Unset = on in dev, **off in production** |
 
 ### Getting the API credentials
 

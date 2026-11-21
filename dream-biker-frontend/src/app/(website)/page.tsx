@@ -73,7 +73,7 @@ export default async function HomePage() {
       <HomePhotosSection photos={photosData.items} />
 
       {/* 6. Social Media Profiles & CTA */}
-      <SocialCtaSection />
+      <SocialCtaSection stats={heroStats} />
     </>
   );
 }

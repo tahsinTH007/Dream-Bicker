@@ -18,7 +18,7 @@
 - **YouTube**: [`@DreamBiker532`](https://www.youtube.com/@DreamBiker532)
 - **Facebook**: [`BuydreambyHanif`](https://www.facebook.com/BuydreambyHanif)
 - **Contact**: `md.hanifhossan6991@gmail.com`
-- Hero stats are live from the APIs (YouTube now; Facebook once its token is set). `siteConfig.heroStatsFallback.facebookFollowers` (45 lakh) is **unverified**.
+- Hero stats are live from the APIs (YouTube now; Facebook once its token is set). Fallback numbers in `siteConfig.heroStatsFallback` were read from the APIs (Nov 2026).
 
 ---
 
@@ -63,7 +63,6 @@ src/components/
                                 social-links, animated-content, count-up, latest-spotlight
   ui/                           button, input, textarea
 src/config/                     site.config (brand, heroStats, contact), navigation.config, social.config
-src/data/placeholder.data.ts    SAMPLE content (stock photos) — dev only, see §8.4
 src/features/                   about/, blog/, contact/, gallery/, home/, videos/ components
 src/lib/                        db/prisma.ts, env/server.ts, utils.ts (cn)
 src/server/                     auth/sync-auth.ts, social/{youtube,facebook,storage,synchronization}
@@ -150,8 +149,8 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 - Unset → in-memory store per server instance.
 - Sync responses include `persisted: false` + a warning when there is no database.
 
-### 8.4 Sample content
-`SHOW_SAMPLE_CONTENT`: unset = **on in development, off in production**; `true/false` forces it. Sample data uses Unsplash stock images and must never appear in production.
+### 8.4 No sample content
+There is no mock/sample data: the store starts empty and only real synced YouTube/Facebook content is shown (empty states otherwise). Removed: `src/data/placeholder.data.ts`, the stock-photo fallback for Facebook videos and the Unsplash/Picsum image hosts.
 
 ### 8.5 Facebook token lifetime
 Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead).
@@ -211,7 +210,7 @@ npm run dev            # http://localhost:3000
 npm run typecheck && npm run lint && npm test && npm run build
 ```
 
-Environment variables: see `dream-biker-frontend/.env.example` (YouTube/Facebook credentials, `SYNC_SECRET_KEY`, `CRON_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, `SHOW_SAMPLE_CONTENT`).
+Environment variables: see `dream-biker-frontend/.env.example` (YouTube/Facebook credentials, `SYNC_SECRET_KEY`, `CRON_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, `).
 
 Vercel: project root `dream-biker-frontend`; set all env vars; `vercel.json` schedules the sync every 30 minutes, which **needs the Pro plan** (Hobby allows one run per day) — otherwise use an external scheduler that calls the sync endpoint with the secret header.
 

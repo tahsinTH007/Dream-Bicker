@@ -228,7 +228,7 @@ export class SocialSyncService {
         : {
             warning:
               "DATABASE_URL is not configured: synced data is held only in this server instance's memory. " +
-              "On serverless hosts (e.g. Vercel) other instances keep serving placeholder data and it is lost on restart.",
+              "On serverless hosts (e.g. Vercel) other instances start empty and everything is lost on restart.",
           }),
     };
   }

@@ -18,7 +18,7 @@ export const siteConfig = {
     youtubeSubscribers: 838_000, // YouTube API, Nov 2026
     youtubeViews: 136_655_887, // YouTube API, Nov 2026
     youtubeVideos: 395, // YouTube API, Nov 2026
-    facebookFollowers: 4_500_000, // NOT verified: replace with the real number or add the Facebook token
+    facebookFollowers: 4_522_566, // Facebook Graph API, Nov 2026
   },
   contact: {
     email: "md.hanifhossan6991@gmail.com",
