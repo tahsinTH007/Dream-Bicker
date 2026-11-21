@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "postinstall": "prisma generate",
-    "facebook:token": "node scripts/facebook-token.mjs"
+    "facebook:token": "node scripts/facebook-token.mjs",
+    "check:connections": "node scripts/check-connections.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

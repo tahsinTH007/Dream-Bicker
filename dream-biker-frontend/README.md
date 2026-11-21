@@ -69,6 +69,23 @@ Starting from a **user** token gives a page token that doesn't expire; starting 
 
 `GET /api/admin/social/status` reports `facebookToken.status` (`ok` / `warning` 14 days ahead / `expired` / `invalid`) with the exact dates.
 
+**What renews itself and what doesn't**
+
+| Connection | Expires? | What to do |
+| --- | --- | --- |
+| YouTube API key | Never | Nothing (only if the key is deleted/restricted in Google Cloud) |
+| Facebook page token (from a user token) | Never | — |
+| Facebook *data access* (user-based token) | ~90 days after the admin's last login to the app | Hanif opens the app once (any Facebook login to it) **or** switch to a System User token |
+| Facebook System User token | Never | Nothing |
+
+Videos, posts and photos refresh by themselves: the site re-syncs every 30 minutes on page views, no cron or manual sync needed.
+
+**Automatic reminder.** `.github/workflows/connection-health.yml` runs `npm run check:connections` daily against the live site and fails (GitHub emails you) when YouTube can't be read or the Facebook token/data access ends within 14 days. Add the repo secrets `SITE_URL` and `SYNC_SECRET_KEY` after deploying; until then it's skipped. Locally:
+
+```bash
+SITE_URL=http://localhost:3000 SYNC_SECRET_KEY=... npm run check:connections
+```
+
 ---
 
 ## API

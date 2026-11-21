@@ -153,7 +153,7 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 There is no mock/sample data: the store starts empty and only real synced YouTube/Facebook content is shown (empty states otherwise). Removed: `src/data/placeholder.data.ts`, the stock-photo fallback for Facebook videos and the Unsplash/Picsum image hosts.
 
 ### 8.5 Facebook token lifetime
-Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead).
+Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead). A daily GitHub Actions job (`.github/workflows/connection-health.yml`, `npm run check:connections`) fails and emails the owner when YouTube can't be read or Facebook access ends within 14 days; needs repo secrets SITE_URL and SYNC_SECRET_KEY, skipped until set.
 
 ### 8.6 Known caveat
 Facebook CDN image URLs are signed and **expire**; stored URLs will break over time unless images are copied to own storage during sync (open item).
