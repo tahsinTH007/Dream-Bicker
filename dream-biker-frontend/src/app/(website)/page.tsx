@@ -9,6 +9,7 @@ import { socialStorage } from "@/server/social/storage/social-storage.service";
 import { getHeroStats } from "@/server/social/hero-stats";
 import { siteConfig } from "@/config/site.config";
 import { socialConfig } from "@/config/social.config";
+import { ensureFreshSocialData } from "@/server/social/auto-sync";
 
 export const metadata: Metadata = {
   // absolute: the home title already carries the brand, so skip the "%s | brand" template
@@ -37,6 +38,8 @@ const personJsonLd = {
 };
 
 export default async function HomePage() {
+  // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)
+  await ensureFreshSocialData();
   // Fetch real synchronized social data on the server
   const [heroStats, videosData, postsData, photosData] = await Promise.all([
     // live YouTube + Facebook numbers (5-min cache), with config fallbacks

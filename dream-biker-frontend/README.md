@@ -96,6 +96,7 @@ Invoke-RestMethod -Method POST -Uri "https://your-site/api/admin/social/sync" -H
 
 ## Sync & storage
 
+- **Automatic:** pages and the public read APIs call `ensureFreshSocialData()` (`src/server/social/auto-sync.ts`). With no synced data yet the first request waits for a sync (max 12 s); once data is older than `SOCIAL_SYNC_INTERVAL_MINUTES` (30) it refreshes in the background after the response. One sync at a time; failures retried at most every 5 minutes. The cron and manual endpoints still work.
 - Each sync fetches the latest 50 YouTube uploads, 30 Facebook posts and 25 Facebook videos and upserts them.
 - With `DATABASE_URL` the data goes to PostgreSQL; without it, it lives in one server instance's memory (the sync response then says `persisted: false`).
 - `vercel.json` schedules `/api/admin/social/sync` every 30 minutes. That frequency needs Vercel **Pro**; on Hobby use a daily schedule or an external scheduler that sends the secret header.

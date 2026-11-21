@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GalleryView } from "@/features/gallery/components/gallery-view";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
+import { ensureFreshSocialData } from "@/server/social/auto-sync";
 
 export const metadata: Metadata = {
   title: "ফটোগ্যালারি",
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function GalleryPage() {
+  // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)
+  await ensureFreshSocialData();
   const result = await socialStorage.getPhotos({ limit: 120 });
 
   return <GalleryView initialPhotos={result.items} />;

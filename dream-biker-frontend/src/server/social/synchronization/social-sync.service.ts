@@ -14,6 +14,11 @@ export class SocialSyncService {
     this.facebook = new FacebookService();
   }
 
+  /** true when at least one platform has credentials, i.e. a sync can fetch anything */
+  public hasConfiguredProviders(): boolean {
+    return this.youtube.isAvailable() || this.facebook.isAvailable();
+  }
+
   /**
    * Synchronize YouTube Channel & Videos
    */

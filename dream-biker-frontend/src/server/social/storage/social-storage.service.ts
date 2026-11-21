@@ -422,6 +422,19 @@ export class SocialStorageService {
   }
 
   /**
+   * When the last successful sync finished, per the database log (null without a database).
+   */
+  public async getLastSuccessfulSyncAt(): Promise<number | null> {
+    if (!isDatabaseConfigured() || !prisma) return null;
+    const last = await prisma.socialSyncLog.findFirst({
+      where: { status: "SUCCESS" },
+      orderBy: { completedAt: "desc" },
+      select: { completedAt: true },
+    });
+    return last?.completedAt ? last.completedAt.getTime() : null;
+  }
+
+  /**
    * Read Accounts
    */
   public async getAccounts(): Promise<NormalizedAccount[]> {

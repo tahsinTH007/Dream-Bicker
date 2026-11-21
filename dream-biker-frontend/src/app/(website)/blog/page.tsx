@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
 import { BlogListClient } from "@/features/blog/components/blog-list-client";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
+import { ensureFreshSocialData } from "@/server/social/auto-sync";
 
 export const metadata: Metadata = {
   title: "ব্লগ ও সোশ্যাল ডায়েরি",
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function BlogPage() {
+  // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)
+  await ensureFreshSocialData();
   const result = await socialStorage.getPosts({ platform: "facebook", limit: 100 });
 
   return (

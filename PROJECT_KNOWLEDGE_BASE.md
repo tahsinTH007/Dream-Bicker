@@ -145,6 +145,7 @@ Next 16 only allows `quality` values listed in `images.qualities` (`next.config.
 Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-secret: <SYNC_SECRET_KEY>`. **No query-string secrets.** No default secret: if neither is set (min 16 chars), every protected request is rejected.
 
 ### 8.3 Storage
+- **Auto-sync** (`server/social/auto-sync.ts`): content pages and public read APIs call `ensureFreshSocialData()` — blocks (≤12 s) when nothing is synced yet, background `after()` refresh when older than the interval, single-flight, 5-min failure backoff; with a DB it uses the last SUCCESS sync log. Without this, a restart/deploy showed no real content until the cron ran.
 - `DATABASE_URL` set → Prisma/PostgreSQL. Required in production (serverless instances don't share memory).
 - Unset → in-memory store per server instance.
 - Sync responses include `persisted: false` + a warning when there is no database.
