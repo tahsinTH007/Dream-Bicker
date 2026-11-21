@@ -7,7 +7,8 @@
  * Reads .env.local:
  *   FACEBOOK_APP_ID, FACEBOOK_APP_SECRET   of the Meta app that issued the token
  *   FACEBOOK_PAGE_ID                       the Dream Biker page
- *   FACEBOOK_USER_ACCESS_TOKEN (preferred) a user token from Graph API Explorer, or
+ *   FACEBOOK_USER_ACCESS_TOKEN (preferred) a System User token from Meta Business Settings
+ *                                          (never expires) or a user token from Graph API Explorer, or
  *   FACEBOOK_PAGE_ACCESS_TOKEN             the current (short-lived) page token
  *
  * It exchanges the token for a long-lived one, fetches the page token for
@@ -71,9 +72,10 @@ try {
 if (!info.is_valid) fail(`The token is no longer valid (${info.error?.message ?? "expired"}). Generate a new one in Graph API Explorer and run this again.`);
 if (info.app_id !== appId) fail(`The token was issued by app "${info.application}" (${info.app_id}), not ${appId}. Put that app's ID and secret in .env.local.`);
 
-// 2. Exchange for a long-lived token
-let longLived;
-try {
+// 2. Exchange for a long-lived token (System User tokens are already permanent: no exchange)
+const isSystemUser = info.type === "SYSTEM_USER";
+let longLived = isSystemUser ? input : undefined;
+if (!isSystemUser) try {
   ({ access_token: longLived } = await graph("oauth/access_token", {
     grant_type: "fb_exchange_token",
     client_id: appId,
@@ -84,10 +86,10 @@ try {
   fail(`Token exchange failed: ${e.message}`);
 }
 
-// 3. Long-lived USER token -> its never-expiring PAGE token
+// 3. Long-lived USER / SYSTEM_USER token -> its never-expiring PAGE token
 let finalToken = longLived;
-const exchangedInfo = await debug(longLived);
-if (exchangedInfo.type === "USER") {
+const exchangedInfo = isSystemUser ? info : await debug(longLived);
+if (exchangedInfo.type === "USER" || exchangedInfo.type === "SYSTEM_USER") {
   const { data: pages } = await graph("me/accounts", { fields: "id,name,access_token", access_token: longLived });
   const page = pages.find((p) => p.id === pageId);
   if (!page) fail(`This account has no access to page ${pageId}. Pages found: ${pages.map((p) => `${p.name} (${p.id})`).join(", ") || "none"}.`);
