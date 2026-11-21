@@ -20,7 +20,7 @@ export function pickContactInfo(page: Pick<FacebookPageResponse, "phone" | "emai
 
 /**
  * Contact details shown on the site, read live from the Facebook page's About
- * section (the Graph API fetch is cached for 5 minutes). A phone number added
+ * section (the Graph API fetch is cached for 1 hour). A phone number added
  * publicly on Facebook appears automatically; nothing to edit in the code.
  */
 export async function getContactInfo(): Promise<ContactInfo> {

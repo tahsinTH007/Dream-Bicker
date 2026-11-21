@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "ড্রিম বাইকার (হানিফ)-এর ইউটিউব ও ফেসবুক থেকে সংগৃহীত মাঠপর্যায়ের মানবিক তথ্যচিত্র, ভ্রমণ ডায়েরি এবং জনপ্রিয় রিলস ভিডিও উপভোগ করুন।",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
 export default async function VideosPage() {
   // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)

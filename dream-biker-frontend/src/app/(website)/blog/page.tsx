@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "ড্রিম বাইকার (হানিফ)-এর ফেসবুক পেজের পোস্ট, মাঠপর্যায়ের অভিজ্ঞতা ও মানবিক কার্যক্রমের দিনলিপি এক জায়গায় পড়ুন।",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
 export default async function BlogPage() {
   // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)

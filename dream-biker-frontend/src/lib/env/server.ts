@@ -44,8 +44,8 @@ const serverEnvSchema = z.object({
   SOCIAL_SYNC_INTERVAL_MINUTES: z
     .string()
     .optional()
-    .default("30")
-    .transform((val) => parseInt(val, 10) || 30),
+    .default("1440") // once a day
+    .transform((val) => parseInt(val, 10) || 1440),
   SOCIAL_SYNC_INITIAL_LOOKBACK_DAYS: z
     .string()
     .optional()
@@ -86,7 +86,7 @@ function getValidatedServerEnv(): ServerEnv {
       NEXT_PUBLIC_SITE_URL: input.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
       DATABASE_URL: input.DATABASE_URL || "",
       SOCIAL_SYNC_ENABLED: input.SOCIAL_SYNC_ENABLED !== "false",
-      SOCIAL_SYNC_INTERVAL_MINUTES: 30,
+      SOCIAL_SYNC_INTERVAL_MINUTES: 1440,
       SOCIAL_SYNC_INITIAL_LOOKBACK_DAYS: 365,
     };
   }

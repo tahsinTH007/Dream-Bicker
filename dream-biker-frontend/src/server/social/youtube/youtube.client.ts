@@ -41,7 +41,7 @@ export class YouTubeClient {
       headers: {
         Accept: "application/json",
       },
-      next: { revalidate: 300 }, // 5-minute Next.js cache
+      next: { revalidate: 3600 }, // 1-hour Next.js cache (data syncs daily)
     });
 
     if (!response.ok) {

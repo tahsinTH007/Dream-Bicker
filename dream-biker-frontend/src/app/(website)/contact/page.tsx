@@ -9,8 +9,8 @@ export const metadata: Metadata = {
     "মানবিক কার্যক্রম, জরুরি ত্রাণ সহায়তা, ডকুমেন্টারি সহযোগিতা কিংবা যেকোনো প্রয়োজনে সরাসরি হানিফ (ড্রিম বাইকার)-এর সাথে যোগাযোগ করুন।",
 };
 
-// Contact details come live from the Facebook page (re-checked every 5 minutes)
-export const revalidate = 300;
+// Contact details come live from the Facebook page (re-checked every hour)
+export const revalidate = 3600;
 
 export default async function ContactPage() {
   const contact = await getContactInfo();

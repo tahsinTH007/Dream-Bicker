@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "বাংলাদেশের প্রত্যন্ত অঞ্চলে ড্রিম বাইকার (হানিফ)-এর মানবিক কার্যক্রম, মেঠোপথের যাত্রা এবং ফেসবুক ও ইউটিউব থেকে সংগৃহীত ছবির অ্যালবাম।",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
 export default async function GalleryPage() {
   // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)

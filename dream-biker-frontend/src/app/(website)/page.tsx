@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "প্রতিটি জীবনের একটি গল্প আছে। প্রতিটি মানবিক কাজই মূল্যবান। ড্রিম বাইকার (হানিফ)-এর অফিশিয়াল পোর্টফোলিও, ভিডিও ও সোশ্যাল মিডিয়া ব্লগ।",
 };
 
-export const revalidate = 300; // 5-minute incremental revalidation
+export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
 

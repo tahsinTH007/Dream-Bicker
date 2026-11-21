@@ -56,7 +56,7 @@ export class FacebookClient {
       headers: {
         Accept: "application/json",
       },
-      next: { revalidate: 300 }, // 5-minute cache
+      next: { revalidate: 3600 }, // 1-hour cache (data syncs daily)
     });
 
     if (!response.ok) {
