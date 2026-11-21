@@ -4,7 +4,6 @@ import {
   NormalizedAccount,
   NormalizedVideo,
   NormalizedPhoto,
-  NormalizedPost,
 } from "../social.types";
 
 export class YouTubeService {
@@ -64,15 +63,16 @@ export class YouTubeService {
   }
 
   /**
-   * Retrieve all recent uploads using uploads playlist + batch videos.list
+   * Retrieve all recent uploads using uploads playlist + batch videos.list.
+   * Videos are NOT turned into blog posts: the blog is for written posts only.
+   * (YouTube Community posts are not available through the official Data API.)
    */
   public async fetchRecentVideos(maxResults = 50): Promise<{
     videos: NormalizedVideo[];
     photos: NormalizedPhoto[];
-    posts: NormalizedPost[];
   }> {
     if (!this.isAvailable()) {
-      return { videos: [], photos: [], posts: [] };
+      return { videos: [], photos: [] };
     }
 
     try {
@@ -90,7 +90,7 @@ export class YouTubeService {
       const playlistItems = playlistResponse.items || [];
 
       if (playlistItems.length === 0) {
-        return { videos: [], photos: [], posts: [] };
+        return { videos: [], photos: [] };
       }
 
       // 3. Extract video IDs
@@ -105,7 +105,6 @@ export class YouTubeService {
       // 5. Normalize
       const normalizedVideos: NormalizedVideo[] = [];
       const normalizedPhotos: NormalizedPhoto[] = [];
-      const normalizedPosts: NormalizedPost[] = [];
 
       for (const item of playlistItems) {
         const videoId = item.snippet.resourceId.videoId;
@@ -168,30 +167,11 @@ export class YouTubeService {
           isThumbnail: true,
           publishedAt,
         });
-
-        // Normalized Post (for Blog feed, clearly marked as YouTube Documentary Article)
-        if (!isShort) {
-          normalizedPosts.push({
-            id: `yt-post-${videoId}`,
-            provider: "YOUTUBE",
-            externalId: `post-${videoId}`,
-            postType: "VIDEO",
-            title,
-            content: description || title,
-            url: videoUrl,
-            mediaUrls: [bestThumb],
-            publishedAt,
-            likeCount,
-            commentCount,
-            shareCount: null,
-          });
-        }
       }
 
       return {
         videos: normalizedVideos,
         photos: normalizedPhotos,
-        posts: normalizedPosts,
       };
     } catch (error) {
       console.error("❌ [YouTubeService] fetchRecentVideos error:", error);

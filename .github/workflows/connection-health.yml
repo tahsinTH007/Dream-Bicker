@@ -1,0 +1,35 @@
+name: Connection health
+
+# Daily check that the live site can still read YouTube and Facebook.
+# A failed run makes GitHub email the repo owner, so an expiring Facebook
+# token is noticed ~14 days before the site stops updating.
+#
+# Needs two repository secrets (Settings → Secrets and variables → Actions):
+#   SITE_URL         e.g. https://dreambiker.com
+#   SYNC_SECRET_KEY  same value as on the server
+# Until both are set the check is skipped (passes).
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 09:00 Bangladesh time
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: YouTube + Facebook reachable
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: dream-biker-frontend/scripts
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check connections
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+          SYNC_SECRET_KEY: ${{ secrets.SYNC_SECRET_KEY }}
+        run: node dream-biker-frontend/scripts/check-connections.mjs

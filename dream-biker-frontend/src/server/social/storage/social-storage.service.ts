@@ -9,13 +9,6 @@ import {
   SocialPlatform,
   ProviderStatus,
 } from "../social.types";
-import {
-  demoYouTubeChannel,
-  demoFacebookPage,
-  demoYouTubeVideos,
-  demoFacebookPosts,
-  demoGalleryPhotos,
-} from "@/data/placeholder.data";
 
 // In-Memory & Fallback Cache Store
 interface MemorySocialStore {
@@ -24,133 +17,6 @@ interface MemorySocialStore {
   posts: NormalizedPost[];
   photos: NormalizedPhoto[];
   lastSyncedAt: Record<string, string>;
-}
-
-function initializeDefaultStore(): MemorySocialStore {
-  const ytAccount: NormalizedAccount = {
-    id: `yt-${demoYouTubeChannel.id}`,
-    provider: "YOUTUBE",
-    providerAccountId: demoYouTubeChannel.id,
-    name: demoYouTubeChannel.title,
-    username: demoYouTubeChannel.customUrl,
-    profileImageUrl: demoYouTubeChannel.thumbnailUrl,
-    profileUrl: `https://www.youtube.com/${demoYouTubeChannel.customUrl}`,
-    subscriberCount: demoYouTubeChannel.subscriberCount,
-    followerCount: null,
-    totalViews: demoYouTubeChannel.viewCount,
-    totalVideos: demoYouTubeChannel.videoCount,
-    lastSyncedAt: new Date().toISOString(),
-    bio: demoYouTubeChannel.description,
-  };
-
-  const fbAccount: NormalizedAccount = {
-    id: `fb-${demoFacebookPage.id}`,
-    provider: "FACEBOOK",
-    providerAccountId: demoFacebookPage.id,
-    name: demoFacebookPage.name,
-    username: "BuydreambyHanif",
-    profileImageUrl: demoFacebookPage.profilePictureUrl,
-    profileUrl: demoFacebookPage.pageUrl,
-    subscriberCount: null,
-    followerCount: demoFacebookPage.followerCount,
-    totalViews: null,
-    totalVideos: null,
-    lastSyncedAt: new Date().toISOString(),
-    bio: "ড্রিম বাইকার অফিশিয়াল ফেসবুক পেজ",
-  };
-
-  const initialVideos: NormalizedVideo[] = demoYouTubeVideos.map((v) => ({
-    id: `yt-vid-${v.id}`,
-    provider: "YOUTUBE",
-    externalId: v.id,
-    title: v.title,
-    description: v.description,
-    url: v.videoUrl,
-    thumbnailUrl: v.thumbnailUrl,
-    publishedAt: v.publishedAt,
-    duration: "12:45",
-    viewCount: v.viewCount,
-    likeCount: v.likeCount,
-    commentCount: v.commentCount,
-    isShortOrReel: false,
-  }));
-
-  const initialPosts: NormalizedPost[] = demoFacebookPosts.map((p) => ({
-    id: `fb-post-${p.id}`,
-    provider: "FACEBOOK",
-    externalId: p.id,
-    postType: p.imageUrl ? "PHOTO" : "TEXT",
-    title: p.caption.slice(0, 80),
-    content: p.caption,
-    url: p.originalPostUrl,
-    mediaUrls: p.imageUrl ? [p.imageUrl] : [],
-    publishedAt: p.publishedAt,
-    likeCount: p.reactionCount,
-    commentCount: p.commentCount,
-    shareCount: p.shareCount,
-  }));
-
-  const initialPhotos: NormalizedPhoto[] = [];
-
-  // Add photos from Facebook posts
-  demoFacebookPosts.forEach((post, idx) => {
-    if (post.imageUrl) {
-      initialPhotos.push({
-        id: `fb-photo-${post.id}-${idx}`,
-        provider: "FACEBOOK",
-        externalId: `photo-${post.id}-${idx}`,
-        sourcePostId: post.id,
-        imageUrl: post.imageUrl,
-        thumbnailUrl: post.imageUrl,
-        caption: post.caption.slice(0, 100),
-        sourceUrl: post.originalPostUrl,
-        isThumbnail: false,
-        publishedAt: post.publishedAt,
-      });
-    }
-  });
-
-  // Add thumbnails from YouTube videos
-  demoYouTubeVideos.forEach((video) => {
-    initialPhotos.push({
-      id: `yt-thumb-${video.id}`,
-      provider: "YOUTUBE",
-      externalId: `thumb-${video.id}`,
-      sourcePostId: video.id,
-      imageUrl: video.thumbnailUrl,
-      thumbnailUrl: video.thumbnailUrl,
-      caption: `${video.title} (ইউটিউব থাম্বনেইল)`,
-      sourceUrl: video.videoUrl,
-      isThumbnail: true,
-      publishedAt: video.publishedAt,
-    });
-  });
-
-  // Add curated gallery photos
-  demoGalleryPhotos.forEach((item, idx) => {
-    initialPhotos.push({
-      id: `gal-photo-${item.id}`,
-      provider: "FACEBOOK",
-      externalId: `gal-${idx}`,
-      imageUrl: item.imageUrl,
-      thumbnailUrl: item.imageUrl,
-      caption: `${item.title}: ${item.caption} (${item.location}, ${item.date})`,
-      sourceUrl: "https://www.facebook.com/BuydreambyHanif",
-      isThumbnail: false,
-      publishedAt: new Date(Date.now() - (idx + 1) * 86400000 * 3).toISOString(),
-    });
-  });
-
-  return {
-    accounts: [ytAccount, fbAccount],
-    videos: initialVideos,
-    posts: initialPosts,
-    photos: initialPhotos,
-    lastSyncedAt: {
-      YOUTUBE: new Date().toISOString(),
-      FACEBOOK: new Date().toISOString(),
-    },
-  };
 }
 
 function initializeEmptyStore(): MemorySocialStore {
@@ -165,10 +31,13 @@ function initializeEmptyStore(): MemorySocialStore {
 export const showSampleContent: boolean =
   serverEnv.SHOW_SAMPLE_CONTENT ?? true;
 
-// Global memory cache instance
-const memoryStore: MemorySocialStore = showSampleContent
-  ? initializeDefaultStore()
-  : initializeEmptyStore();
+// One in-memory store per server process, kept on globalThis. Next compiles
+// API routes and pages as separate bundles (and hot reload re-evaluates
+// modules), so a plain module-level object would give each route its own
+// copy: a sync would fill one copy while pages read another. Serverless
+// hosts still run several processes, which is why production needs DATABASE_URL.
+const globalForStore = globalThis as unknown as { __dreamBikerSocialStore?: MemorySocialStore };
+const memoryStore: MemorySocialStore = (globalForStore.__dreamBikerSocialStore ??= initializeEmptyStore());
 
 export class SocialStorageService {
   /**
@@ -412,6 +281,19 @@ export class SocialStorageService {
   }
 
   /**
+   * When the last successful sync finished, per the database log (null without a database).
+   */
+  public async getLastSuccessfulSyncAt(): Promise<number | null> {
+    if (!isDatabaseConfigured() || !prisma) return null;
+    const last = await prisma.socialSyncLog.findFirst({
+      where: { status: "SUCCESS" },
+      orderBy: { completedAt: "desc" },
+      select: { completedAt: true },
+    });
+    return last?.completedAt ? last.completedAt.getTime() : null;
+  }
+
+  /**
    * Read Accounts
    */
   public async getAccounts(): Promise<NormalizedAccount[]> {
@@ -495,7 +377,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.videos;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.videos);
     if (isPlatformFilter) {
       filtered = filtered.filter((v) => v.provider === platformUpper);
     }
@@ -569,7 +452,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.posts;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.posts);
     if (isPlatformFilter) {
       filtered = filtered.filter((p) => p.provider === platformUpper);
     }
@@ -641,7 +525,8 @@ export class SocialStorageService {
     }
 
     // In-memory fallback
-    let filtered = memoryStore.photos;
+    // newest first, same as the database path (orderBy publishedAt desc)
+    let filtered = newestFirst(memoryStore.photos);
     if (isPlatformFilter) {
       filtered = filtered.filter((p) => p.provider === platformUpper);
     }

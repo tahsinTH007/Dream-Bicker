@@ -168,12 +168,13 @@ export class FacebookService {
       const response = await this.client.getVideos(limit);
       const videoItems = response.data || [];
 
-      return videoItems.map((item) => {
+      // (videos without any thumbnail are skipped below: no stock-photo stand-ins)
+      return videoItems.map((item): NormalizedVideo => {
         const preferredThumb =
           item.thumbnails?.data?.find((t) => t.is_preferred)?.uri ||
           item.thumbnails?.data?.[0]?.uri ||
           item.picture ||
-          "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1000&q=80";
+          "";
 
         // Duration formatting
         let durationStr = "00:00";
@@ -200,7 +201,7 @@ export class FacebookService {
           commentCount: item.comments?.summary?.total_count || null,
           isShortOrReel: isReel,
         };
-      });
+      }).filter((video) => video.thumbnailUrl !== "");
     } catch (error) {
       console.error("❌ [FacebookService] fetchRecentVideos error:", error);
       throw error;

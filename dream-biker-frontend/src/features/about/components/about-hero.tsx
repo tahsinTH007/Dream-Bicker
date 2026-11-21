@@ -1,28 +1,11 @@
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
 import { Compass, Heart, Shield, Sparkles } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { PageHeader } from "@/components/shared/page-header";
 
-const rotatingFocus = [
-  "প্রতিটি মানবিক কাজই মূল্যবান",
-  "অসহায়ের পাশে পথচলাই জীবনের সার্থকতা",
-  "মানুষের মুখে অনাবিল হাসি ফোটানোই লক্ষ্য",
-  "নিঃস্বার্থ ভালোবাসাই আমাদের শক্তি",
-];
-
 export function AboutHero() {
-  const [focusIndex, setFocusIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setFocusIndex((prev) => (prev + 1) % rotatingFocus.length);
-    }, 3400);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <>
       <PageHeader
@@ -108,52 +91,22 @@ export function AboutHero() {
             >
               <div className="inline-flex items-center gap-2 rounded-full bg-[#E97835]/15 border border-[#E97835]/30 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E97835] mb-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] animate-ping" />
-                ব্যক্তিগত পরিচিতি
+                আমাদের পরিচয়
               </div>
 
-              {/* Dynamic Animated Heading */}
               <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-[#142B3B] tracking-tight leading-snug mb-6">
-                &quot;প্রতিটি জীবনের একটি গল্প আছে।{" "}
-                {/* All phrases share one grid cell: the invisible copies reserve the
-                    space of the longest phrase, so the heading never reflows as they rotate. */}
-                <span className="relative inline-grid text-[#E97835]">
-                  {rotatingFocus.map((phrase) => (
-                    <span key={phrase} aria-hidden="true" className="invisible [grid-area:1/1]">
-                      {phrase}
-                    </span>
-                  ))}
-                  <AnimatePresence initial={false}>
-                    <motion.span
-                      key={rotatingFocus[focusIndex]}
-                      initial={{ opacity: 0, y: 14 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -14 }}
-                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      className="[grid-area:1/1]"
-                    >
-                      {rotatingFocus[focusIndex]}
-                    </motion.span>
-                  </AnimatePresence>
-                  <svg
-                    className="absolute -bottom-1.5 left-0 w-full text-[#E97835]/40"
-                    viewBox="0 0 100 12"
-                    preserveAspectRatio="none"
-                  >
-                    <path d="M0,8 Q50,0 100,8" stroke="currentColor" strokeWidth="4" fill="none" />
-                  </svg>
-                </span>
-                ।&quot;
+                <span className="text-[#E97835]">Dream Biker</span> – ভ্রমণের পথে মানুষের গল্প, মানবতার পাশে আমাদের পথচলা।
               </h2>
 
               <div className="space-y-4 text-base text-[#222222]/80 leading-relaxed font-normal">
                 <p>
-                  আমার অফিশিয়াল ডিজিটাল ঠিকানায় আপনাকে স্বাগতম। আমি <strong className="text-[#142B3B] font-bold">মো. হানিফ হোসেন</strong>, দেশ ও সামাজিক যোগাযোগ মাধ্যমে পরিচিত <strong className="text-[#E97835] font-bold">ড্রিম বাইকার</strong> নামে।
+                  <strong className="text-[#142B3B] font-bold">Dream Biker</strong> একটি স্বতন্ত্র ডিজিটাল কনটেন্ট ও মানবিক উদ্যোগ, যার মূল লক্ষ্য বাংলাদেশের প্রত্যন্ত অঞ্চল, গ্রাম ও চরাঞ্চলের মানুষের জীবনসংগ্রাম, স্বপ্ন, সম্ভাবনা এবং বাস্তব চিত্র সবার সামনে তুলে ধরা।
                 </p>
                 <p>
-                  আমার কাজ দীর্ঘ দূরত্বের মোটরসাইকেল ভ্রমণ ও মানবিক তথ্যচিত্র নির্মাণের এক অনুপম মেলবন্ধন। ব্যক্তিগত শখ হিসেবে শুরু হলেও পরে এটি রূপ নেয় এক মহৎ দায়িত্বে: আমাদের দেশের সবচেয়ে অনুপ্রেরণাদায়ী গল্পগুলো বড় শহরের ঝলমলে আলোয় থাকে না; সেগুলো লুকিয়ে থাকে প্রত্যন্ত গ্রাম, চরাঞ্চল আর নদীভাঙা পল্লি জনপদে।
+                  আমাদের পথচলা শুরু হয়েছিল মোটরবাইক নিয়ে দেশ ঘুরে দেখার স্বপ্ন থেকে। কিন্তু সময়ের সঙ্গে সেই যাত্রা শুধু ভ্রমণ কিংবা ভিডিও কনটেন্ট তৈরির মধ্যে সীমাবদ্ধ থাকেনি। আমরা উপলব্ধি করেছি, দেশের আনাচে-কানাচে ছড়িয়ে আছে অসংখ্য মানুষের না-বলা গল্প, হারিয়ে যেতে বসা ঐতিহ্য, অসাধারণ প্রতিভা এবং প্রতিকূলতার সঙ্গে লড়াই করে বেঁচে থাকার অনুপ্রেরণামূলক ইতিহাস।
                 </p>
                 <p>
-                  আমি মোটরসাইকেল নিয়ে সরাসরি ছুটে যাই এসব অঞ্চলে—মানুষের কাছে বসতে, তাদের সুখ-দুঃখের কথা শুনতে, খাবার ভাগাভাগি করতে এবং পূর্ণ আত্মমর্যাদা সহকারে সহযোগিতার হাত বাড়িয়ে দিতে।
+                  সেই গল্পগুলো মানুষের কাছে পৌঁছে দেওয়ার লক্ষ্যেই <strong className="text-[#E97835] font-bold">Dream Biker</strong> আজ কাজ করে যাচ্ছে।
                 </p>
               </div>
 

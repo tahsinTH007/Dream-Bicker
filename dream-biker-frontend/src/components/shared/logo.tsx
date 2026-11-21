@@ -31,26 +31,16 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
         />
       </div>
 
-      {/* Brand Name Typography - In English just like the Footer */}
+      {/* Brand name only (no personal name underneath, per client request) */}
       {showText && (
-        <div className="flex flex-col">
-          <span
-            className={cn(
-              "font-heading text-xl sm:text-2xl font-black tracking-tight leading-none group-hover:text-[#E97835] transition-colors text-shadow-md",
-              isLight ? "text-white" : "text-[#142B3B]",
-            )}
-          >
-            Dream Biker
-          </span>
-          <span
-            className={cn(
-              "text-xs font-medium text-shadow-sm mt-1 hidden sm:block",
-              isLight ? "text-white/70" : "text-[#777777]",
-            )}
-          >
-            মো. হানিফ হোসেন
-          </span>
-        </div>
+        <span
+          className={cn(
+            "font-heading text-xl sm:text-2xl font-black tracking-tight leading-none group-hover:text-[#E97835] transition-colors text-shadow-md",
+            isLight ? "text-white" : "text-[#142B3B]",
+          )}
+        >
+          Dream Biker
+        </span>
       )}
     </Link>
   );

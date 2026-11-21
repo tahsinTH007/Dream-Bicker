@@ -6,8 +6,10 @@ import { HomePostsSection } from "@/features/home/components/home-posts-section"
 import { HomePhotosSection } from "@/features/home/components/home-photos-section";
 import { SocialCtaSection } from "@/features/home/components/social-cta-section";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
+import { getHeroStats } from "@/server/social/hero-stats";
 import { siteConfig } from "@/config/site.config";
 import { socialConfig } from "@/config/social.config";
+import { ensureFreshSocialData } from "@/server/social/auto-sync";
 
 export const metadata: Metadata = {
   // absolute: the home title already carries the brand, so skip the "%s | brand" template
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
     "প্রতিটি জীবনের একটি গল্প আছে। প্রতিটি মানবিক কাজই মূল্যবান। ড্রিম বাইকার (হানিফ)-এর অফিশিয়াল পোর্টফোলিও, ভিডিও ও সোশ্যাল মিডিয়া ব্লগ।",
 };
 
-export const revalidate = 300; // 5-minute incremental revalidation
+export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
 
@@ -36,8 +38,12 @@ const personJsonLd = {
 };
 
 export default async function HomePage() {
+  // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)
+  await ensureFreshSocialData();
   // Fetch real synchronized social data on the server
-  const [videosData, postsData, photosData] = await Promise.all([
+  const [heroStats, videosData, postsData, photosData] = await Promise.all([
+    // live YouTube + Facebook numbers (5-min cache), with config fallbacks
+    getHeroStats(),
     socialStorage.getVideos({ limit: 6 }),
     socialStorage.getPosts({ limit: 3 }),
     socialStorage.getPhotos({ limit: 8 }),
@@ -52,7 +58,7 @@ export default async function HomePage() {
       />
 
       {/* 1. Cinematic Hero Section with Integrated Stats Bar */}
-      <HeroSection />
+      <HeroSection stats={heroStats} />
 
       {/* 2. About Introduction Preview */}
       <AboutIntroSection />
@@ -67,7 +73,7 @@ export default async function HomePage() {
       <HomePhotosSection photos={photosData.items} />
 
       {/* 6. Social Media Profiles & CTA */}
-      <SocialCtaSection />
+      <SocialCtaSection stats={heroStats} />
     </>
   );
 }

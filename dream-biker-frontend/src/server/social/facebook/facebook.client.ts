@@ -56,7 +56,7 @@ export class FacebookClient {
       headers: {
         Accept: "application/json",
       },
-      next: { revalidate: 300 }, // 5-minute cache
+      next: { revalidate: 3600 }, // 1-hour cache (data syncs daily)
     });
 
     if (!response.ok) {
@@ -81,7 +81,7 @@ export class FacebookClient {
    */
   public async getPage(): Promise<FacebookPageResponse> {
     return this.fetchGraph<FacebookPageResponse>(this.pageId, {
-      fields: "id,name,link,picture.type(large),followers_count,fan_count,about",
+      fields: "id,name,link,picture.type(large),followers_count,fan_count,about,phone,emails,whatsapp_number",
     });
   }
 

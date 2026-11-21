@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, Heart, Play, Star, Users, type LucideIcon } from "lucide-react";
-import { siteConfig } from "@/config/site.config";
+import { ArrowRight, Clapperboard, Eye, Play, Users, type LucideIcon } from "lucide-react";
+import type { HeroStat, HeroStatKey } from "@/server/social/hero-stats";
 import { CountUp } from "@/components/shared/count-up";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -13,26 +13,27 @@ const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const GOLD = "#FFC93C";
 const ORANGE = "#FF6B2C";
 
-const statStyles: Record<string, { icon: LucideIcon; chip: string; glow: string }> = {
-  followers: {
+// Chip colours follow the platform: YouTube red, Facebook blue
+const statStyles: Record<HeroStatKey, { icon: LucideIcon; chip: string; glow: string }> = {
+  youtubeSubscribers: {
+    icon: Users,
+    chip: "from-[#FF0000] to-[#FF5A5A]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(255,0,0,0.65)]",
+  },
+  youtubeViews: {
+    icon: Eye,
+    chip: "from-[#E00000] to-[#FF6B6B]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(255,0,0,0.65)]",
+  },
+  youtubeVideos: {
+    icon: Clapperboard,
+    chip: "from-[#C40000] to-[#FF4040]",
+    glow: "shadow-[0_8px_24px_-6px_rgba(255,0,0,0.65)]",
+  },
+  facebookFollowers: {
     icon: Users,
     chip: "from-[#1877F2] to-[#5AA9FF]",
     glow: "shadow-[0_8px_24px_-6px_rgba(24,119,242,0.7)]",
-  },
-  views: {
-    icon: Play,
-    chip: "from-[#FF2D55] to-[#FF8A3D]",
-    glow: "shadow-[0_8px_24px_-6px_rgba(255,45,85,0.7)]",
-  },
-  recommend: {
-    icon: Heart,
-    chip: "from-[#10B981] to-[#5EEAD4]",
-    glow: "shadow-[0_8px_24px_-6px_rgba(16,185,129,0.7)]",
-  },
-  reviews: {
-    icon: Star,
-    chip: "from-[#FFC93C] to-[#FF8A00]",
-    glow: "shadow-[0_8px_24px_-6px_rgba(255,170,0,0.7)]",
   },
 };
 
@@ -47,7 +48,7 @@ const rise: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
 };
 
-export function HeroSection() {
+export function HeroSection({ stats }: { stats: HeroStat[] }) {
   return (
     <section className="relative isolate flex min-h-[700px] flex-col overflow-hidden bg-[#07100C] text-white sm:min-h-[740px] lg:min-h-svh">
       {/* Photo starts BELOW the navbar (72px mobile / 80px desktop) and is pinned
@@ -94,16 +95,16 @@ export function HeroSection() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFC93C] opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FFC93C]" />
               </span>
-              মানবতার পথে এক অবিরাম যাত্রা
+              শুধু পথের গল্প নয়, মানুষের জীবনের গল্প
             </span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={rise}
-            className="mt-6 text-5xl font-extrabold leading-[1.25] tracking-tight text-white sm:text-6xl xl:text-7xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-5xl"
+            className="mt-6 text-4xl font-extrabold leading-[1.3] tracking-tight text-white sm:text-5xl xl:text-6xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-4xl"
           >
-            মানবতাই
+            ভ্রমণের পথে মানুষের গল্প,
             <span className="relative mt-1 block w-fit pb-3">
               <span
                 className="bg-clip-text font-[family-name:var(--font-bengali-display)] font-normal leading-[1.35] text-transparent drop-shadow-[0_4px_24px_rgba(255,120,40,0.35)]"
@@ -111,7 +112,7 @@ export function HeroSection() {
                   backgroundImage: `linear-gradient(90deg, ${GOLD} 0%, #FFA53C 45%, ${ORANGE} 100%)`,
                 }}
               >
-                শান্তির প্রতীক।
+                মানবতার পাশে আমাদের পথচলা।
               </span>
               {/* hand-drawn underline */}
               <svg
@@ -144,8 +145,8 @@ export function HeroSection() {
             variants={rise}
             className="mt-6 [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg"
           >
-            আসুন দয়া ছড়িয়ে দিই, অসহায় মানুষের পাশে দাঁড়াই এবং সবাই মিলে এই পৃথিবীকে আরও সুন্দর করে
-            তুলি।
+            বাংলাদেশের প্রত্যন্ত অঞ্চল, গ্রাম ও চরাঞ্চলের মানুষের জীবনসংগ্রাম, স্বপ্ন, সম্ভাবনা এবং বাস্তব চিত্র
+            সবার সামনে তুলে ধরাই আমাদের লক্ষ্য।
           </motion.p>
 
           {/* CTAs */}
@@ -157,7 +158,7 @@ export function HeroSection() {
             >
               {/* light sweep on hover */}
               <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/40 blur-sm transition-transform duration-700 ease-out group-hover:translate-x-[420%]" />
-              <span className="relative">আমার যাত্রা জানুন</span>
+              <span className="relative">আমাদের পথচলা জানুন</span>
               <ArrowRight className="relative h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1" />
             </Link>
 
@@ -212,12 +213,12 @@ export function HeroSection() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFC93C] to-transparent opacity-70" />
 
         <ul className="mx-auto grid max-w-7xl grid-cols-2 px-2 sm:px-6 md:grid-cols-4 lg:px-8">
-          {siteConfig.heroStats.map((stat, idx) => {
-            const style = statStyles[stat.icon] ?? statStyles.reviews;
+          {stats.map((stat, idx) => {
+            const style = statStyles[stat.key];
             const Icon = style.icon;
             return (
               <li
-                key={stat.label}
+                key={stat.key}
                 className={[
                   "group flex items-center justify-center gap-3 px-2 py-5 sm:gap-4 sm:py-6 [@media(min-width:1024px)_and_(max-height:780px)]:py-4",
                   idx % 2 === 1 ? "border-l border-white/10" : "",
@@ -233,7 +234,7 @@ export function HeroSection() {
                 <div>
                   <p className="text-xl font-extrabold leading-tight text-white sm:text-2xl">
                     {/* starts as the stats bar fades in, slightly staggered */}
-                    <CountUp to={stat.value} suffix={stat.suffix} duration={2.2} delay={0.6 + idx * 0.12} />
+                    <CountUp to={stat.value} suffix={stat.suffix} decimals={stat.decimals} duration={2.2} delay={0.6 + idx * 0.12} />
                   </p>
                   <p className="text-xs font-medium text-white/80 sm:text-sm">{stat.label}</p>
                 </div>

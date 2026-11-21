@@ -18,7 +18,7 @@
 - **YouTube**: [`@DreamBiker532`](https://www.youtube.com/@DreamBiker532)
 - **Facebook**: [`BuydreambyHanif`](https://www.facebook.com/BuydreambyHanif)
 - **Contact**: `md.hanifhossan6991@gmail.com`
-- Hero stats (৪৫ লাখ+ ফলোয়ার, ১৪০ কোটি+ রিলস ভিউ, ৯৮% রিকমেন্ডেশন, ৬৯০+ রিভিউ) live in `siteConfig.heroStats` and **must be confirmed by Hanif**.
+- Hero stats are live from the APIs (YouTube now; Facebook once its token is set). Fallback numbers in `siteConfig.heroStatsFallback` were read from the APIs (Nov 2026).
 
 ---
 
@@ -63,7 +63,6 @@ src/components/
                                 social-links, animated-content, count-up, latest-spotlight
   ui/                           button, input, textarea
 src/config/                     site.config (brand, heroStats, contact), navigation.config, social.config
-src/data/placeholder.data.ts    SAMPLE content (stock photos) — dev only, see §8.4
 src/features/                   about/, blog/, contact/, gallery/, home/, videos/ components
 src/lib/                        db/prisma.ts, env/server.ts, utils.ts (cn)
 src/server/                     auth/sync-auth.ts, social/{youtube,facebook,storage,synchronization}
@@ -115,11 +114,12 @@ Compact vertical rhythm (client asked for less space): sections ~`py-12 sm:py-16
 ---
 
 ## 6. PAGES & COMPONENTS
-- **Home hero** (`features/home/components/hero-section.tsx`): Bengali copy (label, "মানবতাই / শান্তির প্রতীক।" with gold-orange gradient + animated underline, subtext, two CTAs). Photo `hd/hero_bg_hanif.jpg` starts **below the navbar** and is pinned to its top so the head is never cut; fills one screen on desktop (tighter spacing on short screens). Stats bar uses `CountUp` (counts up in Bengali digits when in view).
-- **Navbar**: fixed on home (transparent → solid on scroll, only colours transition), sticky elsewhere. No search, no TikTok. Mobile drawer slides in/out.
+- **Home hero** (`features/home/components/hero-section.tsx`): Bengali copy from the client's Dream Biker text (label শুধু পথের গল্প নয়…, headline ভ্রমণের পথে মানুষের গল্প, / মানবতার পাশে আমাদের পথচলা। with gold-orange Galada accent + animated underline, mission subtext, two CTAs). Photo `hd/hero_bg_hanif.jpg` starts **below the navbar** and is pinned to its top so the head is never cut; fills one screen on desktop. Stats bar = **live** YouTube subscribers/views/videos + Facebook followers from `src/server/social/hero-stats.ts` (5-min cached API calls; fallback `siteConfig.heroStatsFallback`), shown in Bengali units (লাখ/কোটি, rounded down) with `CountUp`.
+- **Navbar**: logo shows only "Dream Biker" (no personal name underneath). Fixed on home (transparent → solid on scroll, only colours transition), sticky elsewhere. No search, no TikTok. Mobile drawer slides in/out.
 - **Footer**: `hd/footer_bg_road.jpg` background, no top border/line, text uses text-shadow. No WhatsApp/TikTok/scroll-to-top.
-- **About**: portrait card uses `hd/hanif_portrait.jpg`; floating "দুই চাকায়" badge sits top-right (must not cover the caption). Timeline with scroll progress line; rotating phrase reserves space (no reflow).
-- **Videos / Blog**: two "latest updates" spotlights (`components/shared/latest-spotlight.tsx`), one per platform, newest 5 each, auto-advance 7s with progress bar, pause on hover, hidden when the platform has no items. Below: filter tabs (3 equal columns with short labels on phones) and the archive grid with empty states. Cards hover in platform colour. Videos/posts open on YouTube/Facebook.
+- **About**: intro block, then the Dream Biker story **section by section** (`components/shared/dream-biker-story.tsx`: numbered heading + its paragraphs for লক্ষ্য ও উদ্দেশ্য, মানবিক কার্যক্রম, আমাদের বিশ্বাস, ভবিষ্যৎ স্বপ্ন, then the closing quote). All of it is the **client-supplied text verbatim** — don't reword it. Portrait card uses `hd/hanif_portrait.jpg`; floating "দুই চাকায়" badge sits top-right. Timeline with scroll progress line. The home about section shows only the intro paragraphs (client decision: the full story lives on the About page only).
+- **Videos**: two "latest updates" spotlights (`components/shared/latest-spotlight.tsx`), YouTube and Facebook, newest 5 each, auto-advance 7s with progress bar, pause on hover, hidden when the platform has no items. Below: filter tabs (3 equal columns with short labels on phones) and the archive grid with empty states. Cards hover in platform colour. Videos open on YouTube/Facebook.
+- **Blog**: **Facebook page posts only** (client decision). One Facebook spotlight, then the post grid; no filter tabs. YouTube videos are never turned into blog posts, and YouTube Community posts are not available through the YouTube Data API (verified: `activities` returns only uploads/subscriptions).
 - **Gallery**: page header, filter tabs, stable masonry (1/2/3 columns). Clicking a photo opens the **coverflow carousel in a modal** at that photo (Esc/backdrop closes, arrows/swipe, centre button opens the source post). Cards and stage size to the viewport height. There is no separate lightbox.
 - **Contact**: form posts to `/api/contact`; on failure offers a prefilled `mailto:` instead of faking success.
 - **Social CTA cards**: medium size, Facebook blue / YouTube red, no images, circle-expand hover.
@@ -136,7 +136,7 @@ Next 16 only allows `quality` values listed in `images.qualities` (`next.config.
 ## 8. SOCIAL SYNC ENGINE
 
 ### 8.1 Sources
-- YouTube Data API v3 (`server/social/youtube/`): channel by `YOUTUBE_CHANNEL_ID`, else `YOUTUBE_CHANNEL_HANDLE`, else `@DreamBiker532`. Fetches the latest 50 uploads (+ stats/durations in batches of 50).
+- YouTube Data API v3 (`server/social/youtube/`): channel by `YOUTUBE_CHANNEL_ID`, else `YOUTUBE_CHANNEL_HANDLE`, else `@DreamBiker532`. Fetches the latest 50 uploads (+ stats/durations in batches of 50) as videos and gallery thumbnails only — no blog posts.
 - Facebook Graph API v22 (`server/social/facebook/`): latest 30 posts (photos incl. album sub-photos) and 25 videos. Photo IDs come from Facebook object IDs or the position inside the post (stable across syncs).
 - Older content is not backfilled yet.
 
@@ -144,6 +144,7 @@ Next 16 only allows `quality` values listed in `images.qualities` (`next.config.
 Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-secret: <SYNC_SECRET_KEY>`. **No query-string secrets.** No default secret: if neither is set (min 16 chars), every protected request is rejected.
 
 ### 8.3 Storage
+- **Auto-sync** (`server/social/auto-sync.ts`): content pages and public read APIs call `ensureFreshSocialData()` — blocks (≤12 s) when nothing is synced yet, background `after()` refresh when older than the interval, single-flight, 5-min failure backoff; with a DB it uses the last SUCCESS sync log. Without this, a restart/deploy showed no real content until the cron ran.
 - `DATABASE_URL` set → Prisma/PostgreSQL. Required in production (serverless instances don't share memory).
 - Unset → in-memory store per server instance.
 - Sync responses include `persisted: false` + a warning when there is no database.
@@ -151,10 +152,13 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 ### 8.4 Sample content
 `SHOW_SAMPLE_CONTENT`: defaults to **true** (mock content shown in dev & production until real accounts are synced); set `false` to show empty states instead.
 
-### 8.5 Known caveat
+### 8.5 Facebook token lifetime
+Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead). A daily GitHub Actions job (`.github/workflows/connection-health.yml`, `npm run check:connections`) fails and emails the owner when YouTube can't be read or Facebook access ends within 14 days; needs repo secrets SITE_URL and SYNC_SECRET_KEY, skipped until set.
+
+### 8.6 Known caveat
 Facebook CDN image URLs are signed and **expire**; stored URLs will break over time unless images are copied to own storage during sync (open item).
 
-### 8.6 API routes
+### 8.7 API routes
 | Route | Method | Access |
 | :--- | :--- | :--- |
 | `/api/social/accounts`, `/videos`, `/posts`, `/photos` (`?platform=&page=&limit=`) | GET | public |
@@ -179,7 +183,8 @@ Facebook CDN image URLs are signed and **expire**; stored URLs will break over t
 5. Home hero: Bengali text, bold gold-orange design, photo never hidden by the navbar, stats count up.
 6. No breadcrumbs; compact vertical spacing.
 7. Gallery: header like other pages; carousel opens on photo click (no lightbox).
-8. Videos/Blog: separate YouTube and Facebook "latest" sections; platform colours for hovers.
+8. Videos: separate YouTube and Facebook "latest" sections; platform colours for hovers.
+11. Blog: Facebook posts only (no YouTube videos or Community posts).
 9. Timeline: numbered orange nodes with halo, scroll-progress line.
 10. Workflow: commit every verified change on the `dev` branch; never push without being asked.
 
@@ -205,7 +210,7 @@ npm run dev            # http://localhost:3000
 npm run typecheck && npm run lint && npm test && npm run build
 ```
 
-Environment variables: see `dream-biker-frontend/.env.example` (YouTube/Facebook credentials, `SYNC_SECRET_KEY`, `CRON_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, `SHOW_SAMPLE_CONTENT`).
+Environment variables: see `dream-biker-frontend/.env.example` (YouTube/Facebook credentials, `SYNC_SECRET_KEY`, `CRON_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, `).
 
 Vercel: project root `dream-biker-frontend`; set all env vars; `vercel.json` schedules the sync daily at 00:00 UTC (`0 0 * * *`), compatible with Vercel Hobby plan (for higher frequency, use Vercel Pro or an external scheduler) — otherwise use an external scheduler that calls the sync endpoint with the secret header.
 

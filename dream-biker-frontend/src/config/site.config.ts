@@ -11,15 +11,15 @@ export const siteConfig = {
   label: "কন্টেন্ট ক্রিয়েটর | মানবসেবক",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
-  // Figures shown in the home hero stats bar. Update these by hand.
-  // `value` is the number that counts up; `suffix` is shown after it.
-  // Numbers are displayed with Bengali digits automatically.
-  heroStats: [
-    { value: 45, suffix: " লাখ+", label: "ফেসবুক ফলোয়ার", icon: "followers" },
-    { value: 140, suffix: " কোটি+", label: "রিলস ভিউ", icon: "views" },
-    { value: 98, suffix: "%", label: "রিকমেন্ডেশন", icon: "recommend" },
-    { value: 690, suffix: "+", label: "রিভিউ", icon: "reviews" },
-  ],
+  // Last-known raw numbers for the home hero stats bar. The live numbers come
+  // from the YouTube / Facebook APIs (src/server/social/hero-stats.ts); these
+  // are only shown when an API isn't configured or a request fails.
+  heroStatsFallback: {
+    youtubeSubscribers: 838_000, // YouTube API, Nov 2026
+    youtubeViews: 136_655_887, // YouTube API, Nov 2026
+    youtubeVideos: 395, // YouTube API, Nov 2026
+    facebookFollowers: 4_522_566, // Facebook Graph API, Nov 2026
+  },
   contact: {
     email: "md.hanifhossan6991@gmail.com",
     location: "বাংলাদেশ",

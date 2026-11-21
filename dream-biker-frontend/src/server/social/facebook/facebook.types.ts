@@ -15,6 +15,10 @@ export interface FacebookPageResponse {
   followers_count?: number;
   fan_count?: number;
   about?: string;
+  /** public contact details from the page\'s About section (absent when not set/public) */
+  phone?: string;
+  emails?: string[];
+  whatsapp_number?: string;
 }
 
 export interface FacebookSubattachmentItem {

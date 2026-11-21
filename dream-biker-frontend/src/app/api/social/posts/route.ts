@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
+import { ensureFreshSocialData } from "@/server/social/auto-sync";
 
 export async function GET(request: NextRequest) {
   try {
+    // sync from YouTube/Facebook if data is missing or stale (see server/social/auto-sync.ts)
+    await ensureFreshSocialData();
     const searchParams = request.nextUrl.searchParams;
     const platform = searchParams.get("platform") || "all";
     const page = parseInt(searchParams.get("page") || "1", 10);

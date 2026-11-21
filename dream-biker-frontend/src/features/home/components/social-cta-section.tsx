@@ -4,6 +4,7 @@ import * as React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
 import { socialConfig } from "@/config/social.config";
+import type { HeroStat } from "@/server/social/hero-stats";
 
 interface SocialCardItem {
   platform: "youtube" | "facebook";
@@ -24,7 +25,7 @@ const socialCards: SocialCardItem[] = [
     platform: "youtube",
     topText: "ইউটিউব চ্যানেল • @DreamBiker532",
     title: "ইউটিউব ডকুমেন্টারি",
-    subtitle: "৮৩৭ হাজার+ সাবস্ক্রাইবারের সাথে যুক্ত হয়ে তৃণমূল মানুষের মানবিক গল্পগুলো দেখুন।",
+    subtitle: "{subscribers} সাবস্ক্রাইবারের সাথে যুক্ত হয়ে তৃণমূল মানুষের মানবিক গল্পগুলো দেখুন।",
     url: socialConfig.youtube.url,
     accentBg: "#FF0000",
     defaultBgGradient: "bg-gradient-to-br from-[#1E080A] via-[#130405] to-[#0A0203]",
@@ -37,7 +38,7 @@ const socialCards: SocialCardItem[] = [
     platform: "facebook",
     topText: "অফিশিয়াল পেজ • BuydreambyHanif",
     title: "ফেসবুক ডায়েরি ও রিলস",
-    subtitle: "মাঠপর্যায়ের লাইভ আপডেট, চরাঞ্চলের দৃশ্য ও ক্ষুদ্র ভিডিও রিলস দেখতে ফলো করুন।",
+    subtitle: "{followers} ফলোয়ারের সাথে মাঠপর্যায়ের লাইভ আপডেট, চরাঞ্চলের দৃশ্য ও ভিডিও রিলস দেখতে ফলো করুন।",
     url: socialConfig.facebook.url,
     accentBg: "#1877F2",
     defaultBgGradient: "bg-gradient-to-br from-[#091629] via-[#060F1C] to-[#03070E]",
@@ -48,7 +49,20 @@ const socialCards: SocialCardItem[] = [
   },
 ];
 
-export function SocialCtaSection() {
+/** "৮.৩ লাখ+" style text for a live stat (same numbers as the hero stats bar). */
+function statText(stat: HeroStat | undefined): string {
+  if (!stat) return "";
+  const n = new Intl.NumberFormat("bn-BD", { minimumFractionDigits: stat.decimals, maximumFractionDigits: stat.decimals });
+  return n.format(stat.value) + stat.suffix;
+}
+
+export function SocialCtaSection({ stats }: { stats: HeroStat[] }) {
+  const subscribers = statText(stats.find((s) => s.key === "youtubeSubscribers"));
+  const followers = statText(stats.find((s) => s.key === "facebookFollowers"));
+  const cards = socialCards.map((card) => ({
+    ...card,
+    subtitle: card.subtitle.replace("{subscribers}", subscribers).replace("{followers}", followers),
+  }));
   return (
     <section className="relative overflow-hidden bg-[#070D12] py-10 sm:py-12 text-white">
       {/* Subtle ambient light gradient behind cards */}
@@ -71,7 +85,7 @@ export function SocialCtaSection() {
 
         {/* 2-Column Medium-Sized Cards Grid */}
         <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2">
-          {socialCards.map((card) => {
+          {cards.map((card) => {
             const IconComponent = card.icon;
 
             return (
