@@ -149,8 +149,8 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 - Unset → in-memory store per server instance.
 - Sync responses include `persisted: false` + a warning when there is no database.
 
-### 8.4 No sample content
-There is no mock/sample data: the store starts empty and only real synced YouTube/Facebook content is shown (empty states otherwise). Removed: `src/data/placeholder.data.ts`, the stock-photo fallback for Facebook videos and the Unsplash/Picsum image hosts.
+### 8.4 Sample content
+`SHOW_SAMPLE_CONTENT`: defaults to **true** (mock content shown in dev & production until real accounts are synced); set `false` to show empty states instead.
 
 ### 8.5 Facebook token lifetime
 Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead). A daily GitHub Actions job (`.github/workflows/connection-health.yml`, `npm run check:connections`) fails and emails the owner when YouTube can't be read or Facebook access ends within 14 days; needs repo secrets SITE_URL and SYNC_SECRET_KEY, skipped until set.
@@ -212,7 +212,7 @@ npm run typecheck && npm run lint && npm test && npm run build
 
 Environment variables: see `dream-biker-frontend/.env.example` (YouTube/Facebook credentials, `SYNC_SECRET_KEY`, `CRON_SECRET`, `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, `).
 
-Vercel: project root `dream-biker-frontend`; set all env vars; `vercel.json` schedules the sync once a day at 00:00 UTC (allowed on the free Hobby plan); pages also re-sync when data is older than `SOCIAL_SYNC_INTERVAL_MINUTES` (default 1440). Migrations live in `prisma/migrations`; `npm run build` runs `scripts/migrate-if-db.mjs` first (prisma migrate deploy over `DATABASE_URL_UNPOOLED`/`POSTGRES_URL_NON_POOLING` when present; skipped without `DATABASE_URL`). Production uses Vercel Postgres (Neon). API fetches and pages revalidate hourly; data syncs daily.
+Vercel: project root `dream-biker-frontend`; set all env vars; `vercel.json` schedules the sync daily at 00:00 UTC (`0 0 * * *`), compatible with Vercel Hobby plan (for higher frequency, use Vercel Pro or an external scheduler) — otherwise use an external scheduler that calls the sync endpoint with the secret header.
 
 ### Open production items
 Real API credentials and content; PostgreSQL + first migration; copy Facebook images to own storage; sync schedule/plan; contact notifications or admin view; domain + `NEXT_PUBLIC_SITE_URL`; privacy policy fixes (mentions a newsletter that doesn't exist, inconsistent dates); monitoring/alerts; content backfill; Prisma 7 upgrade (fixes a build-time-only audit warning).

@@ -31,6 +31,12 @@ const serverEnvSchema = z.object({
   // Site URL
   NEXT_PUBLIC_SITE_URL: z.string().default("http://localhost:3000"),
 
+  // Show built-in sample videos/posts/photos when nothing has been synced.
+  // Defaults to true (enabled in development & production until set to "false" or real content is synced).
+  SHOW_SAMPLE_CONTENT: z
+    .string()
+    .optional()
+    .transform((val) => (val === undefined || val === "" ? undefined : val === "true" || val === "1")),
 
   // Optional PostgreSQL Database
   DATABASE_URL: z.string().optional(),

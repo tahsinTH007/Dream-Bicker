@@ -51,6 +51,7 @@ All are server-side except `NEXT_PUBLIC_SITE_URL`. See [`.env.example`](./.env.e
 | `CRON_SECRET` | Secret Vercel Cron sends; required for scheduled syncs |
 | `DATABASE_URL` | PostgreSQL. Required in production (content persistence, contact messages) |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for SEO/share metadata |
+| `SHOW_SAMPLE_CONTENT` | Sample (mock) content when nothing is synced. Defaults to true (shown in dev & production). Set to "false" to disable |
 
 ### Getting the API credentials
 
@@ -115,7 +116,7 @@ Invoke-RestMethod -Method POST -Uri "https://your-site/api/admin/social/sync" -H
 - **Automatic:** pages and the public read APIs call `ensureFreshSocialData()` (`src/server/social/auto-sync.ts`). With no synced data yet the first request waits for a sync (max 12 s); once data is older than `SOCIAL_SYNC_INTERVAL_MINUTES` (1440 = once a day) it refreshes in the background after the response. One sync at a time; failures retried at most every 5 minutes. The cron and manual endpoints still work.
 - Each sync fetches the latest 50 YouTube uploads, 30 Facebook posts and 25 Facebook videos and upserts them.
 - With `DATABASE_URL` the data goes to PostgreSQL; without it, it lives in one server instance's memory (the sync response then says `persisted: false`).
-- `vercel.json` schedules `/api/admin/social/sync` once a day (00:00 UTC), which the free Hobby plan allows. Vercel sends `Authorization: Bearer $CRON_SECRET`.
+- `vercel.json` schedules `/api/admin/social/sync` daily at 00:00 UTC (`0 0 * * *`), fully compatible with Vercel Hobby tier. For higher frequencies (e.g. every 30 minutes), upgrade to Vercel **Pro** or trigger the endpoint from a free external cron service (such as cron-job.org) sending `Authorization: Bearer <CRON_SECRET>`.
 - Facebook image URLs expire; copying images to own storage during sync is still to do.
 
 ## Database
