@@ -1,13 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Clock, MessageSquare, HeartHandshake, Video } from "lucide-react";
+import { Mail, MapPin, Clock, MessageSquare, HeartHandshake, Phone, Video } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SocialLinks } from "@/components/shared/social-links";
 import { ContactForm } from "./contact-form";
 import { siteConfig } from "@/config/site.config";
 
-export function ContactView() {
+interface ContactViewProps {
+  /** From the Facebook page's About section, falling back to site config */
+  email: string;
+  /** Public phone from the Facebook page; the card is hidden when there is none */
+  phone: { label: string; href: string } | null;
+}
+
+export function ContactView({ email, phone }: ContactViewProps) {
   return (
     <>
       <PageHeader
@@ -56,16 +63,41 @@ export function ContactView() {
                       ইমেইল ঠিকানা
                     </span>
                     <a
-                      href={`mailto:${siteConfig.contact.email}`}
+                      href={`mailto:${email}`}
                       className="font-heading text-base font-bold text-[#142B3B] hover:text-[#E97835] transition-colors"
                     >
-                      {siteConfig.contact.email}
+                      {email}
                     </a>
                     <span className="block text-xs text-[#777777] mt-0.5">
                       অফিশিয়াল যোগাযোগের ইমেইল
                     </span>
                   </div>
                 </motion.div>
+
+                {phone && (
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    className="rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF]/60 p-5 flex items-start gap-4 transition-colors hover:border-[#E97835]/40 hover:shadow-md"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#142B3B] text-[#E97835] shadow-sm">
+                      <Phone className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="block text-xs font-bold uppercase tracking-wider text-[#777777]">
+                        ফোন নম্বর
+                      </span>
+                      <a
+                        href={phone.href}
+                        className="font-heading text-base font-bold text-[#142B3B] hover:text-[#E97835] transition-colors"
+                      >
+                        {phone.label}
+                      </a>
+                      <span className="block text-xs text-[#777777] mt-0.5">
+                        ফেসবুক পেজের তথ্য অনুযায়ী
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
 
                 <motion.div
                   whileHover={{ y: -4 }}

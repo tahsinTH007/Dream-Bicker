@@ -81,7 +81,7 @@ export class FacebookClient {
    */
   public async getPage(): Promise<FacebookPageResponse> {
     return this.fetchGraph<FacebookPageResponse>(this.pageId, {
-      fields: "id,name,link,picture.type(large),followers_count,fan_count,about",
+      fields: "id,name,link,picture.type(large),followers_count,fan_count,about,phone,emails,whatsapp_number",
     });
   }
 
