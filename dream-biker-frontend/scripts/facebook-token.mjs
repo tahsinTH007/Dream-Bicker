@@ -111,6 +111,14 @@ console.log(`\n✓ Saved a long-lived page token for ${final.profile_id} to .env
 console.log(`  expires           : ${when(final.expires_at)}`);
 console.log(`  data access until : ${when(final.data_access_expires_at)}`);
 console.log(`  scopes            : ${(final.scopes || []).join(", ")}`);
+if (final.expires_at) {
+  // Exchanging a PAGE token only yields ~60 days; a never-expiring page token
+  // must be derived from a long-lived USER token via me/accounts.
+  console.log(
+    "\n  This token still expires. For one that never expires, put a fresh Graph API Explorer USER token in" +
+      "\n  FACEBOOK_USER_ACCESS_TOKEN and run `npm run facebook:token` again."
+  );
+}
 if (final.data_access_expires_at) {
   console.log(
     "\n  Note: Meta still ends data access on the date above unless the page admin logs into the app again" +

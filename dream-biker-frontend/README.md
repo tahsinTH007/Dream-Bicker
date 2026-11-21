@@ -66,7 +66,7 @@ Tokens from Graph API Explorer expire within hours. To get a long-lived page tok
 2. Run `npm run facebook:token`. It exchanges the token, fetches the page token for `FACEBOOK_PAGE_ID`, verifies it with Meta, saves it as `FACEBOOK_PAGE_ACCESS_TOKEN` and deletes the user token. Tokens are never printed.
 3. Restart the dev server / redeploy with the new value.
 
-The resulting page token doesn't expire, but Meta still ends **data access** about 90 days after the admin's last login to the app. For a connection with no expiry at all, create a **System User** in Meta Business Settings, give it the Dream Biker page and the app, and generate a token with "Never" expiry.
+Starting from a **user** token gives a page token that doesn't expire; starting from an existing page token only gives ~60 days. Either way Meta still ends **data access** about 90 days after the admin's last login to the app. For a connection with no expiry at all, create a **System User** in Meta Business Settings, give it the Dream Biker page and the app, and generate a token with "Never" expiry.
 
 `GET /api/admin/social/status` reports `facebookToken.status` (`ok` / `warning` 14 days ahead / `expired` / `invalid`) with the exact dates.
 
