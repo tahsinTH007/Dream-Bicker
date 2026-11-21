@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isAuthorizedSyncRequest } from "@/server/auth/sync-auth";
 import { socialStorage } from "@/server/social/storage/social-storage.service";
 import { isDatabaseConfigured } from "@/lib/db/prisma";
+import { getFacebookTokenHealth } from "@/server/social/facebook/facebook-token-health";
 
 export async function GET(request: NextRequest) {
   if (!isAuthorizedSyncRequest(request)) {
@@ -15,13 +16,18 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const statuses = await socialStorage.getProviderStatuses();
-    const accounts = await socialStorage.getAccounts();
+    const [statuses, accounts, facebookToken] = await Promise.all([
+      socialStorage.getProviderStatuses(),
+      socialStorage.getAccounts(),
+      getFacebookTokenHealth(),
+    ]);
 
     return NextResponse.json({
       success: true,
       databaseConnected: isDatabaseConfigured(),
       providers: statuses,
+      // valid / expiry / days left for the Facebook page token (warns 14 days ahead)
+      facebookToken,
       accounts,
       serverTime: new Date().toISOString(),
     });
