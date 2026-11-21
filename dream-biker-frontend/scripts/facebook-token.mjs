@@ -117,8 +117,8 @@ if (final.expires_at) {
   // Exchanging a PAGE token only yields ~60 days; a never-expiring page token
   // must be derived from a long-lived USER token via me/accounts.
   console.log(
-    "\n  This token still expires. For one that never expires, put a fresh Graph API Explorer USER token in" +
-      "\n  FACEBOOK_USER_ACCESS_TOKEN and run `npm run facebook:token` again."
+    "\n  This token still expires. For one that never expires, put a System User token (Meta Business Settings)" +
+      "\n  or a fresh Graph API Explorer USER token in FACEBOOK_USER_ACCESS_TOKEN and run `npm run facebook:token` again."
   );
 }
 if (final.data_access_expires_at) {
