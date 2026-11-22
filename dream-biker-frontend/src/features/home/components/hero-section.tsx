@@ -62,7 +62,7 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
         className="absolute inset-x-0 bottom-0 top-[72px] -z-20 origin-top will-change-transform sm:top-[80px] lg:left-auto lg:w-[72%]"
       >
         <Image
-          src="/images/hd/hero_bg_hanif.jpg"
+          src="/images/hd/hero_bg_hanif.PNG"
           alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
           fill
           priority

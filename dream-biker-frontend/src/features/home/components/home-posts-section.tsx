@@ -111,7 +111,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                       <div className="flex items-center gap-2">
                         <div className="relative h-6 w-6 rounded-full overflow-hidden border border-[#E97835]/40 shrink-0">
                           <Image
-                            src="/images/author/hanif_avatar.png"
+                            src="/images/hd/hanif_avatar.jpeg"
                             alt="হানিফ"
                             fill
                             className="object-cover"
