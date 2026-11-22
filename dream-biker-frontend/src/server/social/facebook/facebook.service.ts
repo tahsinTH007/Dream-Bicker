@@ -1,5 +1,6 @@
 import "server-only";
 import { FacebookClient } from "./facebook.client";
+import { formatSocialUrl } from "@/lib/utils";
 import {
   NormalizedAccount,
   NormalizedPost,
@@ -101,7 +102,7 @@ export class FacebookService {
               imageUrl: att.media.image.src,
               thumbnailUrl: att.media.image.src,
               caption: content.slice(0, 150) || att.title || "ড্রিম বাইকার ফেসবুক ফটো",
-              sourceUrl: item.permalink_url,
+              sourceUrl: formatSocialUrl(att.target?.url || item.permalink_url, "FACEBOOK"),
               isThumbnail: false,
               publishedAt: item.created_time,
             });
@@ -124,7 +125,7 @@ export class FacebookService {
                   imageUrl: sub.media.image.src,
                   thumbnailUrl: sub.media.image.src,
                   caption: content.slice(0, 150) || "ড্রিম বাইকার মাঠপর্যায়ের ছবি",
-                  sourceUrl: sub.target?.url || item.permalink_url,
+                  sourceUrl: formatSocialUrl(sub.target?.url || item.permalink_url, "FACEBOOK"),
                   isThumbnail: false,
                   publishedAt: item.created_time,
                 });
@@ -140,7 +141,7 @@ export class FacebookService {
           postType,
           title: content ? content.slice(0, 80) : null,
           content,
-          url: item.permalink_url,
+          url: formatSocialUrl(item.permalink_url, "FACEBOOK"),
           mediaUrls,
           publishedAt: item.created_time,
           likeCount: item.reactions?.summary?.total_count || null,
@@ -192,7 +193,7 @@ export class FacebookService {
           externalId: item.id,
           title: item.title || item.description?.slice(0, 80) || "ড্রিম বাইকার ফেসবুক ভিডিও",
           description: item.description || "",
-          url: item.permalink_url,
+          url: formatSocialUrl(item.permalink_url || (item.id ? `/reel/${item.id}` : undefined), "FACEBOOK"),
           thumbnailUrl: preferredThumb,
           publishedAt: item.created_time,
           duration: durationStr,

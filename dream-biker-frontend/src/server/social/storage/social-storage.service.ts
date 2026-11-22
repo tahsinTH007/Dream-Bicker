@@ -1,6 +1,7 @@
 import "server-only";
 import { prisma, isDatabaseConfigured } from "@/lib/db/prisma";
 import { serverEnv } from "@/lib/env/server";
+import { formatSocialUrl } from "@/lib/utils";
 import {
   NormalizedAccount,
   NormalizedVideo,
@@ -353,7 +354,7 @@ export class SocialStorageService {
           externalId: v.externalId,
           title: v.title,
           description: v.description || "",
-          url: v.url,
+          url: formatSocialUrl(v.url, v.provider),
           thumbnailUrl: v.thumbnailUrl,
           publishedAt: v.publishedAt.toISOString(),
           duration: v.duration,
@@ -381,7 +382,10 @@ export class SocialStorageService {
     }
 
     const total = filtered.length;
-    const items = filtered.slice(skip, skip + limit);
+    const items = filtered.slice(skip, skip + limit).map((v) => ({
+      ...v,
+      url: formatSocialUrl(v.url, v.provider),
+    }));
 
     return {
       items,
@@ -430,7 +434,7 @@ export class SocialStorageService {
           postType: p.postType,
           title: p.title,
           content: p.content,
-          url: p.url,
+          url: formatSocialUrl(p.url, p.provider),
           mediaUrls: (p.mediaUrls as string[]) || [],
           publishedAt: p.publishedAt.toISOString(),
           likeCount: p.likeCount,
@@ -456,7 +460,10 @@ export class SocialStorageService {
     }
 
     const total = filtered.length;
-    const items = filtered.slice(skip, skip + limit);
+    const items = filtered.slice(skip, skip + limit).map((p) => ({
+      ...p,
+      url: formatSocialUrl(p.url, p.provider),
+    }));
 
     return {
       items,
@@ -506,7 +513,7 @@ export class SocialStorageService {
           imageUrl: p.imageUrl,
           thumbnailUrl: p.thumbnailUrl,
           caption: p.caption,
-          sourceUrl: p.sourceUrl,
+          sourceUrl: formatSocialUrl(p.sourceUrl, p.provider),
           isThumbnail: p.isThumbnail,
           publishedAt: p.publishedAt.toISOString(),
         }));
@@ -529,7 +536,10 @@ export class SocialStorageService {
     }
 
     const total = filtered.length;
-    const items = filtered.slice(skip, skip + limit);
+    const items = filtered.slice(skip, skip + limit).map((p) => ({
+      ...p,
+      sourceUrl: formatSocialUrl(p.sourceUrl, p.provider),
+    }));
 
     return {
       items,

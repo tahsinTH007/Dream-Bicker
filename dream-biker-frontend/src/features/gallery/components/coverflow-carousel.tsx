@@ -168,7 +168,7 @@ export function CoverflowCarousel({
                         onPointerDown={(e) => e.stopPropagation()}
                         className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-6 py-2.5 text-xs font-bold text-black shadow-2xl transition-colors duration-200 hover:bg-[#E97835] hover:text-white sm:py-3 sm:text-sm"
                       >
-                        {buttonText}
+                        {item.provider === "YOUTUBE" ? "ইউটিউবে দেখুন" : item.provider === "FACEBOOK" ? "ফেসবুকে দেখুন" : buttonText}
                         <ArrowUpRight className="h-3.5 w-3.5" />
                       </button>
                     </div>

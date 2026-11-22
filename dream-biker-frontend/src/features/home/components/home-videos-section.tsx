@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Play, ExternalLink, Eye, Clock } from "lucide-react";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
+import { formatSocialUrl } from "@/lib/utils";
 import { NormalizedVideo } from "@/server/social/social.types";
 
 interface HomeVideosSectionProps {
@@ -61,7 +62,7 @@ export function HomeVideosSection({ videos }: HomeVideosSectionProps) {
             return (
               <motion.a
                 key={video.id}
-                href={video.url}
+                href={formatSocialUrl(video.url, video.provider)}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
