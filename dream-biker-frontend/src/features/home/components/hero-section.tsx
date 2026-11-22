@@ -53,14 +53,15 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
     <section className="relative isolate flex flex-col overflow-hidden bg-[#07100C] text-white lg:min-h-svh">
       {/* Everything above the stats bar. The photo sits BELOW the navbar
           (72px mobile / 80px desktop) so his head is never hidden. */}
-      <div className="relative flex flex-1 flex-col">
-        {/* Photo. Mobile/tablet: its own block on top, text underneath.
-            Desktop: fills the area above the stats bar, text on the left. */}
+      <div className="relative flex min-h-svh flex-1 flex-col lg:min-h-0">
+        {/* Photo fills the area above the stats bar; all text sits over it.
+            Mobile/tablet: framed on him, text at the bottom, his face clear at the top.
+            Desktop: text on the left, he stands on the right. */}
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.6, ease: EASE_OUT }}
-          className="relative mt-[72px] h-[46svh] min-h-[300px] max-h-[460px] w-full origin-top will-change-transform sm:mt-[80px] sm:h-auto sm:max-h-none sm:min-h-0 sm:aspect-[16/9] lg:absolute lg:inset-x-0 lg:bottom-0 lg:top-[80px] lg:mt-0 lg:aspect-auto"
+          className="absolute inset-x-0 bottom-0 top-[72px] origin-top will-change-transform sm:top-[80px]"
         >
           <Image
             src="/images/hd/hero_bg_hanif.PNG"
@@ -69,27 +70,27 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
             priority
             quality={90}
             sizes="100vw"
-            className="pointer-events-none select-none object-cover object-[84%_25%] sm:object-center lg:object-[center_18%]"
+            className="pointer-events-none select-none object-cover object-[84%_18%] sm:object-[80%_18%] lg:object-[center_18%]"
           />
           {/* soft top edge under the navbar */}
           <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#07100C]/80 to-transparent" />
-          {/* bottom edge melts into the text area (mobile/tablet) or the stats bar (desktop) */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#07100C] via-[#07100C]/60 to-transparent lg:h-40" />
+          {/* bottom: dark behind the text (mobile/tablet), soft edge above the stats bar (desktop) */}
+          <div className="absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-[#07100C] via-[#07100C]/80 via-55% to-transparent lg:h-40 lg:via-[#07100C]/60 lg:via-50%" />
           {/* left side darkened for the headline (desktop only) */}
           <div className="absolute inset-0 hidden bg-gradient-to-r from-[#07100C]/95 via-[#07100C]/60 via-45% to-transparent to-75% lg:block" />
 
-          {/* "Dream Biker" autograph, beside him, a little below his face */}
+          {/* "Dream Biker" autograph beside him, a little below his face (desktop only) */}
           <motion.div
             initial={{ opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
-            className="pointer-events-none absolute right-4 top-[56%] hidden -rotate-12 select-none sm:block lg:right-[4%] lg:top-[54%]"
+            className="pointer-events-none absolute right-[4%] top-[54%] hidden -rotate-12 select-none lg:block"
             aria-hidden="true"
           >
-            <span className="block font-[family-name:var(--font-signature)] text-5xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] lg:text-7xl">
+            <span className="block font-[family-name:var(--font-signature)] text-7xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
               Dream Biker
             </span>
-            <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-32 lg:w-40" fill="none">
+            <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-40" fill="none">
               <motion.path
                 d="M4 14 C 60 4, 130 4, 196 10"
                 stroke={GOLD}
@@ -108,7 +109,7 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
       <div className="pointer-events-none absolute left-1/4 top-10 -z-10 h-[360px] w-[360px] rounded-full bg-[#FFC93C]/15 blur-[120px]" />
 
       {/* Main content */}
-      <div className="relative z-10 mx-auto -mt-10 flex w-full max-w-7xl flex-1 items-center px-4 pb-10 sm:-mt-6 sm:px-6 lg:mt-0 lg:px-8 lg:pb-12 lg:pt-36 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-28">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-end px-4 pb-10 pt-[34svh] sm:px-6 sm:pb-14 lg:items-center lg:px-8 lg:pb-12 lg:pt-36 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-28">
         <motion.div variants={container} initial="hidden" animate="show" className="max-w-2xl">
           {/* Eyebrow pill */}
           <motion.div variants={rise}>
