@@ -12,7 +12,7 @@ export interface HeroStat {
   decimals: number;
   suffix: string;
   label: string;
-  /** true = fetched from the platform API just now (or within the 5-min cache). */
+  /** true = fetched from the platform API (cached up to 1 hour); false = fallback number. */
   live: boolean;
 }
 
@@ -34,7 +34,7 @@ export function toBengaliCompact(n: number): Pick<HeroStat, "value" | "decimals"
 
 /**
  * Numbers for the home hero stats bar: three from YouTube and one from Facebook.
- * Live from the APIs when configured (their fetches are cached for 5 minutes),
+ * Live from the APIs when configured (fetches cached for 1 hour, page rebuilt hourly),
  * otherwise the last-known numbers in siteConfig.heroStatsFallback.
  */
 export async function getHeroStats(): Promise<HeroStat[]> {
