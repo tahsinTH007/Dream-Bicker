@@ -150,7 +150,6 @@ Auth via `Authorization: Bearer <SYNC_SECRET_KEY or CRON_SECRET>` or `x-sync-sec
 - Sync responses include `persisted: false` + a warning when there is no database.
 
 ### 8.4 Sample content
-`SHOW_SAMPLE_CONTENT`: defaults to **true** (mock content shown in dev & production until real accounts are synced); set `false` to show empty states instead.
 
 ### 8.5 Facebook token lifetime
 Explorer tokens are short-lived (hours). `npm run facebook:token` (scripts/facebook-token.mjs) exchanges one for a long-lived page token using the issuing app's ID/secret and saves it to `.env.local` without printing it. Long-lived page tokens don't expire but Meta ends data access ~90 days after the admin's last app login; a Meta Business **System User** token avoids that. `/api/admin/social/status` → `facebookToken` shows status and dates (warning 14 days ahead). A daily GitHub Actions job (`.github/workflows/connection-health.yml`, `npm run check:connections`) fails and emails the owner when YouTube can't be read or Facebook access ends within 14 days; needs repo secrets SITE_URL and SYNC_SECRET_KEY, skipped until set.

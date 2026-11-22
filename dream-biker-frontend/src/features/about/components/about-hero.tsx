@@ -25,7 +25,7 @@ export function AboutHero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-5"
             >
-              <div className="relative mx-auto max-w-md lg:max-w-none">
+              <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm lg:max-w-none">
                 {/* Decorative rotating accent box */}
                 <div className="absolute -inset-4 rounded-[28px] bg-gradient-to-tr from-[#E97835]/15 to-[#F7F5EF] -rotate-2 -z-10 border border-[#EAE6DB]" />
 
@@ -42,9 +42,9 @@ export function AboutHero() {
                     fill
                     priority
                     className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 40vw"
+                    sizes="(min-width: 1024px) 40vw, (min-width: 640px) 384px, 280px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1620]/90 via-[#0A1620]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1620]/85 via-[#0A1620]/10 via-35% to-transparent" />
                   
                   {/* Bottom Portrait Card Info */}
                   <div className="absolute bottom-6 left-6 right-6 text-white">

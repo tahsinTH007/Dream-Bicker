@@ -10,7 +10,7 @@ import { siteConfig } from "@/config/site.config";
 
 export function Footer() {
   return (
-    <footer className="relative w-full overflow-hidden text-white shadow-2xl min-h-[170px] sm:min-h-[190px] flex items-center">
+    <footer className="relative w-full overflow-hidden text-white shadow-2xl min-h-[170px] sm:min-h-[200px] lg:min-h-[240px] flex items-end">
       {/* 1. Full-Width Background Road Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -19,13 +19,16 @@ export function Footer() {
           fill
           priority={false}
           quality={90}
-          sizes="100%"
-          className="object-cover object-center select-none pointer-events-none"
+          sizes="100vw"
+          // his face sits top-left in a very wide photo: keep it in frame
+          className="object-cover object-[18%_center] md:object-[center_18%] select-none pointer-events-none"
         />
+        {/* darkens where the text sits; his face at the top stays clear */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 via-60% to-transparent md:from-black/75 md:via-black/15" />
       </div>
 
       {/* 2. Main Footer Bar Content (Matching the reference single-bar layout) */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-8">
+      <div className="relative z-10 mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 pt-36 pb-6 md:pt-24 md:pb-7">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 lg:gap-8">
           {/* Left Column: Brand Logo & Title */}
           <div className="flex items-center gap-4 sm:gap-6 shrink-0">

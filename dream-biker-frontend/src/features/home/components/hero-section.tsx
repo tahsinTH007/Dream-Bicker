@@ -50,43 +50,65 @@ const rise: Variants = {
 
 export function HeroSection({ stats }: { stats: HeroStat[] }) {
   return (
-    <section className="relative isolate flex min-h-[700px] flex-col overflow-hidden bg-[#07100C] text-white sm:min-h-[740px] lg:min-h-svh">
-      {/* Photo starts BELOW the navbar (72px mobile / 80px desktop) and is pinned
-          to its top edge, so his head is never hidden behind the navbar,
-          whatever the screen's width-to-height ratio. On large screens it
-          occupies the right part only and the left melts into the dark bg. */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.6, ease: EASE_OUT }}
-        className="absolute inset-x-0 bottom-0 top-[72px] -z-20 origin-top will-change-transform sm:top-[80px] lg:left-auto lg:w-[72%]"
-      >
-        <Image
-          src="/images/hd/hero_bg_hanif.PNG"
-          alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
-          fill
-          priority
-          quality={90}
-          sizes="(min-width: 1024px) 72vw, 100vw"
-          className="pointer-events-none select-none object-cover object-[68%_top] lg:object-[60%_top]"
-        />
-        {/* soft top edge under the navbar */}
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#07100C] to-transparent" />
-        {/* left edge melts into the background (large screens) */}
-        <div className="absolute inset-y-0 left-0 hidden w-1/2 bg-gradient-to-r from-[#07100C] via-[#07100C]/70 to-transparent lg:block" />
-      </motion.div>
+    <section className="relative isolate flex flex-col overflow-hidden bg-[#07100C] text-white lg:min-h-svh">
+      {/* Everything above the stats bar. The photo sits BELOW the navbar
+          (72px mobile / 80px desktop) so his head is never hidden. */}
+      <div className="relative flex flex-1 flex-col">
+        {/* Photo. Mobile/tablet: its own block on top, text underneath.
+            Desktop: fills the area above the stats bar, text on the left. */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.6, ease: EASE_OUT }}
+          className="relative mt-[72px] h-[46svh] min-h-[300px] max-h-[460px] w-full origin-top will-change-transform sm:mt-[80px] sm:h-auto sm:max-h-none sm:min-h-0 sm:aspect-[16/9] lg:absolute lg:inset-x-0 lg:bottom-0 lg:top-[80px] lg:mt-0 lg:aspect-auto"
+        >
+          <Image
+            src="/images/hd/hero_bg_hanif.PNG"
+            alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="pointer-events-none select-none object-cover object-[84%_25%] sm:object-center lg:object-[center_18%]"
+          />
+          {/* soft top edge under the navbar */}
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#07100C]/80 to-transparent" />
+          {/* bottom edge melts into the text area (mobile/tablet) or the stats bar (desktop) */}
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#07100C] via-[#07100C]/60 to-transparent lg:h-40" />
+          {/* left side darkened for the headline (desktop only) */}
+          <div className="absolute inset-0 hidden bg-gradient-to-r from-[#07100C]/95 via-[#07100C]/60 via-45% to-transparent to-75% lg:block" />
 
-      {/* Text readability on small/medium screens where text sits over the photo */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-[#07100C]/95 via-[#07100C]/75 to-[#07100C]/10 lg:from-[#07100C]/60 lg:via-transparent lg:to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-64 bg-gradient-to-t from-[#07100C] via-[#07100C]/60 to-transparent" />
+          {/* "Dream Biker" autograph, beside him, a little below his face */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
+            className="pointer-events-none absolute right-4 top-[56%] hidden -rotate-12 select-none sm:block lg:right-[4%] lg:top-[54%]"
+            aria-hidden="true"
+          >
+            <span className="block font-[family-name:var(--font-signature)] text-5xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] lg:text-7xl">
+              Dream Biker
+            </span>
+            <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-32 lg:w-40" fill="none">
+              <motion.path
+                d="M4 14 C 60 4, 130 4, 196 10"
+                stroke={GOLD}
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1, delay: 1.4, ease: EASE_OUT }}
+              />
+            </svg>
+          </motion.div>
+        </motion.div>
 
       {/* Colour glows: warm sunrise light behind the headline */}
       <div className="pointer-events-none absolute -left-40 top-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[#FF6B2C]/25 blur-[130px]" />
       <div className="pointer-events-none absolute left-1/4 top-10 -z-10 h-[360px] w-[360px] rounded-full bg-[#FFC93C]/15 blur-[120px]" />
-      <div className="pointer-events-none absolute right-0 top-1/4 -z-10 hidden h-[420px] w-[420px] rounded-full bg-[#10B981]/10 blur-[140px] lg:block" />
 
       {/* Main content */}
-      <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 pb-12 pt-32 sm:px-6 sm:pt-36 lg:px-8 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-24">
+      <div className="relative z-10 mx-auto -mt-10 flex w-full max-w-7xl flex-1 items-center px-4 pb-10 sm:-mt-6 sm:px-6 lg:mt-0 lg:px-8 lg:pb-12 lg:pt-36 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-28">
         <motion.div variants={container} initial="hidden" animate="show" className="max-w-2xl">
           {/* Eyebrow pill */}
           <motion.div variants={rise}>
@@ -177,29 +199,7 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
           </motion.div>
         </motion.div>
 
-        {/* "Dream Biker" autograph over the photo */}
-        <motion.div
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
-          className="pointer-events-none absolute right-6 top-[46%] hidden -rotate-12 select-none md:block lg:right-14"
-          aria-hidden="true"
-        >
-          <span className="block font-[family-name:var(--font-signature)] text-6xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] lg:text-7xl">
-            Dream Biker
-          </span>
-          <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-40" fill="none">
-            <motion.path
-              d="M4 14 C 60 4, 130 4, 196 10"
-              stroke={GOLD}
-              strokeWidth="3"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: 1.4, ease: EASE_OUT }}
-            />
-          </svg>
-        </motion.div>
+      </div>
       </div>
 
       {/* Stats bar */}
