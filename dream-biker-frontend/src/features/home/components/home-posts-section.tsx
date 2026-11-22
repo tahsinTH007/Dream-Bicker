@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink, ThumbsUp, MessageSquare, Calendar } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
+import { formatSocialUrl } from "@/lib/utils";
 import { NormalizedPost } from "@/server/social/social.types";
 
 interface HomePostsSectionProps {
@@ -65,14 +66,17 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
             });
 
             return (
-              <motion.article
+              <motion.a
                 key={post.id}
+                href={formatSocialUrl(post.url, post.provider)}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] } }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 320, damping: 26 }}
                 whileHover={{ y: -8 }}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl ${isFB ? "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15" : "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15"}`}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isFB ? "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15" : "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15"}`}
               >
                 <div>
                   {/* Optional Media Preview */}
@@ -148,17 +152,14 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                     )}
                   </div>
 
-                  <a
-                    href={post.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <span
                     className={`inline-flex items-center gap-1 font-semibold text-[#142B3B] transition-colors ${isFB ? "group-hover:text-[#1877F2]" : "group-hover:text-[#CC0000]"}`}
                   >
                     <span>মূল পোস্ট</span>
                     <ExternalLink className="h-3 w-3" />
-                  </a>
+                  </span>
                 </div>
-              </motion.article>
+              </motion.a>
             );
           })}
         </div>

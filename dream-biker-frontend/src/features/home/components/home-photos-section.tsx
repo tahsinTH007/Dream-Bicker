@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Camera } from "lucide-react";
+import { ArrowRight, Camera, ExternalLink } from "lucide-react";
+import { formatSocialUrl } from "@/lib/utils";
 import { NormalizedPhoto } from "@/server/social/social.types";
 
 interface HomePhotosSectionProps {
@@ -50,37 +51,50 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
 
         {/* Photos Grid with Staggered Framer Motion */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {photos.slice(0, 8).map((photo, idx) => (
-            <motion.div
-              key={photo.id}
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ type: "spring", stiffness: 320, damping: 26 }}
-              whileHover={{ y: -6 }}
-            >
-              <Link
-                href="/gallery"
-                className="group relative block aspect-square overflow-hidden rounded-2xl bg-[#EAE6DB] border border-[#EAE6DB] shadow-sm transition-all duration-300 hover:shadow-xl"
+          {photos.slice(0, 8).map((photo, idx) => {
+            const isYT = photo.provider === "YOUTUBE";
+            const targetUrl = formatSocialUrl(photo.sourceUrl, photo.provider);
+
+            return (
+              <motion.div
+                key={photo.id}
+                initial={{ opacity: 0, scale: 0.92 }}
+                whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ type: "spring", stiffness: 320, damping: 26 }}
+                whileHover={{ y: -6 }}
               >
-                <Image
-                  src={photo.imageUrl}
-                  alt={photo.caption || "ড্রিম বাইকার ছবি"}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex flex-col justify-end p-4">
-                  <span className="text-xs text-white font-medium line-clamp-2 leading-snug">
-                    {photo.caption}
-                  </span>
-                  <span className="mt-1 text-xs text-[#F5A623] uppercase font-bold tracking-wider">
-                    {photo.provider === "YOUTUBE" ? "ইউটিউব" : "ফেসবুক"}
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                <a
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block aspect-square overflow-hidden rounded-2xl bg-[#EAE6DB] border border-[#EAE6DB] shadow-sm transition-all duration-300 hover:shadow-xl"
+                >
+                  <Image
+                    src={photo.imageUrl}
+                    alt={photo.caption || "ড্রিম বাইকার ছবি"}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex flex-col justify-end p-4">
+                    <span className="text-xs text-white font-medium line-clamp-2 leading-snug">
+                      {photo.caption}
+                    </span>
+                    <div className="mt-1 flex items-center justify-between text-xs text-[#F5A623] font-bold">
+                      <span className="uppercase tracking-wider">
+                        {isYT ? "ইউটিউব" : "ফেসবুক"}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[11px] text-white/90">
+                        <span>দেখুন</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

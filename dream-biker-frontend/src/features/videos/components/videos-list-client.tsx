@@ -8,7 +8,7 @@ import { Play, ExternalLink, Eye, ThumbsUp, MessageSquare, Clock, Calendar } fro
 import { Button } from "@/components/ui/button";
 import { NormalizedVideo } from "@/server/social/social.types";
 import { LatestSpotlight, type SpotlightItem } from "@/components/shared/latest-spotlight";
-import { cn } from "@/lib/utils";
+import { cn, formatSocialUrl } from "@/lib/utils";
 
 interface VideosListClientProps {
   initialVideos: NormalizedVideo[];
@@ -171,7 +171,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
               return (
                 <motion.a
                   key={video.id}
-                  href={video.url}
+                  href={formatSocialUrl(video.url, video.provider)}
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}

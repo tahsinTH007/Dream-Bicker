@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, FileText, Play, type LucideIcon } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
-import { cn } from "@/lib/utils";
+import { cn, formatSocialUrl } from "@/lib/utils";
 
 export type SpotlightProvider = "YOUTUBE" | "FACEBOOK";
 
@@ -188,7 +188,7 @@ export function LatestSpotlight({
       <div className="relative grid grid-cols-1 items-center gap-5 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-7">
           <a
-            href={current.url}
+            href={formatSocialUrl(current.url, current.provider)}
             target="_blank"
             rel="noopener noreferrer"
             className="group relative block aspect-video w-full overflow-hidden rounded-2xl bg-black/60"
@@ -253,7 +253,7 @@ export function LatestSpotlight({
                 ))}
               </div>
               <a
-                href={current.url}
+                href={formatSocialUrl(current.url, current.provider)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(

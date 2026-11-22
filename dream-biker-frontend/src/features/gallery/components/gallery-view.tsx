@@ -3,12 +3,12 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Maximize2, ArrowUpRight } from "lucide-react";
+import { X, ArrowUpRight, ExternalLink } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { NormalizedPhoto } from "@/server/social/social.types";
 import { PageHeader } from "@/components/shared/page-header";
 import { CoverflowCarousel, CoverflowItem } from "./coverflow-carousel";
-import { cn } from "@/lib/utils";
+import { cn, formatSocialUrl } from "@/lib/utils";
 
 interface GalleryViewProps {
   initialPhotos: NormalizedPhoto[];
@@ -71,7 +71,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
         provider: isYT ? "YOUTUBE" : "FACEBOOK",
         aspect: ASPECTS[idx % ASPECTS.length],
         publishedAt: photo.publishedAt,
-        sourceUrl: photo.sourceUrl || undefined,
+        sourceUrl: formatSocialUrl(photo.sourceUrl, photo.provider),
       });
     });
     return list;
@@ -96,7 +96,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
         caption: p.caption,
         provider: p.provider,
         publishedAt: p.publishedAt,
-        sourceUrl: p.sourceUrl,
+        sourceUrl: formatSocialUrl(p.sourceUrl, p.provider),
       })),
     [filteredList]
   );
@@ -295,7 +295,8 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                 initialIndex={openIndex}
                 buttonText="মূল পোস্ট দেখুন"
                 onSelectPhoto={(item) => {
-                  if (item.sourceUrl) window.open(item.sourceUrl, "_blank", "noopener,noreferrer");
+                  const url = formatSocialUrl(item.sourceUrl, item.provider);
+                  if (url && url !== "#") window.open(url, "_blank", "noopener,noreferrer");
                 }}
               />
             </motion.div>
@@ -348,9 +349,18 @@ function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
             )}
             {isYT ? "YOUTUBE" : "FACEBOOK"}
           </span>
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white">
-            <Maximize2 className="h-3.5 w-3.5" />
-          </span>
+          {photo.sourceUrl && (
+            <a
+              href={formatSocialUrl(photo.sourceUrl, photo.provider)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white hover:bg-[#E97835] transition-colors"
+              title={isYT ? "ইউটিউবে দেখুন" : "ফেসবুকে দেখুন"}
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
         </div>
 
         <div className="translate-y-2 space-y-1.5 transition-transform duration-300 ease-out group-hover:translate-y-0">

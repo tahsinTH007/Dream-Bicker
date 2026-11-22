@@ -18,6 +18,7 @@ import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { NormalizedPost } from "@/server/social/social.types";
 import { LatestSpotlight, type SpotlightItem } from "@/components/shared/latest-spotlight";
+import { formatSocialUrl } from "@/lib/utils";
 
 interface BlogListClientProps {
   initialPosts: NormalizedPost[];
@@ -126,13 +127,16 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
               }
 
               return (
-                <motion.article
+                <motion.a
                   key={post.id}
+                  href={formatSocialUrl(post.url, post.provider)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: (idx % itemsPerPage) * 0.05, ease: [0.16, 1, 0.3, 1] } }}
                   transition={{ type: "spring", stiffness: 320, damping: 26 }}
                   whileHover={{ y: -8 }}
-                  className={`group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
+                  className={`group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
                 >
                   <div>
                     {/* Media Preview (Photo / YouTube Thumbnail) */}
@@ -227,17 +231,14 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                       )}
                     </div>
 
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <span
                       className={`inline-flex items-center gap-1.5 font-bold text-[#142B3B] transition-colors ${isYT ? "group-hover:text-[#CC0000]" : "group-hover:text-[#1877F2]"}`}
                     >
                       <span>{isYT ? "ভিডিও দেখুন" : "ফেসবুকে পড়ুন"}</span>
                       <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
+                    </span>
                   </div>
-                </motion.article>
+                </motion.a>
               );
             })}
           </motion.div>
