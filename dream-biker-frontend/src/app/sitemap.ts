@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
+import { siteUrl } from "@/config/site-url";
 
 // Public pages only (API routes are excluded via robots.ts)
 const routes: { path: string; changeFrequency: "daily" | "weekly" | "monthly" | "yearly"; priority: number }[] = [

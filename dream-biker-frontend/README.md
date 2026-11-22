@@ -50,7 +50,7 @@ All are server-side except `NEXT_PUBLIC_SITE_URL`. See [`.env.example`](./.env.e
 | `SYNC_SECRET_KEY` | Secret for manual sync/admin calls (≥16 chars). **No default** — unset means those endpoints are locked |
 | `CRON_SECRET` | Secret Vercel Cron sends; required for scheduled syncs |
 | `DATABASE_URL` | PostgreSQL. Required in production (content persistence, contact messages) |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for SEO/share metadata |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used for SEO/share metadata. Optional on Vercel: without it (or if it's still `localhost`) the Vercel production domain is used |
 
 ### Getting the API credentials
 
@@ -145,7 +145,7 @@ CI (`.github/workflows/ci.yml`) runs install, type check, lint, tests and build 
 
 1. Import the repo; set **Root Directory** to `dream-biker-frontend`.
 2. **Database:** project → *Storage* → *Create Database* → *Neon (Postgres)* → connect it to the project. This adds `DATABASE_URL` (and `DATABASE_URL_UNPOOLED`) automatically.
-3. Add the other environment variables from `.env.local` (YouTube, Facebook, `SYNC_SECRET_KEY`), plus `NEXT_PUBLIC_SITE_URL` and a random `CRON_SECRET` (16+ characters).
+3. Add the other environment variables from `.env.local` (YouTube, Facebook, `SYNC_SECRET_KEY`), plus a random `CRON_SECRET` (16+ characters). Set `NEXT_PUBLIC_SITE_URL` once you have a custom domain; until then the Vercel domain is used.
 4. Deploy. `npm run build` applies the database migrations itself (`scripts/migrate-if-db.mjs`, using the direct connection), and the first page view fills the database from YouTube and Facebook. After that the daily cron keeps it current.
 
 Without a database the site still works, but every server instance keeps its own copy in memory and fetches again after each restart, and the contact form can't save messages.

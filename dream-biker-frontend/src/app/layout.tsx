@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/config/site-url";
 import { Galada, Inter, Manrope, Noto_Sans_Bengali, Sacramento } from "next/font/google";
 import "./globals.css";
 
@@ -37,8 +38,6 @@ const sacramento = Sacramento({
   display: "swap",
 });
 
-// Absolute base for canonical/OG/Twitter URLs. Set NEXT_PUBLIC_SITE_URL in production.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

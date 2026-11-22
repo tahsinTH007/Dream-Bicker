@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/config/site-url";
 import { HeroSection } from "@/features/home/components/hero-section";
 import { AboutIntroSection } from "@/features/home/components/about-intro-section";
 import { HomeVideosSection } from "@/features/home/components/home-videos-section";
@@ -21,7 +22,6 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600; // data syncs daily; pages pick it up within an hour
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dreambiker.com";
 
 // Structured data so search engines know who the site is about and can link
 // his YouTube and Facebook profiles to it.
