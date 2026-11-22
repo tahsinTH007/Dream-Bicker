@@ -1,3 +1,5 @@
+import { siteUrl } from "@/config/site-url";
+
 export const siteConfig = {
   name: "ড্রিম বাইকার",
   nameEn: "Dream Biker",
@@ -9,7 +11,7 @@ export const siteConfig = {
   tagline: "প্রতিটি জীবনের একটি গল্প আছে। প্রতিটি মানবিক কাজই মূল্যবান।",
   impactMessage: "মানবতাই শান্তির প্রতীক (Humanity is a Symbol of Peace)",
   label: "কন্টেন্ট ক্রিয়েটর | মানবসেবক",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url: siteUrl,
   apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api",
   // Last-known raw numbers for the home hero stats bar. The live numbers come
   // from the YouTube / Facebook APIs (src/server/social/hero-stats.ts); these

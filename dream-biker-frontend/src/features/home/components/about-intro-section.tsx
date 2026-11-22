@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Quote, Heart, Sparkles } from "lucide-react";
+import { ArrowRight, Heart, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -23,7 +23,7 @@ export function AboutIntroSection() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5"
           >
-            <div className="relative mx-auto max-w-md lg:max-w-none">
+            <div className="relative mx-auto w-full max-w-[260px] sm:max-w-sm lg:max-w-none">
               {/* Offset Decorative Background with continuous subtle float */}
               <motion.div
                 animate={{ rotate: [-2, -3, -2], y: [0, -4, 0] }}
@@ -42,8 +42,8 @@ export function AboutIntroSection() {
                   quality={90}
                   alt="হানিফ, ড্রিম বাইকারের প্রতিষ্ঠাতা"
                   fill
-                  className="object-cover object-center transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="object-cover object-[center_30%] transition-transform duration-700 hover:scale-105"
+                  sizes="(min-width: 1024px) 40vw, (min-width: 640px) 384px, 260px"
                 />
               </motion.div>
             </div>

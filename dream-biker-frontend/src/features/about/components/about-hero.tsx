@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Compass, Heart, Shield, Sparkles } from "lucide-react";
+import { Compass, Heart, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { PageHeader } from "@/components/shared/page-header";
 
@@ -25,7 +25,7 @@ export function AboutHero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-5"
             >
-              <div className="relative mx-auto max-w-md lg:max-w-none">
+              <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm lg:max-w-none">
                 {/* Decorative rotating accent box */}
                 <div className="absolute -inset-4 rounded-[28px] bg-gradient-to-tr from-[#E97835]/15 to-[#F7F5EF] -rotate-2 -z-10 border border-[#EAE6DB]" />
 
@@ -42,9 +42,9 @@ export function AboutHero() {
                     fill
                     priority
                     className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 40vw"
+                    sizes="(min-width: 1024px) 40vw, (min-width: 640px) 384px, 280px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1620]/90 via-[#0A1620]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1620]/85 via-[#0A1620]/10 via-35% to-transparent" />
                   
                   {/* Bottom Portrait Card Info */}
                   <div className="absolute bottom-6 left-6 right-6 text-white">
@@ -61,23 +61,6 @@ export function AboutHero() {
                   </div>
                 </motion.div>
 
-                {/* Floating Capsule Badge with Continuous Gentle Float */}
-                <motion.div
-                  animate={{
-                    y: [0, -8, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  // top-right corner: clear of the name/caption at the bottom of the card
-                  className="absolute -top-5 -right-5 z-10 rounded-2xl bg-[#E97835] text-white p-4 shadow-xl hidden sm:block border-2 border-white/20"
-                >
-                  <Sparkles className="h-5 w-5 mb-1 animate-pulse" />
-                  <p className="text-xs font-bold">দুই চাকায়</p>
-                  <p className="text-xs text-white/90">সীমাহীন ভালোবাসা</p>
-                </motion.div>
               </div>
             </motion.div>
 

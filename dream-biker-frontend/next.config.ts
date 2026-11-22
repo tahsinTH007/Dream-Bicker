@@ -30,6 +30,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // don't advertise the framework in an X-Powered-By header
+  poweredByHeader: false,
   turbopack: {
     rules: {
       "*.css": {
