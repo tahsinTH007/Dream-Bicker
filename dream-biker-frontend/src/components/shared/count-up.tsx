@@ -31,7 +31,8 @@ interface CountUpProps {
  */
 export function CountUp({ to, suffix = "", decimals = 0, duration = 2, delay = 0, className }: CountUpProps) {
   const ref = React.useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
+  // any part visible: the hero stats bar sits at the very bottom of the screen
+  const inView = useInView(ref, { once: true });
   const reduceMotion = useReducedMotion();
   const bnNumber = React.useMemo(() => bnFormatter(decimals), [decimals]);
   const finalText = bnNumber.format(to) + suffix;

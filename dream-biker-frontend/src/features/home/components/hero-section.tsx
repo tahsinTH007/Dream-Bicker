@@ -2,12 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Clapperboard, Eye, Play, Users, type LucideIcon } from "lucide-react";
 import type { HeroStat, HeroStatKey } from "@/server/social/hero-stats";
 import { CountUp } from "@/components/shared/count-up";
-
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 // Warm sunrise palette used across the hero
 const GOLD = "#FFC93C";
@@ -37,16 +34,10 @@ const statStyles: Record<HeroStatKey, { icon: LucideIcon; chip: string; glow: st
   },
 };
 
-// One orchestrated entrance using only opacity + transform (GPU-friendly)
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-
-const rise: Variants = {
-  hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
-};
+// Entrance animations are plain CSS (hero-* classes in globals.css), not
+// framer-motion: they start as soon as the HTML and CSS arrive, so the hero is
+// never invisible while a slow phone is still downloading the JavaScript.
+const delay = (seconds: number) => ({ animationDelay: `${seconds}s` });
 
 export function HeroSection({ stats }: { stats: HeroStat[] }) {
   return (
@@ -57,12 +48,7 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
         {/* Photo fills the area above the stats bar; all text sits over it.
             Mobile/tablet: framed on him, text at the bottom, his face clear at the top.
             Desktop: text on the left, he stands on the right. */}
-        <motion.div
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, ease: EASE_OUT }}
-          className="absolute inset-x-0 bottom-0 top-[72px] origin-top will-change-transform sm:top-[80px]"
-        >
+        <div className="hero-photo absolute inset-x-0 bottom-0 top-[72px] sm:top-[80px]">
           <Image
             src="/images/hd/hero_bg_hanif.PNG"
             alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
@@ -80,29 +66,26 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
           <div className="absolute inset-0 hidden bg-gradient-to-r from-[#07100C]/95 via-[#07100C]/60 via-45% to-transparent to-75% lg:block" />
 
           {/* "Dream Biker" autograph beside him, a little below his face (desktop only) */}
-          <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.8, ease: EASE_OUT }}
-            className="pointer-events-none absolute right-[4%] top-[54%] hidden -rotate-12 select-none lg:block"
+          <div
+            className="hero-sign pointer-events-none absolute right-[4%] top-[54%] hidden -rotate-12 select-none lg:block"
             aria-hidden="true"
           >
             <span className="block font-[family-name:var(--font-signature)] text-7xl leading-none text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
               Dream Biker
             </span>
             <svg viewBox="0 0 200 20" className="-mt-1 ml-auto h-4 w-40" fill="none">
-              <motion.path
+              <path
                 d="M4 14 C 60 4, 130 4, 196 10"
                 stroke={GOLD}
                 strokeWidth="3"
                 strokeLinecap="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: 1.4, ease: EASE_OUT }}
+                pathLength={1}
+                className="hero-draw"
+                style={{ animationDuration: "1s", ...delay(1.4) }}
               />
             </svg>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
       {/* Colour glows: warm sunrise light behind the headline */}
       <div className="pointer-events-none absolute -left-40 top-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[#FF6B2C]/25 blur-[130px]" />
@@ -110,9 +93,9 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
 
       {/* Main content */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 items-end px-4 pb-10 pt-[34svh] sm:px-6 sm:pb-14 lg:items-center lg:px-8 lg:pb-12 lg:pt-36 [@media(min-width:1024px)_and_(max-height:780px)]:pb-8 [@media(min-width:1024px)_and_(max-height:780px)]:pt-28">
-        <motion.div variants={container} initial="hidden" animate="show" className="max-w-2xl">
+        <div className="max-w-2xl">
           {/* Eyebrow pill */}
-          <motion.div variants={rise}>
+          <div className="hero-rise" style={delay(0.15)}>
             <span className="inline-flex items-center gap-2.5 rounded-full border border-[#FFC93C]/35 bg-gradient-to-r from-[#FFC93C]/15 to-[#FF6B2C]/10 px-4 py-1.5 text-sm font-semibold text-[#FFD970] shadow-[0_0_30px_-8px_rgba(255,201,60,0.6)]">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FFC93C] opacity-70" />
@@ -120,12 +103,12 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
               </span>
               শুধু পথের গল্প নয়, মানুষের জীবনের গল্প
             </span>
-          </motion.div>
+          </div>
 
           {/* Headline */}
-          <motion.h1
-            variants={rise}
-            className="mt-6 text-4xl font-extrabold leading-[1.3] tracking-tight text-white sm:text-5xl xl:text-6xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-4xl"
+          <h1
+            style={delay(0.27)}
+            className="hero-rise mt-6 text-4xl font-extrabold leading-[1.3] tracking-tight text-white sm:text-5xl xl:text-6xl [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 [@media(min-width:1024px)_and_(max-height:780px)]:text-4xl"
           >
             ভ্রমণের পথে মানুষের গল্প,
             <span className="relative mt-1 block w-fit pb-3">
@@ -151,29 +134,29 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
                     <stop offset="100%" stopColor={ORANGE} />
                   </linearGradient>
                 </defs>
-                <motion.path
+                <path
                   d="M3 11 C 80 3, 200 3, 297 9"
                   stroke="url(#heroUnderline)"
                   strokeWidth="5"
                   strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1.1, delay: 0.9, ease: EASE_OUT }}
+                  pathLength={1}
+                  className="hero-draw"
+                  style={delay(0.9)}
                 />
               </svg>
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            variants={rise}
-            className="mt-6 [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg"
+          <p
+            style={delay(0.39)}
+            className="hero-rise mt-6 [@media(min-width:1024px)_and_(max-height:780px)]:mt-4 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg"
           >
             বাংলাদেশের প্রত্যন্ত অঞ্চল, গ্রাম ও চরাঞ্চলের মানুষের জীবনসংগ্রাম, স্বপ্ন, সম্ভাবনা এবং বাস্তব চিত্র
             সবার সামনে তুলে ধরাই আমাদের লক্ষ্য।
-          </motion.p>
+          </p>
 
           {/* CTAs */}
-          <motion.div variants={rise} className="mt-9 [@media(min-width:1024px)_and_(max-height:780px)]:mt-6 flex flex-wrap items-center gap-4">
+          <div style={delay(0.51)} className="hero-rise mt-9 [@media(min-width:1024px)_and_(max-height:780px)]:mt-6 flex flex-wrap items-center gap-4">
             <Link
               href="/about"
               className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-8 py-3.5 text-base font-bold text-[#2A1300] shadow-[0_12px_32px_-10px_rgba(255,107,44,0.85)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-10px_rgba(255,107,44,1)] active:translate-y-0"
@@ -197,19 +180,13 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
               </span>
               ভিডিও দেখুন
             </Link>
-          </motion.div>
-        </motion.div>
-
+          </div>
+        </div>
       </div>
       </div>
 
       {/* Stats bar */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.75, ease: EASE_OUT }}
-        className="relative border-t border-white/10 bg-[#0B1511]/90"
-      >
+      <div style={delay(0.75)} className="hero-rise relative border-t border-white/10 bg-[#0B1511]/90">
         {/* glowing gradient edge */}
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FFC93C] to-transparent opacity-70" />
 
@@ -243,7 +220,7 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
             );
           })}
         </ul>
-      </motion.div>
+      </div>
     </section>
   );
 }

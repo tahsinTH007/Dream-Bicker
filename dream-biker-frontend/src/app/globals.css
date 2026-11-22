@@ -104,6 +104,49 @@
   animation-fill-mode: forwards;
 }
 
+/* Home hero entrance. Plain CSS (not framer-motion) so it plays as soon as the
+   HTML and CSS arrive: the hero is never invisible while a slow phone is still
+   downloading the JavaScript. Uses the individual translate/scale properties so
+   Tailwind's rotate/translate utilities on the same elements keep working. */
+@keyframes hero-rise {
+  from { opacity: 0; translate: 0 26px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes hero-photo {
+  from { opacity: 0; scale: 1.04; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes hero-sign {
+  from { opacity: 0; translate: 24px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes hero-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+.hero-rise { animation: hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-photo { transform-origin: top; animation: hero-photo 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-sign { animation: hero-sign 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both; }
+.hero-draw { stroke-dasharray: 1; animation: hero-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-photo, .hero-sign { animation: none; }
+  .hero-draw { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Safety net for scroll-reveal animations (framer-motion whileInView).
+   Their server HTML starts hidden (style="opacity:0;transform:..."), and only
+   the JavaScript reveals them. If the scripts haven't started within 2.5 s
+   (slow mobile connection), reveal the content with CSS anyway. When the
+   scripts load in time, motion-provider sets data-motion-ready on <html> and
+   this rule switches off, so the normal animations play. */
+@keyframes reveal-fallback {
+  to { opacity: 1; transform: none; }
+}
+html:not([data-motion-ready]) [style^="opacity:0;"],
+html:not([data-motion-ready]) [style="opacity:0"] {
+  animation: reveal-fallback 0.5s ease-out 2.5s forwards;
+}
+
 /* Circle Expand Card Animation (Framer-style interactive hover) */
 .circle-expand-card {
   position: relative;
