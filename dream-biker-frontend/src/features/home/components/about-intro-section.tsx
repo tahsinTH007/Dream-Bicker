@@ -38,31 +38,13 @@ export function AboutIntroSection() {
                 className="relative aspect-[3/4] overflow-hidden rounded-[24px] border border-[#EAE6DB] shadow-xl bg-[#142B3B]"
               >
                 <Image
-                  src="/images/hd/hanif_avatar.jpg"
+                  src="/images/hd/hanif_avatar.jpeg"
                   quality={90}
                   alt="হানিফ, ড্রিম বাইকারের প্রতিষ্ঠাতা"
                   fill
                   className="object-cover object-center transition-transform duration-700 hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 40vw"
                 />
-              </motion.div>
-
-              {/* Quote Capsule with Entrance and Stagger */}
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] } }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 320, damping: 26 }}
-                whileHover={{ y: -4 }}
-                className="absolute -bottom-6 -right-6 rounded-2xl bg-[#142B3B] p-5 text-white shadow-xl max-w-xs hidden sm:block border border-white/10"
-              >
-                <Quote className="h-5 w-5 text-[#E97835] mb-2" />
-                <p className="text-xs leading-relaxed italic text-white/90">
-                  শুধু পথের গল্প নয়, মানুষের জীবনের গল্প। ভ্রমণের প্রতিটি পথে, মানবতার পাশে।
-                </p>
-                <span className="mt-2 block text-xs font-bold uppercase tracking-wider text-[#E97835]">
-                  — Dream Biker
-                </span>
               </motion.div>
             </div>
           </motion.div>

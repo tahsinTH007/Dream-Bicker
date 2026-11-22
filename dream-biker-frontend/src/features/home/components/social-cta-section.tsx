@@ -23,7 +23,7 @@ interface SocialCardItem {
 const socialCards: SocialCardItem[] = [
   {
     platform: "youtube",
-    topText: "ইউটিউব চ্যানেল • @DreamBiker532",
+    topText: "ইউটিউব চ্যানেল • DreamBiker",
     title: "ইউটিউব ডকুমেন্টারি",
     subtitle: "{subscribers} সাবস্ক্রাইবারের সাথে যুক্ত হয়ে তৃণমূল মানুষের মানবিক গল্পগুলো দেখুন।",
     url: socialConfig.youtube.url,
@@ -36,8 +36,8 @@ const socialCards: SocialCardItem[] = [
   },
   {
     platform: "facebook",
-    topText: "অফিশিয়াল পেজ • BuydreambyHanif",
-    title: "ফেসবুক ডায়েরি ও রিলস",
+    topText: "অফিশিয়াল পেজ • DreamBiker",
+    title: "ফেসবুক ডায়েরি ও রিলস",
     subtitle: "{followers} ফলোয়ারের সাথে মাঠপর্যায়ের লাইভ আপডেট, চরাঞ্চলের দৃশ্য ও ভিডিও রিলস দেখতে ফলো করুন।",
     url: socialConfig.facebook.url,
     accentBg: "#1877F2",
