@@ -14,10 +14,9 @@ export function Footer() {
       {/* 1. Full-Width Background Road Image Container */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hd/footer_bg_road.PNG"
+          src="/images/hd/footer_bg_road.jpg"
           alt="Dream Biker Motorcycle on Scenic Highway"
           fill
-          priority={false}
           quality={90}
           sizes="100vw"
           // his face sits top-left in a very wide photo: keep it in frame

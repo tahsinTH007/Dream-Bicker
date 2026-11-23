@@ -1,6 +1,10 @@
 "use client";
 
-import { MotionConfig, MotionGlobalConfig } from "framer-motion";
+import { LazyMotion, MotionConfig, MotionGlobalConfig } from "framer-motion";
+
+// Components use the lightweight `m.*` (framer-motion/m); the animation engine
+// arrives in its own chunk right after hydration instead of in the main bundle.
+const loadFeatures = () => import("./motion-features").then((mod) => mod.default);
 
 /**
  * How long after the page started loading the scripts may arrive and still
@@ -27,5 +31,10 @@ if (typeof window !== "undefined") {
  * transform/layout animations disabled (opacity fades are kept).
  */
 export function MotionProvider({ children }: { children: React.ReactNode }) {
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+  return (
+    // strict: a full `motion.*` component anywhere would throw, keeping the bundle lean
+    <LazyMotion features={loadFeatures} strict>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  );
 }

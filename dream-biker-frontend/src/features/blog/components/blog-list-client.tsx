@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "framer-motion/m";
 import {
   ExternalLink,
   ThumbsUp,
@@ -93,7 +94,7 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
 
         {/* Posts Grid with Animated Transitions */}
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key="blog-grid"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -127,16 +128,16 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
               }
 
               return (
-                <motion.a
+                <m.a
                   key={post.id}
                   href={formatSocialUrl(post.url, post.provider)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: (idx % itemsPerPage) * 0.05, ease: [0.16, 1, 0.3, 1] } }}
+                  // CSS entrance (visible without JavaScript); framer only does the hover lift
+                  style={{ animationDelay: `${(idx % itemsPerPage) * 0.05}s`, animationDuration: "0.4s" }}
                   transition={{ type: "spring", stiffness: 320, damping: 26 }}
                   whileHover={{ y: -8 }}
-                  className={`group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
+                  className={`anim-rise group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
                 >
                   <div>
                     {/* Media Preview (Photo / YouTube Thumbnail) */}
@@ -239,20 +240,16 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
                       <ExternalLink className="h-3.5 w-3.5" />
                     </span>
                   </div>
-                </motion.a>
+                </m.a>
               );
             })}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         {/* Load More Pagination */}
         {visiblePosts.length < filteredPosts.length && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-10 text-center"
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
+          <div className="anim-rise mt-10 text-center">
+            <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
               <Button
                 onClick={() => setPage((prev) => prev + 1)}
                 variant="outline"
@@ -261,8 +258,8 @@ export function BlogListClient({ initialPosts }: BlogListClientProps) {
               >
                 আরও পোস্ট লোড করুন ({filteredPosts.length - visiblePosts.length} টি বাকি)
               </Button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </div>
         )}
       </div>
     </div>

@@ -28,6 +28,8 @@ const galada = Galada({
   subsets: ["bengali", "latin"],
   weight: "400",
   display: "swap",
+  // decorative: don't compete with the body font for early bandwidth
+  preload: false,
 });
 
 // Thin signature script for the "Dream Biker" autograph in the hero
@@ -36,6 +38,8 @@ const sacramento = Sacramento({
   subsets: ["latin"],
   weight: "400",
   display: "swap",
+  // desktop-only signature: never worth a preload
+  preload: false,
 });
 
 

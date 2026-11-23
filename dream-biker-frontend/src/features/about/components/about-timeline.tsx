@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useScroll, useTransform, useSpring } from "framer-motion";
+import * as m from "framer-motion/m";
 import { Calendar } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -81,7 +82,7 @@ export function AboutTimeline() {
           <div className="absolute left-[19px] sm:left-[21px] top-[24px] bottom-[24px] w-[2px] bg-[#EAE6DB]" />
 
           {/* Animated Orange Progress Fill Line */}
-          <motion.div
+          <m.div
             style={{ height: lineHeightSpring }}
             className="absolute left-[19px] sm:left-[21px] top-[24px] w-[2px] bg-[#E97835] origin-top shadow-[0_0_10px_rgba(233,120,53,0.45)]"
           />
@@ -89,7 +90,7 @@ export function AboutTimeline() {
           {/* Milestones Flow */}
           <div className="space-y-10 sm:space-y-12">
             {milestones.map((item, index) => (
-              <motion.div
+              <m.div
                 key={item.step}
                 initial={{ opacity: 0, x: 28 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -135,7 +136,7 @@ export function AboutTimeline() {
                     {item.description}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

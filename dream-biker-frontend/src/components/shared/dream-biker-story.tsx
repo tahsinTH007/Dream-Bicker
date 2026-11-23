@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { Target, HeartHandshake, Lightbulb, Telescope, Quote, type LucideIcon } from "lucide-react";
 
 interface Pillar {
@@ -67,7 +67,7 @@ export function DreamBikerStory({
     <div className={className}>
       <div className="divide-y divide-[#EAE6DB] overflow-hidden rounded-3xl border border-[#EAE6DB] bg-white shadow-sm">
         {pillars.map(({ icon: Icon, title, paragraphs }, idx) => (
-          <motion.section
+          <m.section
             key={title}
             aria-labelledby={`story-${idx}`}
             initial={{ opacity: 0, y: 24 }}
@@ -97,13 +97,13 @@ export function DreamBikerStory({
                 <p key={text.slice(0, 24)}>{text}</p>
               ))}
             </div>
-          </motion.section>
+          </m.section>
         ))}
       </div>
 
       {/* Closing lines */}
       {showClosing && (
-        <motion.figure
+        <m.figure
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -119,7 +119,7 @@ export function DreamBikerStory({
             </p>
             <p className="mt-1 text-sm text-white/80 sm:text-base">ভ্রমণের প্রতিটি পথে, মানবতার পাশে।</p>
           </blockquote>
-        </motion.figure>
+        </m.figure>
       )}
     </div>
   );

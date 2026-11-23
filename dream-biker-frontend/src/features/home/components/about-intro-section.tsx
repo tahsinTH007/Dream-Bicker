@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { ArrowRight, Heart, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -16,7 +16,7 @@ export function AboutIntroSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left Column: Portrait & Decorative Frame */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -25,14 +25,14 @@ export function AboutIntroSection() {
           >
             <div className="relative mx-auto w-full max-w-[260px] sm:max-w-sm lg:max-w-none">
               {/* Offset Decorative Background with continuous subtle float */}
-              <motion.div
+              <m.div
                 animate={{ rotate: [-2, -3, -2], y: [0, -4, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -inset-4 rounded-[28px] bg-[#F7F5EF] -z-10 border border-[#EAE6DB]"
               />
 
               {/* Portrait Image Container */}
-              <motion.div
+              <m.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
                 className="relative aspect-[3/4] overflow-hidden rounded-[24px] border border-[#EAE6DB] shadow-xl bg-[#142B3B]"
@@ -45,12 +45,12 @@ export function AboutIntroSection() {
                   className="object-cover object-[center_30%] transition-transform duration-700 hover:scale-105"
                   sizes="(min-width: 1024px) 40vw, (min-width: 640px) 384px, 260px"
                 />
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right Column: Editorial Bio */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -64,7 +64,7 @@ export function AboutIntroSection() {
               className="mb-6"
             />
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -80,11 +80,11 @@ export function AboutIntroSection() {
               <p>
                 সেই গল্পগুলো মানুষের কাছে পৌঁছে দেওয়ার লক্ষ্যেই Dream Biker আজ কাজ করে যাচ্ছে।
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Core Values Bullets with Hover Lift & Stagger */}
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3 } }}
                 viewport={{ once: true }}
@@ -101,9 +101,9 @@ export function AboutIntroSection() {
                 <p className="text-xs text-[#777777] leading-relaxed">
                   গল্প তুলে ধরার পাশাপাশি অসহায়, সুবিধাবঞ্চিত ও প্রান্তিক মানুষের প্রয়োজনে পাশে দাঁড়ানো।
                 </p>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.4 } }}
                 viewport={{ once: true }}
@@ -120,10 +120,10 @@ export function AboutIntroSection() {
                 <p className="text-xs text-[#777777] leading-relaxed">
                   প্রতিটি উদ্যোগে মানুষের আত্মসম্মান, ব্যক্তিগত মর্যাদা ও অনুভূতির প্রতি সর্বোচ্চ শ্রদ্ধা।
                 </p>
-              </motion.div>
+              </m.div>
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -141,8 +141,8 @@ export function AboutIntroSection() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

@@ -133,6 +133,40 @@
   .hero-draw { animation: none; stroke-dashoffset: 0; }
 }
 
+/* Page-load entrances for content at the top of a page (page headers, filter
+   bars, first cards). CSS instead of framer-motion so they play the moment the
+   HTML arrives: the text/images are never hidden while JavaScript downloads,
+   which keeps First/Largest Contentful Paint fast. Delay via inline
+   style={{ animationDelay }}. */
+@keyframes anim-rise {
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes anim-pop {
+  from { opacity: 0; scale: 0.9; translate: 0 -10px; }
+  to { opacity: 1; scale: 1; translate: 0 0; }
+}
+@keyframes anim-from-left {
+  from { opacity: 0; translate: -40px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes anim-from-right {
+  from { opacity: 0; translate: 40px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes anim-breathe {
+  0%, 100% { opacity: 0.1; scale: 1; }
+  50% { opacity: 0.18; scale: 1.15; }
+}
+.anim-rise { animation: anim-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-pop { animation: anim-pop 0.5s ease-out both; }
+.anim-from-left { animation: anim-from-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-from-right { animation: anim-from-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-breathe { animation: anim-breathe 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .anim-rise, .anim-pop, .anim-from-left, .anim-from-right, .anim-breathe { animation: none; }
+}
+
 /* Safety net for scroll-reveal animations (framer-motion whileInView).
    Their server HTML starts hidden (style="opacity:0;transform:..."), and only
    the JavaScript reveals them. If the scripts haven't started within 2.5 s

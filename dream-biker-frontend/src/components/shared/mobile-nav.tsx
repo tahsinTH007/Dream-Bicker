@@ -3,7 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "framer-motion/m";
 import { X, ChevronRight, Heart } from "lucide-react";
 import { mainNavItems } from "@/config/navigation.config";
 import { Logo } from "./logo";
@@ -34,7 +35,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-    <motion.div
+    <m.div
       key="mobile-nav"
       className="fixed inset-0 z-[100] md:hidden"
       initial="closed"
@@ -42,7 +43,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       exit="closed"
     >
       {/* Backdrop */}
-      <motion.div
+      <m.div
         variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="fixed inset-0 bg-[#0A1620]/80 backdrop-blur-sm"
@@ -51,7 +52,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       />
 
       {/* Drawer Container (slides in from the right) */}
-      <motion.div
+      <m.div
         role="dialog"
         aria-modal="true"
         aria-label="মেনু"
@@ -136,8 +137,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           </p>
           <SocialLinks showLabels />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
       )}
     </AnimatePresence>
   );

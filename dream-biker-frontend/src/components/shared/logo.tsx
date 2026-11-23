@@ -26,7 +26,8 @@ export function Logo({ className, variant = "navy", showText = true }: LogoProps
           alt="Dream Biker Logo"
           width={64}
           height={54}
-          priority
+          preload
+          fetchPriority="high"
           className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(233,120,53,0.35)]"
         />
       </div>

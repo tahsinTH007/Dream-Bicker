@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clapperboard, Eye, Play, Users, type LucideIcon } from "lucide-react";
@@ -50,10 +48,11 @@ export function HeroSection({ stats }: { stats: HeroStat[] }) {
             Desktop: text on the left, he stands on the right. */}
         <div className="hero-photo absolute inset-x-0 bottom-0 top-[72px] sm:top-[80px]">
           <Image
-            src="/images/hd/hero_bg_hanif.PNG"
+            src="/images/hd/hero_bg_hanif.jpg"
             alt="ড্রিম বাইকার - মো. হানিফ হোসেন"
             fill
-            priority
+            preload
+            fetchPriority="high"
             quality={90}
             sizes="100vw"
             className="pointer-events-none select-none object-cover object-[84%_18%] sm:object-[80%_18%] lg:object-[center_18%]"

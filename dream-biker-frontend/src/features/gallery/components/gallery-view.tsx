@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "framer-motion/m";
 import { X, ArrowUpRight, ExternalLink } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { NormalizedPhoto } from "@/server/social/social.types";
@@ -197,7 +198,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                       {tab.label} ({tab.count})
                     </span>
                     {isActive && (
-                      <motion.span
+                      <m.span
                         layoutId="galleryFilterLine"
                         className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#E97835]"
                         transition={{ type: "spring", stiffness: 420, damping: 36 }}
@@ -228,6 +229,8 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                       photo={photo}
                       // Stagger only within the newly revealed batch
                       delay={(index % PAGE_SIZE) * 0.05}
+                      // first tiles are on screen at load: fetch their photos right away
+                      eager={index < 3}
                       onOpen={() => setOpenIndex(index)}
                     />
                   ))}
@@ -261,7 +264,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
       {/* Coverflow carousel modal, opened by clicking a photo */}
       <AnimatePresence>
         {openIndex !== null && (
-          <motion.div
+          <m.div
             key="gallery-carousel"
             role="dialog"
             aria-modal="true"
@@ -282,7 +285,7 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
               <X className="h-5 w-5" />
             </button>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -299,8 +302,8 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
                   if (url && url !== "#") window.open(url, "_blank", "noopener,noreferrer");
                 }}
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
@@ -310,22 +313,29 @@ export function GalleryView({ initialPhotos }: GalleryViewProps) {
 interface GalleryCardProps {
   photo: GalleryItem;
   delay: number;
+  /** Above the fold: CSS entrance (visible without JavaScript) + high-priority image. */
+  eager?: boolean;
   onOpen: () => void;
 }
 
-function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
+function GalleryCard({ photo, delay, eager = false, onOpen }: GalleryCardProps) {
   const isYT = photo.provider === "YOUTUBE";
 
   return (
-    <motion.button
+    <m.button
       type="button"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
-      transition={{ duration: 0.6, delay, ease: EASE_OUT }}
+      {...(eager
+        ? { style: { animationDelay: `${delay}s` } }
+        : {
+            initial: { opacity: 0, y: 24 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true, margin: "0px 0px -40px 0px" },
+            transition: { duration: 0.6, delay, ease: EASE_OUT },
+          })}
       onClick={onOpen}
       className={cn(
         // Only CSS-transition properties framer-motion does NOT animate, so the two never fight
+        eager && "anim-rise",
         "group relative block w-full cursor-pointer overflow-hidden rounded-xl bg-[#111] text-left shadow-lg transition-shadow duration-300 hover:shadow-2xl hover:shadow-black/50",
         photo.aspect
       )}
@@ -335,6 +345,9 @@ function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
         alt={photo.caption || photo.title}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        preload={eager}
+        fetchPriority={eager ? "high" : undefined}
+        loading={eager ? "eager" : undefined}
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
@@ -373,6 +386,6 @@ function GalleryCard({ photo, delay, onOpen }: GalleryCardProps) {
           </span>
         </div>
       </div>
-    </motion.button>
+    </m.button>
   );
 }
