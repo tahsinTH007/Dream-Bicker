@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import * as m from "framer-motion/m";
 import { FaYoutube, FaFacebookF } from "react-icons/fa";
 import { Play, ExternalLink, Eye, ThumbsUp, MessageSquare, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,15 +76,13 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
         />
 
         {/* Platform Filter Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
+        <div
+          className="anim-rise flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-[#EAE6DB]"
+          style={{ animationDuration: "0.5s" }}
         >
           <div className="grid w-full grid-cols-3 gap-1 rounded-2xl border border-[#EAE6DB] bg-[#F7F5EF] p-1.5 sm:flex sm:w-auto sm:items-center sm:gap-2">
             {/* All */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.96 }}
               onClick={() => {
                 setPlatformFilter("all");
@@ -98,10 +97,10 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
             >
               <span className="sm:hidden">সব ({initialVideos.length})</span>
               <span className="hidden sm:inline">সব ভিডিও ({initialVideos.length})</span>
-            </motion.button>
+            </m.button>
 
             {/* YouTube */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.96 }}
               onClick={() => {
                 setPlatformFilter("YOUTUBE");
@@ -116,10 +115,10 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
             >
               <FaYoutube className="h-4 w-4" />
               <span>ইউটিউব ({ytCount})</span>
-            </motion.button>
+            </m.button>
 
             {/* Facebook */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.96 }}
               onClick={() => {
                 setPlatformFilter("FACEBOOK");
@@ -135,13 +134,13 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
               <FaFacebookF className="h-3.5 w-3.5" />
               <span className="sm:hidden">ফেসবুক ({fbCount})</span>
               <span className="hidden sm:inline">ফেসবুক ও রিলস ({fbCount})</span>
-            </motion.button>
+            </m.button>
           </div>
 
           <div className="text-xs text-[#777777] font-medium">
             মোট <strong>{filteredVideos.length}</strong> টি ভিডিও প্রদর্শিত হচ্ছে
           </div>
-        </motion.div>
+        </div>
 
         {filteredVideos.length === 0 && (
           <div className="rounded-2xl border border-dashed border-[#EAE6DB] bg-[#F7F5EF]/50 px-6 py-14 text-center">
@@ -152,7 +151,7 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
 
         {/* Videos Grid with Animated Transitions */}
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={`grid-${platformFilter}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -169,16 +168,16 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
               });
 
               return (
-                <motion.a
+                <m.a
                   key={video.id}
                   href={formatSocialUrl(video.url, video.provider)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: (idx % itemsPerPage) * 0.05, ease: [0.16, 1, 0.3, 1] } }}
+                  // CSS entrance (visible without JavaScript); framer only does the hover lift
+                  style={{ animationDelay: `${(idx % itemsPerPage) * 0.05}s`, animationDuration: "0.4s" }}
                   transition={{ type: "spring", stiffness: 320, damping: 26 }}
                   whileHover={{ y: -8 }}
-                  className={`group flex flex-col overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
+                  className={`anim-rise group flex flex-col overflow-hidden rounded-2xl border border-[#EAE6DB] bg-white transition-[color,background-color,border-color,box-shadow] duration-300 hover:shadow-2xl cursor-pointer ${isYT ? "hover:border-[#FF0000]/60 hover:shadow-[#FF0000]/15" : "hover:border-[#1877F2]/60 hover:shadow-[#1877F2]/15"}`}
                 >
                   {/* Thumbnail */}
                   <div className="relative aspect-video w-full overflow-hidden bg-black/60">
@@ -268,20 +267,16 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
                       </span>
                     </div>
                   </div>
-                </motion.a>
+                </m.a>
               );
             })}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
 
         {/* Load More Pagination */}
         {visibleVideos.length < filteredVideos.length && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-10 text-center"
-          >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
+          <div className="anim-rise mt-10 text-center">
+            <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }} className="inline-block">
               <Button
                 onClick={() => setPage((prev) => prev + 1)}
                 variant="outline"
@@ -290,8 +285,8 @@ export function VideosListClient({ initialVideos }: VideosListClientProps) {
               >
                 আরও ভিডিও লোড করুন ({filteredVideos.length - visibleVideos.length} টি বাকি)
               </Button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </div>
         )}
       </div>
     </div>

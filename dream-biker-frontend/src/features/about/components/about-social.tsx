@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, Video, MessageSquare } from "lucide-react";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { SocialLinks } from "@/components/shared/social-links";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,7 @@ export function AboutSocial() {
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
         {/* Animated Badge */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -23,10 +23,10 @@ export function AboutSocial() {
         >
           <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] animate-ping" />
           যোগাযোগ ও সহযোগিতা
-        </motion.div>
+        </m.div>
 
         {/* Animated Heading */}
-        <motion.h3
+        <m.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -34,10 +34,10 @@ export function AboutSocial() {
           className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#142B3B] tracking-tight mb-4"
         >
           হানিফের সাথে সরাসরি যুক্ত হোন
-        </motion.h3>
+        </m.h3>
 
         {/* Animated Paragraph */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -45,10 +45,10 @@ export function AboutSocial() {
           className="text-sm sm:text-base text-[#666666] leading-relaxed max-w-xl mx-auto mb-9"
         >
           প্রতিদিনের ভিডিও, মাঠপর্যায়ের নানা মানবিক আপডেট ও আলোকচিত্র দেখতে অফিশিয়াল সোশ্যাল চ্যানেলগুলোতে অনুসরণ করুন অথবা যেকোনো সমন্বয়ের জন্য সরাসরি যোগাযোগ করুন।
-        </motion.p>
+        </m.p>
 
         {/* Social Links Row */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -56,10 +56,10 @@ export function AboutSocial() {
           className="flex justify-center mb-8"
         >
           <SocialLinks showLabels />
-        </motion.div>
+        </m.div>
 
         {/* CTA Buttons with Hover & Tap Physics */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -90,7 +90,7 @@ export function AboutSocial() {
               ভিডিও কার্যক্রম দেখুন
             </Link>
           </Button>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { Heart, Eye, Users, ShieldCheck } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -52,7 +52,7 @@ export function AboutValues() {
           {values.map((val, idx) => {
             const Icon = val.icon;
             return (
-              <motion.div
+              <m.div
                 key={val.title}
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1], } }}
@@ -83,7 +83,7 @@ export function AboutValues() {
                   <span>মূল্যবোধ ০{idx + 1}</span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

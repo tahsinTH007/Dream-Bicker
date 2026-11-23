@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, FileText, Play, type LucideIcon } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { cn, formatSocialUrl } from "@/lib/utils";
@@ -67,7 +67,6 @@ const THEMES = {
   },
 } as const;
 
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const bnRelative = new Intl.RelativeTimeFormat("bn", { numeric: "auto" });
 
 function timeAgo(iso: string): string {
@@ -94,7 +93,18 @@ function Media({ item, priority, sizes }: { item: SpotlightItem; priority?: bool
       </div>
     );
   }
-  return <Image src={item.imageUrl} alt={item.title} fill priority={priority} sizes={sizes} className="object-cover" />;
+  return (
+    <Image
+      src={item.imageUrl}
+      alt={item.title}
+      fill
+      preload={priority}
+      fetchPriority={priority ? "high" : undefined}
+      loading={priority ? "eager" : undefined}
+      sizes={sizes}
+      className="object-cover"
+    />
+  );
 }
 
 export function LatestSpotlight({
@@ -227,12 +237,8 @@ export function LatestSpotlight({
 
         <div className="lg:col-span-5">
           {/* New text replaces the old immediately, then fades in (no exit to wait for) */}
-          <motion.div
-            key={current.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: EASE_OUT }}
-          >
+          {/* CSS fade (re-runs on each slide via key); visible without JavaScript */}
+          <div key={current.id} className="anim-rise" style={{ animationDuration: "0.45s" }}>
             <p className={cn("mb-2 text-xs font-semibold", theme.accentText)}>{timeAgo(current.publishedAt)}</p>
             <h2 className="line-clamp-3 text-xl font-extrabold leading-snug text-white sm:text-3xl">
               {current.title}
@@ -265,7 +271,7 @@ export function LatestSpotlight({
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

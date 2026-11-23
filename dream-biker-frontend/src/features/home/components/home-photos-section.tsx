@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { ArrowRight, Camera, ExternalLink } from "lucide-react";
 import { formatSocialUrl } from "@/lib/utils";
 import { NormalizedPhoto } from "@/server/social/social.types";
@@ -18,7 +18,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
     <section className="relative py-12 sm:py-14 bg-[#F7F5EF] text-[#222222] overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -38,7 +38,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
             </p>
           </div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+          <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
               href="/gallery"
               className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#142B3B] transition-all hover:bg-[#142B3B] hover:text-white shrink-0 self-start sm:self-auto shadow-sm"
@@ -46,8 +46,8 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
               <span>সম্পূর্ণ গ্যালারি দেখুন</span>
               <ArrowRight className="h-4 w-4 text-[#E97835]" />
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Photos Grid with Staggered Framer Motion */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -56,7 +56,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
             const targetUrl = formatSocialUrl(photo.sourceUrl, photo.provider);
 
             return (
-              <motion.div
+              <m.div
                 key={photo.id}
                 initial={{ opacity: 0, scale: 0.92 }}
                 whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.45, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } }}
@@ -92,7 +92,7 @@ export function HomePhotosSection({ photos }: HomePhotosSectionProps) {
                     </div>
                   </div>
                 </a>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

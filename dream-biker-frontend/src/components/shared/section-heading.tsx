@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
@@ -27,7 +27,7 @@ export function SectionHeading({
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -39,7 +39,7 @@ export function SectionHeading({
       )}
     >
       {label && (
-        <motion.span
+        <m.span
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -51,9 +51,9 @@ export function SectionHeading({
         >
           <span className="h-1.5 w-1.5 rounded-full bg-[#E97835] animate-ping" />
           {label}
-        </motion.span>
+        </m.span>
       )}
-      <motion.h2
+      <m.h2
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -64,9 +64,9 @@ export function SectionHeading({
         )}
       >
         {title}
-      </motion.h2>
+      </m.h2>
       {description && (
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -77,8 +77,8 @@ export function SectionHeading({
           )}
         >
           {description}
-        </motion.p>
+        </m.p>
       )}
-    </motion.div>
+    </m.div>
   );
 }

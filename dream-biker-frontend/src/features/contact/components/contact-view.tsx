@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import {
   Mail,
   Copy,
@@ -111,12 +111,9 @@ export function ContactView({ email, phone }: ContactViewProps) {
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
           {/* Main Hero Showcase: Use This Email to Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="relative overflow-hidden rounded-3xl border border-[#EAE6DB] bg-gradient-to-br from-[#142B3B] via-[#0F2230] to-[#0A1620] p-6 sm:p-10 lg:p-12 text-white shadow-2xl"
+          <div
+            style={{ animationDuration: "0.7s" }}
+            className="anim-rise relative overflow-hidden rounded-3xl border border-[#EAE6DB] bg-gradient-to-br from-[#142B3B] via-[#0F2230] to-[#0A1620] p-6 sm:p-10 lg:p-12 text-white shadow-2xl"
           >
             {/* Subtle light mesh */}
             <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[#E97835]/20 blur-3xl pointer-events-none" />
@@ -160,7 +157,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
 
                   {/* Actions Buttons */}
                   <div className="flex items-center gap-2 w-full sm:w-auto justify-end shrink-0">
-                    <motion.button
+                    <m.button
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={handleCopyEmail}
@@ -183,9 +180,9 @@ export function ContactView({ email, phone }: ContactViewProps) {
                           <span>কপি করুন</span>
                         </>
                       )}
-                    </motion.button>
+                    </m.button>
 
-                    <motion.a
+                    <m.a
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       href={`mailto:${displayEmail}`}
@@ -193,7 +190,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
                     >
                       <Send className="h-4 w-4" />
                       <span>মেইল পাঠান</span>
-                    </motion.a>
+                    </m.a>
                   </div>
                 </div>
               </div>
@@ -210,7 +207,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
                 </span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Quick Category Templates: One-click email with pre-filled subject */}
           <div className="space-y-6">
@@ -234,7 +231,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
                 )}&body=${encodeURIComponent(cat.body)}`;
 
                 return (
-                  <motion.a
+                  <m.a
                     key={cat.title}
                     href={mailtoUrl}
                     initial={{ opacity: 0, y: 20 }}
@@ -268,7 +265,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
                       <span>এই বিষয়ে ইমেইল পাঠান</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
-                  </motion.a>
+                  </m.a>
                 );
               })}
             </div>
@@ -287,7 +284,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {/* Facebook Messenger */}
-              <motion.a
+              <m.a
                 href="https://m.me/BuydreambyHanif"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -312,10 +309,10 @@ export function ContactView({ email, phone }: ContactViewProps) {
                   <span>চ্যাট শুরু করুন</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </div>
-              </motion.a>
+              </m.a>
 
               {/* Facebook Page */}
-              <motion.a
+              <m.a
                 href={socialConfig.facebook.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -340,10 +337,10 @@ export function ContactView({ email, phone }: ContactViewProps) {
                   <span>পেজ ভিজিট করুন</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </div>
-              </motion.a>
+              </m.a>
 
               {/* YouTube Channel */}
-              <motion.a
+              <m.a
                 href={socialConfig.youtube.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -368,11 +365,11 @@ export function ContactView({ email, phone }: ContactViewProps) {
                   <span>ইউটিউবে সাবস্ক্রাইব করুন</span>
                   <ExternalLink className="h-3.5 w-3.5" />
                 </div>
-              </motion.a>
+              </m.a>
 
               {/* Phone Call (if configured on Facebook) */}
               {phone && (
-                <motion.a
+                <m.a
                   href={phone.href}
                   whileHover={{ y: -4 }}
                   className="group flex flex-col justify-between rounded-2xl border border-[#EAE6DB] bg-white p-6 shadow-sm transition-all hover:border-emerald-500/40 hover:shadow-md sm:col-span-2 lg:col-span-3"
@@ -396,13 +393,13 @@ export function ContactView({ email, phone }: ContactViewProps) {
                       <span>সরাসরি কল করুন</span>
                     </span>
                   </div>
-                </motion.a>
+                </m.a>
               )}
             </div>
           </div>
 
           {/* Contact Guidelines & Location Info */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -452,7 +449,7 @@ export function ContactView({ email, phone }: ContactViewProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </>

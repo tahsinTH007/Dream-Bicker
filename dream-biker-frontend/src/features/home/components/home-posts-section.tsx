@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { ArrowRight, ExternalLink, ThumbsUp, MessageSquare, Calendar } from "lucide-react";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { formatSocialUrl } from "@/lib/utils";
@@ -22,7 +22,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -42,7 +42,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
             </p>
           </div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+          <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 rounded-full border border-[#142B3B]/15 bg-[#F7F5EF] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#142B3B] transition-all hover:bg-[#142B3B] hover:text-white shrink-0 self-start sm:self-auto shadow-sm"
@@ -50,8 +50,8 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
               <span>সব ব্লগ পড়ুন</span>
               <ArrowRight className="h-4 w-4 text-[#E97835]" />
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Posts Grid with Staggered Motion */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -66,7 +66,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
             });
 
             return (
-              <motion.a
+              <m.a
                 key={post.id}
                 href={formatSocialUrl(post.url, post.provider)}
                 target="_blank"
@@ -160,7 +160,7 @@ export function HomePostsSection({ posts }: HomePostsSectionProps) {
                     <ExternalLink className="h-3 w-3" />
                   </span>
                 </div>
-              </motion.a>
+              </m.a>
             );
           })}
         </div>

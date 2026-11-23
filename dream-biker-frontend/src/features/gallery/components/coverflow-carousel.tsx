@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import * as m from "framer-motion/m";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -111,7 +111,7 @@ export function CoverflowCarousel({
             const xPercent = offset === 0 ? 0 : Math.sign(offset) * (distance === 1 ? 76 : 140);
 
             return (
-              <motion.div
+              <m.div
                 key={item.id}
                 onClick={() => {
                   if (offset === -1) handlePrev();
@@ -145,7 +145,8 @@ export function CoverflowCarousel({
                   alt={item.title}
                   fill
                   draggable={false}
-                  priority={isCenter}
+                  fetchPriority={isCenter ? "high" : undefined}
+                  loading={isCenter ? "eager" : undefined}
                   sizes="(max-width: 640px) 290px, (max-width: 1024px) 360px, 420px"
                   className="pointer-events-none object-cover"
                 />
@@ -174,7 +175,7 @@ export function CoverflowCarousel({
                     </div>
                   ) : null}
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

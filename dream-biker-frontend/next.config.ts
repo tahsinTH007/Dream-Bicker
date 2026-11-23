@@ -44,6 +44,14 @@ const nextConfig: NextConfig = {
     // Next 16 only allows quality 75 by default and silently lowers any other
     // `quality` prop to it. 90 is used for the hero/portrait/footer photos.
     qualities: [75, 90],
+    // AVIF first (~20-30% smaller than WebP), WebP for browsers without it
+    formats: ["image/avif", "image/webp"],
+    // Fewer candidate widths (default is 15). Facebook image URLs are ~300-600
+    // characters, and every width repeats the URL in each image's srcset, so the
+    // default list made the HTML ~90 KB heavier. These still cover phones
+    // (1x-3x), tablets, laptops and 1920px screens.
+    deviceSizes: [640, 828, 1200, 1920],
+    imageSizes: [64, 128, 256, 384],
     remotePatterns: [
       {
         protocol: "https",
